@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบเจ้าหน้าที่ & พิมพ์ใบมอบตัวนักเรียน (TH Sarabun PSK) - ว.ผ.บ.</title>
+  <title>ระบบเจ้าหน้าที่ & สร้างลิงก์สายแนะแนว + พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ฟอนต์ราชการ TH Sarabun PSK พร้อม WebFont สำรอง */
     @font-face {
       font-family: 'TH SarabunPSK';
       src: local('TH SarabunPSK'), local('THSarabunPSK'), local('TH Sarabun New'), local('THSarabunNew'),
@@ -28,7 +27,6 @@
       font-family: 'TH SarabunPSK', 'TH Sarabun New', 'Sarabun', sans-serif !important;
     }
     
-    /* ล็อกขนาดกระดาษ A4 สำหรับใบมอบตัวนักเรียน ให้อยู่ใน 1 หน้า A4 พอดี */
     .a4-paper {
       width: 210mm;
       height: 296mm;
@@ -98,10 +96,10 @@
   <header class="no-print bg-slate-900 text-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <img src="icon.png" alt="โลโก้ ว.ผ.บ." class="college-logo w-11 h-11 rounded-full bg-white p-0.5 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
+        <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-11 h-11 rounded-full bg-white p-0.5 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
         <div>
-          <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded">ADMIN & REGISTRAR PORTAL</span>
-          <h1 class="font-bold text-base md:text-lg">ระบบค้นหารายชื่อ & พิมพ์ใบมอบตัวนักเรียน (TH Sarabun PSK 1 หน้า A4)</h1>
+          <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded">ADMIN & REGISTRAR PORTAL 2570</span>
+          <h1 class="font-bold text-sm md:text-lg">ระบบบริหารสายแนะแนว & พิมพ์ใบมอบตัวนักเรียน (วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ)</h1>
         </div>
       </div>
 
@@ -121,11 +119,12 @@
 
   <main class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
 
-    <!-- แผงค้นหารายชื่อผู้สมัคร (ซ่อนเวลาพิมพ์กระดาษ A4) -->
-    <section class="no-print space-y-4">
+    <section class="no-print space-y-5">
+      
+      <!-- สถิติภาพรวม -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-          <div class="text-xs text-slate-500">ผู้สมัครทั้งหมดในระบบ</div>
+          <div class="text-xs text-slate-500">ผู้สมัครทั้งหมด (ปีการศึกษา 2570)</div>
           <div id="statTotal" class="text-2xl font-extrabold text-slate-900 mt-1">0 คน</div>
         </div>
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-rose-200">
@@ -142,16 +141,69 @@
         </div>
       </div>
 
+      <!-- =============================================================== -->
+      <!-- เครื่องมือสร้างลิงก์ & QR Code ประจำสายแนะแนวสำหรับอาจารย์แต่ละสาย -->
+      <!-- =============================================================== -->
+      <div class="bg-gradient-to-r from-sky-50 via-indigo-50 to-amber-50 rounded-2xl shadow-sm border-2 border-sky-200 p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="bg-sky-700 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">GUIDANCE LINK & QR GENERATOR</span>
+            <h2 class="font-extrabold text-base text-slate-900 mt-1">🧭 สร้างลิงก์ E-Book & ใบสมัครแยกตามอาจารย์แต่ละสายแนะแนว</h2>
+            <p class="text-xs text-slate-600">เมื่อนักเรียนกดสมัครจากลิงก์นี้ ข้อมูลใน E-Book จะเปลี่ยนตามชื่ออาจารย์ และแจ้งในใบสมัครทันทีว่ามาจากอาจารย์สายไหน</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+          <div class="md:col-span-8 space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อสายแนะแนว</label>
+                <input type="text" id="gen_team" oninput="buildTeacherLink()" value="สายแนะแนวที่ 1" placeholder="เช่น สายแนะแนวที่ 1" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">ชื่ออาจารย์ผู้แนะแนว</label>
+                <input type="text" id="gen_teacher" oninput="buildTeacherLink()" value="อ.ชุติเดช พระลักษณ์" placeholder="เช่น อ.ชุติเดช" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">เบอร์โทรติดต่ออาจารย์</label>
+                <input type="text" id="gen_tel" oninput="buildTeacherLink()" value="098-112-5089" placeholder="เช่น 098-xxx-xxxx" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <input type="text" id="gen_resultUrl" readonly class="flex-1 border rounded-xl px-3 py-2 text-xs bg-white text-slate-700 font-mono" />
+              <button onclick="copyTeacherLink()" class="px-4 py-2 rounded-xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs shadow">
+                📋 คัดลอกลิงก์ประจำสาย
+              </button>
+              <a id="gen_openLink" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs shadow">
+                🔗 ทดสอบเปิดลิงก์
+              </a>
+            </div>
+          </div>
+
+          <div class="md:col-span-4 flex flex-col items-center justify-center bg-white p-3 rounded-2xl border border-slate-200">
+            <img id="gen_qrImg" src="" alt="QR Code ประจำสายแนะแนว" class="w-28 h-28 object-contain" />
+            <span class="text-[11px] font-bold text-slate-600 mt-1">QR Code ประจำสายแนะแนวนี้</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ตารางค้นหารายชื่อผู้สมัคร + กรองตามสายแนะแนว -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="font-extrabold text-base text-slate-900">🔍 ค้นหารายชื่อผู้สมัครเพื่อออกใบมอบตัวนักเรียน</h2>
+            <h2 class="font-extrabold text-base text-slate-900">🔍 รายชื่อผู้สมัครเรียน & ตรวจสอบว่าสมัครมาจากอาจารย์แนะแนวสายไหน</h2>
             <p class="text-xs text-slate-500">คลิกเลือกชื่อผู้สมัครจากตาราง ข้อมูลจะแสดงในใบมอบตัวด้านล่างทันที</p>
           </div>
-          <input type="text" id="searchInput" oninput="renderAdminList()" placeholder="พิมพ์ชื่อนักเรียน, เลขบัตร ปชช. หรือลำดับที่..." class="border-2 border-slate-200 rounded-xl px-4 py-2 text-xs w-full sm:w-80 focus:border-indigo-600 outline-none" />
+          <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <select id="filterTeamSelect" onchange="renderAdminList()" class="border-2 border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700">
+              <option value="">ทุกสายแนะแนว</option>
+            </select>
+            <input type="text" id="searchInput" oninput="renderAdminList()" placeholder="ค้นหาชื่อ, เลขบัตร ปชช., สายแนะแนว..." class="border-2 border-slate-200 rounded-xl px-4 py-2 text-xs w-full sm:w-72 focus:border-indigo-600 outline-none" />
+          </div>
         </div>
 
-        <div class="overflow-x-auto max-h-48 overflow-y-auto border rounded-xl">
+        <div class="overflow-x-auto max-h-60 overflow-y-auto border rounded-xl">
           <table class="w-full text-xs text-left border-collapse">
             <thead class="bg-slate-100 sticky top-0 text-slate-700 border-b">
               <tr>
@@ -159,9 +211,10 @@
                 <th class="p-2.5">เลขประจำตัว</th>
                 <th class="p-2.5">ชื่อ - นามสกุล</th>
                 <th class="p-2.5">ระดับชั้น / สาขา</th>
+                <th class="p-2.5">สมัครจากลิงก์สายแนะแนว</th>
                 <th class="p-2.5">โปรโมชั่นที่ได้รับ</th>
-                <th class="p-2.5">ผู้ปกครอง / เบอร์โทร</th>
-                <th class="p-2.5 text-right">เลือกพิมพ์ใบมอบตัว</th>
+                <th class="p-2.5">เบอร์ติดต่อ</th>
+                <th class="p-2.5 text-right">ใบมอบตัว</th>
               </tr>
             </thead>
             <tbody id="adminTableBody"></tbody>
@@ -188,14 +241,14 @@
         
         <div>
           <div class="flex justify-between items-start mb-1">
-            <div class="w-1/3 pt-2" style="font-size: 14pt;">
-              ลำดับผู้สมัคร: <strong id="p2_queueNo">#1</strong>
+            <div class="w-1/3 pt-2" style="font-size: 13.5pt;">
+              ลำดับผู้สมัคร: <strong id="p2_queueNo">#1</strong> | <span id="p2_guidanceNote" class="text-slate-700"></span>
             </div>
             <div class="w-1/3 flex justify-center">
-              <img src="icon.png" alt="โลโก้ ว.ผ.บ." class="college-logo w-20 h-20 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
+              <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-20 h-20 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
             </div>
             <div class="w-1/3 text-right pt-2" style="font-size: 15pt;">
-              เลขประจำตัว <span id="p2_studentCode" class="dotted-line min-w-[90px] text-center">69-001</span>
+              เลขประจำตัว <span id="p2_studentCode" class="dotted-line min-w-[90px] text-center">70-001</span>
             </div>
           </div>
 
@@ -252,7 +305,7 @@
           </div>
         </div>
 
-        <!-- ส่วนลงลายมือชื่อ 3 ฝ่ายท้ายกระดาษ (ล็อกให้อยู่ในหน้าเดียวกัน) -->
+        <!-- ส่วนลงลายมือชื่อ 3 ฝ่ายท้ายกระดาษ -->
         <div class="space-y-3 flex flex-col items-center pb-1">
           <div class="text-center">
             <div class="flex items-center justify-center gap-2">
@@ -297,22 +350,55 @@
 
     const FALLBACK_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-        <defs>
-          <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f472b6"/><stop offset="50%" stop-color="#db2777"/><stop offset="100%" stop-color="#9d174d"/>
-          </linearGradient>
-          <path id="topArc" d="M 32,120 A 88,88 0 1,1 208,120" /><path id="botArc" d="M 208,120 A 88,88 0 1,1 32,120" />
-        </defs>
         <circle cx="120" cy="120" r="114" fill="#ffffff" stroke="#4a7c9b" stroke-width="6"/>
         <circle cx="120" cy="120" r="70" fill="#ffffff" stroke="#4a7c9b" stroke-width="3"/>
-        <text fill="#3b6e8c" font-family="Sarabun, sans-serif" font-size="13.5" font-weight="bold"><textPath href="#topArc" startOffset="50%" text-anchor="middle">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</textPath></text>
-        <text fill="#3b6e8c" font-family="Sarabun, sans-serif" font-size="13" font-weight="bold"><textPath href="#botArc" startOffset="50%" text-anchor="middle">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</textPath></text>
-        <text x="120" y="142" text-anchor="middle" font-family="Sarabun, sans-serif" font-size="64" font-weight="900" fill="url(#pinkGrad)" stroke="#d4af37" stroke-width="2.5">วผบ</text>
+        <text x="120" y="130" text-anchor="middle" font-family="Sarabun, sans-serif" font-size="36" font-weight="bold" fill="#db2777">ผดุงเสนา</text>
       </svg>
     `);
 
     let applicants = JSON.parse(localStorage.getItem('pdc_applicants') || '[]');
     let selectedApplicant = null;
+
+    // ฟังก์ชันสร้างลิงก์และ QR Code ประจำสายแนะแนว
+    function buildTeacherLink() {
+      const team = document.getElementById('gen_team').value.trim() || 'สายแนะแนวที่ 1';
+      const teacher = document.getElementById('gen_teacher').value.trim() || 'อาจารย์แนะแนว';
+      const tel = document.getElementById('gen_tel').value.trim() || '';
+
+      const baseUrl = window.location.href.replace(/admin\.html.*$/, 'index.html');
+      const params = new URLSearchParams({ team, teacher, tel });
+      const finalUrl = `${baseUrl}?${params.toString()}`;
+
+      document.getElementById('gen_resultUrl').value = finalUrl;
+      document.getElementById('gen_openLink').href = finalUrl;
+      document.getElementById('gen_qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(finalUrl)}`;
+    }
+
+    function copyTeacherLink() {
+      const inp = document.getElementById('gen_resultUrl');
+      inp.select();
+      navigator.clipboard.writeText(inp.value);
+      alert('คัดลอกลิงก์ประจำสายแนะแนวเรียบร้อยแล้ว! ส่งลิงก์นี้ให้อาจารย์ประจำสายนำไปให้นักเรียนสแกนหรือกดสมัครได้เลยครับ');
+    }
+
+    function getApplicantGuidanceText(a) {
+      if (!a) return 'ส่วนกลางวิทยาลัย';
+      if (a.guidanceLabel) return a.guidanceLabel;
+      if (a.guidanceTeam || a.guidanceTeacher) return `${a.guidanceTeam || ''} ${a.guidanceTeacher ? '(' + a.guidanceTeacher + ')' : ''}`.trim();
+      return 'ส่วนกลางวิทยาลัย';
+    }
+
+    function populateTeamFilterDropdown() {
+      const sel = document.getElementById('filterTeamSelect');
+      const currentVal = sel.value;
+      const teams = [...new Set(applicants.map(a => getApplicantGuidanceText(a)))];
+      sel.innerHTML = `<option value="">ทุกสายแนะแนว (${applicants.length} คน)</option>` +
+        teams.map(t => {
+          const count = applicants.filter(a => getApplicantGuidanceText(a) === t).length;
+          return `<option value="${t}">${t} (${count} คน)</option>`;
+        }).join('');
+      sel.value = currentVal;
+    }
 
     async function fetchApplicantsFromCloud() {
       const btn = document.getElementById('syncBtn');
@@ -329,6 +415,7 @@
       }
       btn.innerText = '🔄 ดึงรายชื่อล่าสุดจาก Google Sheets';
       updateStats();
+      populateTeamFilterDropdown();
       renderAdminList();
       if (applicants.length > 0 && !selectedApplicant) {
         selectApplicantForReport(applicants[0].queueNo);
@@ -350,37 +437,47 @@
 
     function renderAdminList() {
       const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
-      const matched = applicants.filter(a =>
-        !q ||
-        (a.fullName && a.fullName.toLowerCase().includes(q)) ||
-        (a.citizenId && String(a.citizenId).includes(q)) ||
-        String(a.queueNo) === q
-      );
+      const teamFilter = document.getElementById('filterTeamSelect').value;
+
+      const matched = applicants.filter(a => {
+        if (!a) return false;
+        const gText = getApplicantGuidanceText(a);
+        if (teamFilter && gText !== teamFilter) return false;
+        return !q ||
+          (a.fullName && a.fullName.toLowerCase().includes(q)) ||
+          (a.citizenId && String(a.citizenId).includes(q)) ||
+          gText.toLowerCase().includes(q) ||
+          String(a.queueNo) === q;
+      });
 
       const tbody = document.getElementById('adminTableBody');
       if (matched.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">ยังไม่มีรายชื่อ หรือไม่พบชื่อที่ค้นหา</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-slate-400">ยังไม่มีรายชื่อ หรือไม่พบชื่อที่ค้นหา</td></tr>`;
         return;
       }
 
       tbody.innerHTML = matched.map(a => {
         const isSel = selectedApplicant && selectedApplicant.queueNo === a.queueNo;
+        const gText = getApplicantGuidanceText(a);
         return `
         <tr onclick="selectApplicantForReport(${a.queueNo})" class="border-b cursor-pointer transition ${isSel ? 'bg-indigo-50 font-semibold' : 'hover:bg-slate-50'}">
           <td class="p-2.5 font-extrabold text-indigo-900">#${a.queueNo}</td>
           <td class="p-2.5">${a.studentCode || '-'}</td>
           <td class="p-2.5">${a.prefix || ''}${a.fullName || ''}</td>
           <td class="p-2.5">${a.level || ''} ${a.major || ''}</td>
+          <td class="p-2.5">
+            <span class="bg-sky-100 text-sky-900 border border-sky-300 px-2.5 py-0.5 rounded-full text-[11px] font-bold">${gText}</span>
+          </td>
           <td class="p-2.5 space-x-1">
             ${a.promoEarlyBird ? '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-[10px] font-bold">30คนแรก(-1,000)</span>' : ''}
             ${a.promoSibling ? '<span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px] font-bold">พี่-น้อง</span>' : ''}
             ${a.promoGoodGrade ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">ทุนเรียนดี</span>' : ''}
             ${a.promoLoan ? '<span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-[10px] font-bold">กยศ.</span>' : ''}
           </td>
-          <td class="p-2.5">${a.contactName || '-'} (${a.contactMobile || a.mobile || '-'})</td>
+          <td class="p-2.5">${a.mobile || a.contactMobile || '-'}</td>
           <td class="p-2.5 text-right">
             <button class="px-3 py-1 rounded-lg text-xs font-bold ${isSel ? 'bg-indigo-900 text-white' : 'bg-slate-200 text-slate-800'}">
-              ${isSel ? '✓ กำลังแสดง' : 'เลือกพิมพ์ใบมอบตัว'}
+              ${isSel ? '✓ กำลังแสดง' : 'เลือกพิมพ์'}
             </button>
           </td>
         </tr>`;
@@ -412,7 +509,8 @@
       const gWorkProv = document.getElementById('rep_guardianWorkProv').value || a.addrProvince || 'พระนครศรีอยุธยา';
 
       document.getElementById('p2_queueNo').innerText = `#${a.queueNo}`;
-      document.getElementById('p2_studentCode').innerText = a.studentCode || `69-${String(a.queueNo).padStart(3, '0')}`;
+      document.getElementById('p2_guidanceNote').innerText = `(${getApplicantGuidanceText(a)})`;
+      document.getElementById('p2_studentCode').innerText = a.studentCode || `70-${String(a.queueNo).padStart(3, '0')}`;
       document.getElementById('p2_guardianName').innerText = gName;
       document.getElementById('p2_sigGuardian').innerText = gName;
 
@@ -465,6 +563,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      buildTeacherLink();
       syncReportPaper();
       fetchApplicantsFromCloud();
       ['sigRepGuardian', 'sigRepStudent', 'sigRepOfficer'].forEach(initSignaturePad);
