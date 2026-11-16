@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ระบบเจ้าหน้าที่ฝ่ายทะเบียน & พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', sans-serif; background: #f1f5f9; color: #0f172a; }
+    .font-official { font-family: 'Sarabun', sans-serif; }
+    
+    /* กระดาษ A4 สำหรับใบมอบตัวนักเรียน (ฟอร์ม 2) */
+    .a4-paper {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 12mm 15mm;
+      margin: 0 auto;
+      background: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+      position: relative;
+      line-height: 1.5;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+    .dotted-line {
+      border-bottom: 1px dotted #1e293b;
+      display: inline-block;
+      padding: 0 6px;
+      min-height: 22px;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    canvas.sig-pad {
+      border: 1px dashed #64748b;
+      background: #fafafa;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    @media print {
+      body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+      .no-print { display: none !important; }
+      .a4-paper {
+        box-shadow: none !important;
+        margin: 0 !important;
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 10mm 14mm !important;
+      }
+      canvas.sig-pad { border: none !important; background: transparent !important; }
+      @page { size: A4 portrait; margin: 5mm; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- แถบเมนูสำหรับเจ้าหน้าที่ -->
+  <header class="no-print bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="icon.png" alt="โลโก้ ว.ผ.บ." class="college-logo w-11 h-11 rounded-full bg-white p-0.5 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-amber-400 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded">ADMIN & REGISTRAR PORTAL</span>
+          </div>
+          <h1 class="font-bold text-base md:text-lg">ระบบบริหารจัดการผู้สมัครเรียน & พิมพ์ใบมอบตัวนักเรียน (ฟอร์ม 2)</h1>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="fetchApplicantsFromCloud()" id="syncBtn" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs shadow transition">
+          🔄 ดึงรายชื่อล่าสุดจาก Google Sheets
+        </button>
+        <a href="https://drive.google.com/drive/folders/1gOq0K3Bhb8xmjbYYDNCa8u1_0Xz58WB5" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15">
+          📂 เปิดโฟลเดอร์ Google Drive
+        </a>
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs shadow">
+          🖨️ พิมพ์ใบมอบตัวนักเรียน (A4)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+
+    <!-- แผงสรุปสถิติผู้สมัคร & ระบบค้นหารายชื่อ (ซ่อนเวลาพิมพ์กระดาษ A4) -->
+    <section class="no-print space-y-4">
+      
+      <!-- การ์ดสถิติ 4 กล่อง -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+          <div class="text-xs text-slate-500">ผู้สมัครทั้งหมดในระบบ</div>
+          <div id="statTotal" class="text-2xl font-extrabold text-slate-900 mt-1">0 คน</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-rose-200">
+          <div class="text-xs text-rose-600 font-semibold">โควตา 30 คนแรก (ลด 1,000.-)</div>
+          <div id="statQuota" class="text-2xl font-extrabold text-rose-600 mt-1">เหลือ 30 / 30</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-blue-200">
+          <div class="text-xs text-blue-700">สาขาการบัญชี</div>
+          <div id="statAcc" class="text-2xl font-extrabold text-blue-900 mt-1">0 คน</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-indigo-200">
+          <div class="text-xs text-indigo-700">สาขาเทคโนโลยีธุรกิจดิจิทัล</div>
+          <div id="statDig" class="text-2xl font-extrabold text-indigo-900 mt-1">0 คน</div>
+        </div>
+      </div>
+
+      <!-- กล่องค้นหารายชื่อและตารางเลือกผู้สมัครเพื่อพิมพ์ใบมอบตัว -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="font-extrabold text-base text-slate-900">🔍 ค้นหารายชื่อผู้สมัครเพื่อออกใบมอบตัวนักเรียน</h2>
+            <p class="text-xs text-slate-500">คลิกที่ชื่อนักเรียนในตารางด้านล่าง ระบบจะดึงข้อมูลลงในแบบฟอร์มใบมอบตัวนักเรียน (ฟอร์ม 2) ทันที</p>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <input type="text" id="searchInput" oninput="renderAdminList()" placeholder="พิมพ์ชื่อนักเรียน, เลขบัตร ปชช. หรือลำดับที่..." class="border-2 border-slate-200 rounded-xl px-4 py-2 text-xs w-full sm:w-80 focus:border-indigo-600 outline-none" />
+          </div>
+        </div>
+
+        <!-- ตารางรายชื่อผู้สมัคร -->
+        <div class="overflow-x-auto max-h-56 overflow-y-auto border rounded-xl">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead class="bg-slate-100 sticky top-0 text-slate-700 border-b">
+              <tr>
+                <th class="p-2.5">ลำดับ</th>
+                <th class="p-2.5">เลขประจำตัว</th>
+                <th class="p-2.5">ชื่อ - นามสกุล</th>
+                <th class="p-2.5">ระดับชั้น / สาขา</th>
+                <th class="p-2.5">โปรโมชั่นที่ได้รับ</th>
+                <th class="p-2.5">ผู้ปกครอง / เบอร์โทร</th>
+                <th class="p-2.5 text-right">เลือกพิมพ์ใบมอบตัว</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- ช่องแก้ไข/เพิ่มเติมข้อมูลผู้ปกครองหน้างานวันมอบตัว -->
+        <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-3.5">
+          <div class="text-xs font-bold text-indigo-950 mb-2">✏️ ข้อมูลผู้ปกครองที่มาทำสัญญามอบตัวในวันนี้ (แก้ไขเพิ่มเติมได้ก่อนสั่งพิมพ์)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+            <input type="text" id="rep_guardianName" oninput="syncReportPaper()" placeholder="ชื่อ-สกุล ผู้ปกครอง" class="border rounded-lg px-3 py-1.5 text-xs bg-white" />
+            <input type="text" id="rep_guardianJob" oninput="syncReportPaper()" placeholder="อาชีพผู้ปกครอง" class="border rounded-lg px-3 py-1.5 text-xs bg-white" />
+            <input type="text" id="rep_guardianWork" oninput="syncReportPaper()" placeholder="สถานที่ทำงานผู้ปกครอง" class="border rounded-lg px-3 py-1.5 text-xs bg-white" />
+            <input type="text" id="rep_guardianWorkProv" oninput="syncReportPaper()" placeholder="จังหวัดที่ทำงาน" value="พระนครศรีอยุธยา" class="border rounded-lg px-3 py-1.5 text-xs bg-white" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- กระดาษใบมอบตัวนักเรียน A4 ตามไฟล์แนบที่ 2 -->
+    <!-- ========================================================= -->
+    <section class="overflow-x-auto">
+      <div id="reportPaper" class="a4-paper font-official">
+        <div class="flex justify-between items-start mb-2">
+          <div class="w-1/3 text-xs text-slate-600 pt-2">
+            ลำดับผู้สมัคร: <strong id="p2_queueNo" class="text-slate-900">#1</strong>
+          </div>
+          <div class="w-1/3 flex justify-center">
+            <img src="icon.png" alt="โลโก้ ว.ผ.บ." class="college-logo w-24 h-24 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
+          </div>
+          <div class="w-1/3 text-right text-xs pt-2">
+            เลขประจำตัว <span id="p2_studentCode" class="dotted-line min-w-[90px] text-center">69-001</span>
+          </div>
+        </div>
+
+        <div class="text-center space-y-1 mb-4">
+          <h2 class="font-bold text-lg">ใบมอบตัวนักเรียน</h2>
+          <div class="font-bold text-base">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
+          <div class="text-sm">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
+          <div class="text-sm pt-1">
+            วันที่ <span id="p2_day" class="dotted-line min-w-[45px]"></span>
+            เดือน <span id="p2_month" class="dotted-line min-w-[100px]"></span>
+            พ.ศ. <span id="p2_year" class="dotted-line min-w-[65px]"></span>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 text-sm leading-relaxed">
+          <div class="indent-10">
+            ข้าพเจ้า (ชื่อผู้ปกครอง) <span id="p2_guardianName" class="dotted-line min-w-[340px]"></span>
+          </div>
+          <div>
+            ที่อยู่ปัจจุบันของผู้ปกครอง บ้านเลขที่ <span id="p2_addrNo" class="dotted-line min-w-[65px] text-center"></span>
+            หมู่ที่ <span id="p2_addrMoo" class="dotted-line min-w-[45px] text-center"></span>
+            ตำบล <span id="p2_addrTambon" class="dotted-line min-w-[160px]"></span>
+          </div>
+          <div>
+            อำเภอ <span id="p2_addrAmphoe" class="dotted-line min-w-[140px]">เสนา</span>
+            จังหวัด <span id="p2_addrProvince" class="dotted-line min-w-[160px]">พระนครศรีอยุธยา</span>
+            รหัสไปรษณีย์ <span id="p2_addrZip" class="dotted-line min-w-[100px] text-center">13110</span>
+          </div>
+          <div>
+            อาชีพผู้ปกครอง <span id="p2_guardianJob" class="dotted-line min-w-[140px]"></span>
+            สถานที่ทำงาน <span id="p2_guardianWork" class="dotted-line min-w-[160px]"></span>
+            จังหวัด <span id="p2_guardianWorkProv" class="dotted-line min-w-[130px]">พระนครศรีอยุธยา</span>
+          </div>
+          <div class="indent-10">
+            ขอรับรองว่า (นาย/นางสาว) <span id="p2_studentName" class="dotted-line min-w-[310px]"></span>
+          </div>
+          <div>
+            เกี่ยวข้องเป็น <span id="p2_relation" class="dotted-line min-w-[110px] text-center"></span>
+            ซึ่งอยู่ในความปกครองของข้าพเจ้า ข้าพเจ้าจะดูแล อบรมสั่งสอน ให้มีความเคารพเชื่อฟังและพฤติกรรมตามกฎระเบียบของโรงเรียนในหัวข้อต่อไปนี้
+          </div>
+
+          <ol class="list-decimal pl-12 space-y-1.5 py-2">
+            <li>จะต้องแต่งกายถูกต้องตามระเบียบที่โรงเรียนกำหนดไว้ทุกประการ</li>
+            <li>ไม่มาโรงเรียนสาย ขาดเรียน หรือจงใจหนีเรียนโดยไม่มีเหตุผลสมควร</li>
+            <li>ไม่เล่นการพนัน ดื่มของมึนเมา หรือ เสพยาเสพติดทุกชนิด</li>
+            <li>ไม่ก่อเหตุทะเลาะวิวาท หรือ ก่อคดีอาชญากรรมทุกชนิด หรือสร้างความวุ่นวาย ยุ่งยากในการปกครองดูแล</li>
+            <li>ให้ความเคารพเชื่อฟัง ครู อาจารย์ ยึดถือกฎระเบียบข้อบังคับของโรงเรียนโดยเคร่งครัด</li>
+            <li>เมื่อทางโรงเรียนมีความประสงค์จะพบผู้ปกครอง ขอให้ผู้ปกครองมาพบตามที่โรงเรียนแจ้งทุกครั้ง</li>
+          </ol>
+
+          <p class="indent-10 leading-relaxed pt-1">
+            ข้าพเจ้าได้รับทราบข้อกำหนดเกี่ยวกับคุณสมบัติการเข้าสมัครเป็นนักศึกษาแล้ว และขอรับรองว่าข้อความหรือเอกสารประกอบการสมัครเรียนข้างต้นเป็นความจริงทุกประการ หากปรากฏภายหลังว่าข้อความหรือเอกสารหลักฐานที่ใช้ในการสมัครไม่ครบถ้วน หรือมีการปลอมแปลงเอกสาร ข้าพเจ้ายินยอมให้ถอนสภาพความเป็นนักศึกษา รวมทั้งไม่เรียกร้องค่าเสียหายใด ๆ จากสถานศึกษาทั้งสิ้น
+          </p>
+        </div>
+
+        <!-- ส่วนลงลายมือชื่อ 3 ฝ่ายในใบมอบตัวนักเรียน -->
+        <div class="mt-8 space-y-5 flex flex-col items-center text-sm">
+          <div class="text-center">
+            <div class="flex items-center justify-center gap-2">
+              <span>ลงชื่อ</span>
+              <canvas id="sigRepGuardian" width="200" height="45" class="sig-pad rounded"></canvas>
+              <span>ผู้ปกครอง</span>
+            </div>
+            <div class="mt-0.5">(<span id="p2_sigGuardian" class="dotted-line min-w-[200px]"></span>)</div>
+            <button onclick="clearCanvas('sigRepGuardian')" class="no-print text-[10px] text-red-600 underline">ล้างลายเซ็นผู้ปกครอง</button>
+          </div>
+
+          <div class="text-center">
+            <div class="flex items-center justify-center gap-2">
+              <span>ลงชื่อ</span>
+              <canvas id="sigRepStudent" width="200" height="45" class="sig-pad rounded"></canvas>
+              <span>นักศึกษา</span>
+            </div>
+            <div class="mt-0.5">(<span id="p2_sigStudent" class="dotted-line min-w-[200px]"></span>)</div>
+            <button onclick="clearCanvas('sigRepStudent')" class="no-print text-[10px] text-red-600 underline">ล้างลายเซ็นนักศึกษา</button>
+          </div>
+
+          <div class="text-center">
+            <div class="flex items-center justify-center gap-2">
+              <span>ลงชื่อ</span>
+              <canvas id="sigRepOfficer" width="200" height="45" class="sig-pad rounded"></canvas>
+              <span>ผู้รับมอบตัว</span>
+            </div>
+            <div class="mt-0.5">(..........................................................)</div>
+            <button onclick="clearCanvas('sigRepOfficer')" class="no-print text-[10px] text-red-600 underline">ล้างลายเซ็นผู้รับมอบตัว</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // ฝังลิงก์ Google Apps Script และ Folder ID ของวิทยาลัยไว้ถาวร
+    // =========================================================================
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbyGo_AM-bWjoNQeeh3Ox_eHYhH5DFuVvMLQ-LNRcQXLQCq1Pgkp_wjyFMCwFZ1ZkXC5/exec';
+    const FOLDER_ID = '1gOq0K3Bhb8xmjbYYDNCa8u1_0Xz58WB5';
+    const MAX_EARLY_BIRD = 30;
+
+    const FALLBACK_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+        <defs>
+          <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f472b6"/><stop offset="50%" stop-color="#db2777"/><stop offset="100%" stop-color="#9d174d"/>
+          </linearGradient>
+          <path id="topArc" d="M 32,120 A 88,88 0 1,1 208,120" /><path id="botArc" d="M 208,120 A 88,88 0 1,1 32,120" />
+        </defs>
+        <circle cx="120" cy="120" r="114" fill="#ffffff" stroke="#4a7c9b" stroke-width="6"/>
+        <circle cx="120" cy="120" r="70" fill="#ffffff" stroke="#4a7c9b" stroke-width="3"/>
+        <text fill="#3b6e8c" font-family="Sarabun, sans-serif" font-size="13.5" font-weight="bold"><textPath href="#topArc" startOffset="50%" text-anchor="middle">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</textPath></text>
+        <text fill="#3b6e8c" font-family="Sarabun, sans-serif" font-size="13" font-weight="bold"><textPath href="#botArc" startOffset="50%" text-anchor="middle">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</textPath></text>
+        <text x="120" y="142" text-anchor="middle" font-family="Sarabun, sans-serif" font-size="64" font-weight="900" fill="url(#pinkGrad)" stroke="#d4af37" stroke-width="2.5">วผบ</text>
+      </svg>
+    `);
+
+    let applicants = JSON.parse(localStorage.getItem('pdc_applicants') || '[]');
+    let selectedApplicant = null;
+
+    async function fetchApplicantsFromCloud() {
+      const btn = document.getElementById('syncBtn');
+      btn.innerText = '⏳ กำลังซิงค์ข้อมูล...';
+      try {
+        const res = await fetch(GAS_URL);
+        const json = await res.json();
+        if (json.status === 'success' && Array.isArray(json.data)) {
+          applicants = json.data;
+          localStorage.setItem('pdc_applicants', JSON.stringify(applicants));
+        }
+      } catch (e) {
+        console.warn('ใช้ข้อมูลในเครื่องชั่วคราว:', e);
+      }
+      btn.innerText = '🔄 ดึงรายชื่อล่าสุดจาก Google Sheets';
+      updateStats();
+      renderAdminList();
+      if (applicants.length > 0 && !selectedApplicant) {
+        selectApplicantForReport(applicants[0].queueNo);
+      }
+    }
+
+    function updateStats() {
+      const total = applicants.length;
+      const usedEarly = Math.min(applicants.filter(a => a && a.promoEarlyBird).length, MAX_EARLY_BIRD);
+      const remain = Math.max(0, MAX_EARLY_BIRD - usedEarly);
+      const accCount = applicants.filter(a => a && a.major === 'สาขาการบัญชี').length;
+      const digCount = applicants.filter(a => a && a.major !== 'สาขาการบัญชี').length;
+
+      document.getElementById('statTotal').innerText = `${total} คน`;
+      document.getElementById('statQuota').innerText = `เหลือ ${remain} / 30`;
+      document.getElementById('statAcc').innerText = `${accCount} คน`;
+      document.getElementById('statDig').innerText = `${digCount} คน`;
+    }
+
+    function renderAdminList() {
+      const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+      const matched = applicants.filter(a =>
+        !q ||
+        (a.fullName && a.fullName.toLowerCase().includes(q)) ||
+        (a.citizenId && String(a.citizenId).includes(q)) ||
+        String(a.queueNo) === q
+      );
+
+      const tbody = document.getElementById('adminTableBody');
+      if (matched.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">ยังไม่มีรายชื่อ หรือไม่พบชื่อที่ค้นหา (กดปุ่ม "ดึงรายชื่อล่าสุดจาก Google Sheets" ด้านบน)</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = matched.map(a => {
+        const isSel = selectedApplicant && selectedApplicant.queueNo === a.queueNo;
+        return `
+        <tr onclick="selectApplicantForReport(${a.queueNo})" class="border-b cursor-pointer transition ${isSel ? 'bg-indigo-50 font-semibold' : 'hover:bg-slate-50'}">
+          <td class="p-2.5 font-extrabold text-indigo-900">#${a.queueNo}</td>
+          <td class="p-2.5">${a.studentCode || '-'}</td>
+          <td class="p-2.5">${a.prefix || ''}${a.fullName || ''}</td>
+          <td class="p-2.5">${a.level || ''} ${a.major || ''}</td>
+          <td class="p-2.5 space-x-1">
+            ${a.promoEarlyBird ? '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded text-[10px] font-bold">30คนแรก(-1,000)</span>' : ''}
+            ${a.promoSibling ? '<span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-[10px] font-bold">พี่-น้อง</span>' : ''}
+            ${a.promoGoodGrade ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">ทุนเรียนดี</span>' : ''}
+            ${a.promoLoan ? '<span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-[10px] font-bold">กยศ.</span>' : ''}
+          </td>
+          <td class="p-2.5">${a.contactName || '-'} (${a.contactMobile || a.mobile || '-'})</td>
+          <td class="p-2.5 text-right">
+            <button class="px-3 py-1 rounded-lg text-xs font-bold ${isSel ? 'bg-indigo-900 text-white' : 'bg-slate-200 text-slate-800 hover:bg-indigo-600 hover:text-white'}">
+              ${isSel ? '✓ กำลังแสดงในใบมอบตัว' : 'เลือกพิมพ์ใบมอบตัว'}
+            </button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function selectApplicantForReport(queueNo) {
+      const found = applicants.find(a => a && a.queueNo === queueNo);
+      if (!found) return;
+      selectedApplicant = found;
+      document.getElementById('rep_guardianName').value = found.contactName || found.motherName || found.fatherName || '';
+      document.getElementById('rep_guardianJob').value = found.motherJob || found.fatherJob || '';
+      renderAdminList();
+      syncReportPaper();
+    }
+
+    function syncReportPaper() {
+      const now = new Date();
+      const thMonths = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+      document.getElementById('p2_day').innerText = now.getDate();
+      document.getElementById('p2_month').innerText = thMonths[now.getMonth()];
+      document.getElementById('p2_year').innerText = now.getFullYear() + 543;
+
+      if (!selectedApplicant) return;
+      const a = selectedApplicant;
+      const gName = document.getElementById('rep_guardianName').value || a.contactName || '';
+      const gJob = document.getElementById('rep_guardianJob').value || '';
+      const gWork = document.getElementById('rep_guardianWork').value || '-';
+      const gWorkProv = document.getElementById('rep_guardianWorkProv').value || a.addrProvince || 'พระนครศรีอยุธยา';
+
+      document.getElementById('p2_queueNo').innerText = `#${a.queueNo}`;
+      document.getElementById('p2_studentCode').innerText = a.studentCode || `69-${String(a.queueNo).padStart(3, '0')}`;
+      document.getElementById('p2_guardianName').innerText = gName;
+      document.getElementById('p2_sigGuardian').innerText = gName;
+
+      document.getElementById('p2_addrNo').innerText = a.addrNo || '';
+      document.getElementById('p2_addrMoo').innerText = a.addrMoo || '';
+      document.getElementById('p2_addrTambon').innerText = a.addrTambon || '';
+      document.getElementById('p2_addrAmphoe').innerText = a.addrAmphoe || '';
+      document.getElementById('p2_addrProvince').innerText = a.addrProvince || '';
+      document.getElementById('p2_addrZip').innerText = a.addrZip || '';
+
+      document.getElementById('p2_guardianJob').innerText = gJob;
+      document.getElementById('p2_guardianWork').innerText = gWork;
+      document.getElementById('p2_guardianWorkProv').innerText = gWorkProv;
+
+      document.getElementById('p2_studentName').innerText = `${a.prefix || ''}${a.fullName || ''}`;
+      document.getElementById('p2_sigStudent').innerText = `${a.prefix || ''}${a.fullName || ''}`;
+      document.getElementById('p2_relation').innerText = a.contactRel || 'บุตร/หลาน';
+    }
+
+    function initSignaturePad(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let drawing = false;
+      const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+      };
+      const start = (e) => { drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); e.preventDefault(); };
+      const move = (e) => {
+        if (!drawing) return;
+        const p = getPos(e);
+        ctx.lineWidth = 1.8; ctx.lineCap = 'round'; ctx.strokeStyle = '#0f172a';
+        ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault();
+      };
+      const end = () => { drawing = false; };
+      canvas.addEventListener('mousedown', start);
+      canvas.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      canvas.addEventListener('touchstart', start, { passive: false });
+      canvas.addEventListener('touchmove', move, { passive: false });
+      canvas.addEventListener('touchend', end);
+    }
+
+    function clearCanvas(canvasId) {
+      const c = document.getElementById(canvasId);
+      if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      syncReportPaper();
+      fetchApplicantsFromCloud();
+      ['sigRepGuardian', 'sigRepStudent', 'sigRepOfficer'].forEach(initSignaturePad);
+    });
+  </script>
+</body>
+</html>
