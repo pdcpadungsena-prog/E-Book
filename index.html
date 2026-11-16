@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>คู่มือแนะแนว & สมัครเรียนออนไลน์ | วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
+  <title>คู่มือแนะแนว & สมัครเรียนออนไลน์ ปีการศึกษา 2570 | วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -25,126 +25,195 @@
 
     body {
       font-family: 'Prompt', sans-serif;
-      background-color: #e8e4dc;
+      background-color: #e6e1d6;
       background-image:
-        radial-gradient(at 20% 20%, rgba(254, 240, 138, 0.35) 0px, transparent 50%),
-        radial-gradient(at 80% 80%, rgba(186, 230, 253, 0.4) 0px, transparent 50%),
+        radial-gradient(at 15% 15%, rgba(254, 240, 138, 0.35) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(186, 230, 253, 0.4) 0px, transparent 50%),
         radial-gradient(#cbd5e1 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 22px 22px;
       color: #1e293b;
     }
 
     /* ===================================================================== */
-    /* ดีไซน์หนังสือคู่มือจริง (Realistic Open Book & Physical Manual Spread) */
+    /* โครงสร้างหนังสือจริง + เอฟเฟกต์พลิกหน้ากระดาษ 3 มิติ (Real 3D Page Turn) */
     /* ===================================================================== */
-    .book-stage {
-      perspective: 2000px;
+    .book-viewport {
+      perspective: 2400px;
     }
-    .book-cover-frame {
-      background: #1e293b;
+    .book-hardcover {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
       padding: 12px 16px 16px 16px;
       border-radius: 26px;
       box-shadow:
-        0 25px 50px -12px rgba(15, 23, 42, 0.45),
-        inset 0 2px 4px rgba(255, 255, 255, 0.15);
+        0 28px 60px -12px rgba(15, 23, 42, 0.55),
+        inset 0 2px 4px rgba(255, 255, 255, 0.18);
       position: relative;
     }
-    /* ชั้นกระดาษซ้อนกันด้านข้างและด้านล่างให้เหมือนหนังสือจริง */
-    .book-paper-stack {
+    .book-paper-block {
       background: #fffdf8;
       border-radius: 18px;
       box-shadow:
-        -5px 0 0 #f1ede4,
-        -9px 0 0 #e2ddd2,
-        5px 0 0 #f1ede4,
-        9px 0 0 #e2ddd2,
+        -5px 0 0 #f3efe6,
+        -10px 0 0 #e2ddd2,
+        5px 0 0 #f3efe6,
+        10px 0 0 #e2ddd2,
         0 6px 0 #ebe6dc,
-        0 10px 0 #dcd6c8;
+        0 11px 0 #d8d2c5;
       position: relative;
-      overflow: hidden;
       border: 1px solid #d6d0c4;
+      transform-style: preserve-3d;
     }
-    /* พื้นผิวกระดาษคู่มือถนอมสายตา */
     .manual-page {
       background-color: #fffdf8;
       background-image: linear-gradient(to bottom, transparent 96%, rgba(148, 163, 184, 0.08) 100%);
       background-size: 100% 28px;
       position: relative;
     }
-    /* ร่องสันหนังสือตรงกลาง (เฉพาะจอคอม/แท็บเล็ตแนวนอน) */
+
+    /* ร่องสันหนังสือตรงกลาง */
     @media (min-width: 1024px) {
       .book-spine-center {
         background: linear-gradient(90deg,
           rgba(255,253,248,0) 0%,
-          rgba(15,23,42,0.04) 42%,
-          rgba(15,23,42,0.16) 49%,
-          rgba(15,23,42,0.22) 50%,
-          rgba(255,255,255,0.6) 51.5%,
-          rgba(15,23,42,0.05) 58%,
+          rgba(15,23,42,0.04) 43%,
+          rgba(15,23,42,0.18) 49.2%,
+          rgba(15,23,42,0.26) 50%,
+          rgba(255,255,255,0.65) 51.2%,
+          rgba(15,23,42,0.05) 57%,
           rgba(255,253,248,0) 100%
         );
       }
-      .page-left-shadow {
-        box-shadow: inset -18px 0 25px -15px rgba(15, 23, 42, 0.12);
+      .page-left-inset {
+        box-shadow: inset -22px 0 30px -16px rgba(15, 23, 42, 0.14);
       }
-      .page-right-shadow {
-        box-shadow: inset 18px 0 25px -15px rgba(15, 23, 42, 0.12);
+      .page-right-inset {
+        box-shadow: inset 22px 0 30px -16px rgba(15, 23, 42, 0.14);
       }
     }
 
-    /* ริบบิ้นคั่นหนังสือสีแดง-ทองตรงสันกลาง */
+    /* แผ่นกระดาษ 3 มิติที่กำลังพลิกข้ามสันหนังสือ */
+    .turning-leaf-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      z-index: 40;
+      pointer-events: none;
+      animation: turnRightToLeft 0.72s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+    }
+    .turning-leaf-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      transform-origin: right center;
+      transform-style: preserve-3d;
+      z-index: 40;
+      pointer-events: none;
+      animation: turnLeftToRight 0.72s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
+    }
+    @media (max-width: 1023px) {
+      .turning-leaf-right, .turning-leaf-left {
+        width: 100%;
+        left: 0;
+        transform-origin: left center;
+      }
+    }
+
+    .leaf-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      background-color: #fffdf8;
+      overflow: hidden;
+    }
+    .leaf-back {
+      transform: rotateY(180deg);
+    }
+
+    @keyframes turnRightToLeft {
+      0% {
+        transform: rotateY(0deg);
+        box-shadow: -5px 0 15px rgba(15, 23, 42, 0.1);
+      }
+      45% {
+        box-shadow: -28px 10px 45px rgba(15, 23, 42, 0.32);
+      }
+      100% {
+        transform: rotateY(-180deg);
+        box-shadow: 5px 0 12px rgba(15, 23, 42, 0.08);
+      }
+    }
+    @keyframes turnLeftToRight {
+      0% {
+        transform: rotateY(0deg);
+        box-shadow: 5px 0 15px rgba(15, 23, 42, 0.1);
+      }
+      45% {
+        box-shadow: 28px 10px 45px rgba(15, 23, 42, 0.32);
+      }
+      100% {
+        transform: rotateY(180deg);
+        box-shadow: -5px 0 12px rgba(15, 23, 42, 0.08);
+      }
+    }
+
+    /* ริบบิ้นคั่นหนังสือสีแดง-ทอง */
     .bookmark-ribbon {
       width: 24px;
-      height: 58px;
+      height: 56px;
       background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 30;
+      z-index: 35;
       box-shadow: 0 4px 10px rgba(0,0,0,0.25);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
       border-left: 2px solid #fbbf24;
       border-right: 2px solid #fbbf24;
     }
 
-    /* เอฟเฟกต์พลิกหน้ากระดาษ */
-    .flip-next-anim {
-      animation: pageFlipNext 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-      transform-origin: center center;
-    }
-    .flip-prev-anim {
-      animation: pageFlipPrev 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-      transform-origin: center center;
-    }
-    @keyframes pageFlipNext {
-      0% { opacity: 0.5; transform: rotateY(-8deg) scale(0.985); }
-      100% { opacity: 1; transform: rotateY(0deg) scale(1); }
-    }
-    @keyframes pageFlipPrev {
-      0% { opacity: 0.5; transform: rotateY(8deg) scale(0.985); }
-      100% { opacity: 1; transform: rotateY(0deg) scale(1); }
-    }
-
-    /* มุมกระดาษพับ (Page Curl) สำหรับคลิกเปลี่ยนหน้า */
+    /* มุมกระดาษพับทั้งซ้ายและขวา */
     .page-curl-right {
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 46px;
-      height: 46px;
-      background: linear-gradient(135deg, transparent 48%, #e2ddd2 50%, #fffdf8 56%, #cbd5e1 100%);
-      box-shadow: -3px -3px 8px rgba(0,0,0,0.08);
-      border-top-left-radius: 10px;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, transparent 48%, #d6d0c4 50%, #fffdf8 58%, #cbd5e1 100%);
+      box-shadow: -4px -4px 10px rgba(0,0,0,0.12);
+      border-top-left-radius: 12px;
       cursor: pointer;
+      z-index: 30;
       transition: all 0.2s ease;
     }
     .page-curl-right:hover {
-      width: 58px;
-      height: 58px;
+      width: 64px;
+      height: 64px;
+    }
+    .page-curl-left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(225deg, transparent 48%, #d6d0c4 50%, #fffdf8 58%, #cbd5e1 100%);
+      box-shadow: 4px -4px 10px rgba(0,0,0,0.12);
+      border-top-right-radius: 12px;
+      cursor: pointer;
+      z-index: 30;
+      transition: all 0.2s ease;
+    }
+    .page-curl-left:hover {
+      width: 60px;
+      height: 60px;
     }
 
-    /* การ์ดและปุ่มตกแต่งในหน้าหนังสือ */
     .sketch-box {
       border: 2px solid #1e293b;
       border-radius: 18px;
@@ -177,7 +246,7 @@
     }
 
     /* ===================================================================== */
-    /* สไตล์กระดาษใบสมัคร A4 (ใช้ Table มาตรฐานที่ Google Drive PDF รองรับ 100%) */
+    /* สไตล์กระดาษใบสมัคร A4 (Table มาตรฐานที่ Google Drive PDF รองรับ 100%) */
     /* ===================================================================== */
     .a4-paper {
       width: 210mm;
@@ -288,18 +357,20 @@
 </head>
 <body class="min-h-screen pb-12">
 
+  <!-- อินพุตซ่อนสำหรับเลือกรูปหน้าปกคู่มือ -->
+  <input type="file" id="coverFileInput" accept="image/*" class="hidden" onchange="handleCoverUpload(event)" />
+
   <!-- ===================================================================== -->
   <!-- แถบเมนูด้านบน (ซ่อนเวลาสั่งพิมพ์) -->
   <!-- ===================================================================== -->
   <header class="no-print sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-slate-800 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
       
-      <!-- โลโก้และชื่อเต็มวิทยาลัย -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="showEbookView()">
         <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-12 h-12 rounded-2xl bg-amber-50 p-1 border-2 border-slate-800 object-contain" onerror="this.src=FALLBACK_LOGO_PNG" />
         <div>
           <div class="flex items-center gap-1.5">
-            <span class="bg-amber-200 text-slate-900 border border-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full">E-BOOK คู่มือแนะแนวการศึกษาต่อ</span>
+            <span class="bg-amber-200 text-slate-900 border border-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full">คู่มือแนะแนว ปีการศึกษา 2570</span>
             <span class="bg-pink-100 text-pink-800 border border-pink-300 text-[10px] font-bold px-2 py-0.5 rounded-full">ปวช.1 – ปวส.2</span>
           </div>
           <h1 class="font-bold text-sm md:text-base text-slate-900 leading-tight mt-0.5">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</h1>
@@ -329,36 +400,42 @@
   <main class="max-w-6xl mx-auto px-3 md:px-4 pt-5">
 
     <!-- ===================================================================== -->
-    <!-- ส่วนที่ 1: หนังสือคู่มือแนะแนว E-BOOK (กาง 2 หน้าเหมือนเปิดคู่มือจริง) -->
+    <!-- ส่วนที่ 1: หนังสือคู่มือแนะแนว E-BOOK (พลิกหน้ากระดาษ 3 มิติเหมือนหนังสือจริง) -->
     <!-- ===================================================================== -->
-    <section id="view-ebook" class="no-print space-y-4">
+    <section id="view-ebook" class="no-print space-y-3">
       
       <!-- แถบคั่นบทด้านบนเหมือนที่คั่นหน้าสมุดคู่มือ -->
       <div class="flex flex-wrap items-center justify-between gap-2 px-1">
         <div class="flex flex-wrap gap-1.5" id="ebookPageDots"></div>
         <div class="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border-2 border-slate-800 shadow-sm">
-          <button onclick="prevEbookPage()" class="px-2.5 py-1 rounded-full hover:bg-amber-100 text-xs font-bold">◀ พลิกกลับ</button>
+          <button onclick="prevEbookPage()" class="px-2.5 py-1 rounded-full hover:bg-amber-100 text-xs font-bold transition">◀ พลิกกลับ</button>
           <span id="ebookPageIndicator" class="text-xs font-extrabold text-slate-900 px-2 border-x border-slate-300">คู่หน้าที่ 1 / 8</span>
-          <button onclick="nextEbookPage()" class="px-2.5 py-1 rounded-full bg-amber-300 hover:bg-amber-400 text-slate-900 text-xs font-bold">พลิกหน้าถัดไป ▶</button>
+          <button onclick="nextEbookPage()" class="px-2.5 py-1 rounded-full bg-amber-300 hover:bg-amber-400 text-slate-900 text-xs font-bold transition">พลิกหน้าถัดไป ▶</button>
         </div>
       </div>
 
-      <!-- ตัวเล่มหนังสือคู่มือ (Hardcover + Stacked Paper + 2-Page Spread) -->
-      <div class="book-stage">
-        <div class="book-cover-frame">
-          <div id="bookPaperContainer" class="book-paper-stack">
+      <!-- ตัวเล่มหนังสือคู่มือ (Hardcover + 3D Turning Leaf + 2-Page Spread) -->
+      <div class="book-viewport">
+        <div class="book-hardcover">
+          <div id="bookPaperContainer" class="book-paper-block">
             
             <!-- ริบบิ้นคั่นหนังสือตรงกลางบน -->
-            <div class="bookmark-ribbon hidden lg:block" title="คู่มือแนะแนวการศึกษาต่อ"></div>
+            <div class="bookmark-ribbon hidden lg:block" title="คู่มือแนะแนวการศึกษาต่อ ปีการศึกษา 2570"></div>
 
-            <!-- เนื้อหาคู่หน้าซ้าย-ขวา (จะถูก Render ด้วย JavaScript) -->
-            <div id="ebookContent" class="grid grid-cols-1 lg:grid-cols-12 min-h-[590px] book-spine-center relative"></div>
+            <!-- พื้นที่กางหนังสือ 2 หน้า + เลเยอร์กระดาษพลิก 3 มิติ -->
+            <div class="relative overflow-hidden rounded-t-[17px]">
+              <div id="ebookContent" class="grid grid-cols-1 lg:grid-cols-12 min-h-[595px] book-spine-center relative"></div>
+              
+              <!-- เลเยอร์แผ่นกระดาษที่กำลังพลิก 3 มิติ -->
+              <div id="turningLeafLayer" class="hidden"></div>
 
-            <!-- มุมกระดาษพับขวาล่าง คลิกเพื่อพลิกหน้าถัดไป -->
-            <div onclick="nextEbookPage()" class="page-curl-right hidden lg:block" title="คลิกเพื่อพลิกหน้าถัดไป"></div>
+              <!-- มุมกระดาษพับซ้าย-ขวา คลิกเพื่อพลิกหน้าได้เหมือนจับมุมหนังสือจริง -->
+              <div onclick="prevEbookPage()" class="page-curl-left hidden lg:block" title="คลิกมุมกระดาษเพื่อพลิกย้อนกลับ"></div>
+              <div onclick="nextEbookPage()" class="page-curl-right hidden lg:block" title="คลิกมุมกระดาษเพื่อพลิกหน้าถัดไป"></div>
+            </div>
 
-            <!-- แถบสีดำด้านล่างของเล่มคู่มือ (ปรับข้อความบรรทัดบน-ล่างตามที่ผู้ใช้งานกำหนด) -->
-            <div class="bg-slate-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-t-2 border-slate-800 relative z-20">
+            <!-- แถบสีดำด้านล่างของเล่มคู่มือ -->
+            <div class="bg-slate-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-t-2 border-slate-800 rounded-b-[17px] relative z-30">
               <div class="flex items-center gap-3.5">
                 <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-11 h-11 rounded-full bg-white p-0.5 object-contain shrink-0 border border-amber-300" onerror="this.src=FALLBACK_LOGO_PNG" />
                 <div class="leading-snug">
@@ -367,8 +444,8 @@
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-2">
-                <button onclick="prevEbookPage()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold">◀ หน้าก่อนหน้า</button>
-                <button onclick="nextEbookPage()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold">หน้าถัดไป ▶</button>
+                <button onclick="prevEbookPage()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold">◀ พลิกหน้าก่อน</button>
+                <button onclick="nextEbookPage()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold">พลิกหน้าถัดไป ▶</button>
                 <button onclick="showApplyView()" class="px-5 py-2 rounded-xl bg-amber-300 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-md ml-1">
                   📝 คลิกสมัครเรียนออนไลน์
                 </button>
@@ -386,12 +463,11 @@
     <!-- ===================================================================== -->
     <section id="view-apply" class="hidden space-y-6">
       
-      <!-- แบนเนอร์หัวข้อหน้าใบสมัคร -->
       <div class="no-print sketch-box bg-gradient-to-r from-amber-100 via-pink-100 to-sky-100 p-4 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <div class="w-11 h-11 rounded-2xl bg-white border-2 border-slate-800 flex items-center justify-center text-xl">📝</div>
           <div>
-            <h2 class="font-bold text-base md:text-lg text-slate-900">แบบฟอร์มใบสมัครเข้าศึกษาต่อออนไลน์ (ฟอนต์ราชการ TH Sarabun PSK)</h2>
+            <h2 class="font-bold text-base md:text-lg text-slate-900">แบบฟอร์มใบสมัครเข้าศึกษาต่อ ปีการศึกษา 2570 (ฟอนต์ราชการ TH Sarabun PSK)</h2>
             <p class="text-xs text-slate-600">กรอกข้อมูลด้านซ้าย ➔ เซ็นชื่อออนไลน์ ➔ กดยืนยันเพื่อบันทึก PDF เข้า Google Drive ของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</p>
           </div>
         </div>
@@ -411,7 +487,7 @@
         <div class="no-print lg:col-span-5 sketch-box p-5 space-y-4 bg-white">
           <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
             <div>
-              <h3 class="font-bold text-base text-slate-900">กรอกข้อมูลใบสมัคร</h3>
+              <h3 class="font-bold text-base text-slate-900">กรอกข้อมูลใบสมัคร (ปีการศึกษา 2570)</h3>
               <p class="text-xs text-slate-500">แสดงผลในใบสมัครจริงด้านขวาอัตโนมัติ</p>
             </div>
             <div class="text-right bg-rose-50 border-2 border-rose-300 px-3 py-1 rounded-2xl">
@@ -486,7 +562,7 @@
             </div>
             <div class="grid grid-cols-3 gap-2">
               <input type="number" id="inp_age" oninput="syncFormToPaper()" placeholder="อายุ (ปี)" class="border rounded-xl px-3 py-1.5 text-xs" />
-              <input type="text" id="inp_dob" oninput="syncFormToPaper()" placeholder="ว/ด/ป เกิด (เช่น 02/02/2554)" class="col-span-2 border rounded-xl px-3 py-1.5 text-xs" />
+              <input type="text" id="inp_dob" oninput="syncFormToPaper()" placeholder="ว/ด/ป เกิด (เช่น 02/02/2555)" class="col-span-2 border rounded-xl px-3 py-1.5 text-xs" />
             </div>
             <input type="text" id="inp_citizenId" maxlength="13" oninput="syncFormToPaper()" placeholder="เลขบัตรประชาชนผู้สมัคร 13 หลัก" class="w-full border rounded-xl px-3 py-1.5 text-xs font-mono" />
           </div>
@@ -604,7 +680,7 @@
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 4px;">
               <tr>
                 <td style="width: 48%; vertical-align: top; line-height: 1.15;">
-                  <div style="font-size: 18pt; font-weight: bold;">ใบสมัครเข้าศึกษาต่อ</div>
+                  <div style="font-size: 18pt; font-weight: bold;">ใบสมัครเข้าศึกษาต่อ (ปีการศึกษา 2570)</div>
                   <div style="font-size: 16.5pt; font-weight: bold;">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
                   <div style="font-size: 11.5pt; font-weight: bold;">Padung Business Administration Technology College of Sena</div>
                   <div style="font-size: 14.5pt;">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
@@ -618,7 +694,7 @@
                 </td>
                 <td style="width: 30%; vertical-align: top; text-align: right;">
                   <div style="font-size: 14.5pt; margin-bottom: 4px;">
-                    เลขประจำตัว <span id="p1_studentCode" class="dot-fill" style="width: 85px;">69-001</span>
+                    เลขประจำตัว <span id="p1_studentCode" class="dot-fill" style="width: 85px;">70-001</span>
                   </div>
                   <div style="width: 26mm; height: 32mm; border: 1px solid #000; margin-left: auto; text-align: center; padding-top: 10mm; font-size: 12pt; line-height: 1.1;">
                     รูปถ่าย<br/>1 นิ้ว
@@ -629,7 +705,7 @@
 
             <div style="font-weight: bold; font-size: 14.5pt; margin-bottom: 3px;">ผู้สมัครลงรายการข้อ 1-3 ด้วยตัวบรรจง</div>
 
-            <!-- ข้อ 1: ล็อกให้อยู่บรรทัดเดียวกันทั้งหมด ไม่ตกบรรทัด -->
+            <!-- ข้อ 1: ชื่อ อายุ และ วัน/เดือน/ปีเกิด อยู่บรรทัดเดียวกันทั้งหมด -->
             <div style="white-space: nowrap; margin-bottom: 5px;">
               1. ชื่อ - นามสกุล (นาย/นาง/นางสาว) <span id="p1_fullName" class="dot-fill-left" style="width: 195px;"></span>
               อายุ <span id="p1_age" class="dot-fill" style="width: 34px;"></span> ปี
@@ -798,8 +874,8 @@
     let totalRegisteredCount = 0;
     let earlyBirdUsedCount = 0;
     let customLogoData = '';
+    let customCoverData = localStorage.getItem('pdc_cover_base64') || '';
 
-    // โลโก้สำรองแบบ PNG
     function createFallbackLogoPng() {
       const c = document.createElement('canvas');
       c.width = 200; c.height = 200;
@@ -816,6 +892,34 @@
     }
     const FALLBACK_LOGO_PNG = createFallbackLogoPng();
 
+    // รูปหน้าปกเริ่มต้น (หากยังไม่ได้วางไฟล์ cover.jpg หรือยังไม่ได้กดเลือกรูป)
+    const FALLBACK_COVER_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280">
+        <defs>
+          <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e0f2fe"/>
+            <stop offset="50%" stop-color="#fce7f3"/>
+            <stop offset="100%" stop-color="#fef3c7"/>
+          </linearGradient>
+        </defs>
+        <rect width="480" height="280" rx="18" fill="url(#sky)"/>
+        <circle cx="75" cy="60" r="24" fill="#fde047" stroke="#1e293b" stroke-width="3"/>
+        <rect x="110" y="85" width="260" height="150" rx="10" fill="#ffffff" stroke="#1e293b" stroke-width="3.5"/>
+        <polygon points="95,85 240,32 385,85" fill="#f472b6" stroke="#1e293b" stroke-width="3.5"/>
+        <rect x="210" y="165" width="60" height="70" rx="6" fill="#fde047" stroke="#1e293b" stroke-width="3"/>
+        <rect x="135" y="108" width="42" height="34" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
+        <rect x="195" y="108" width="42" height="34" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
+        <rect x="255" y="108" width="42" height="34" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
+        <rect x="308" y="108" width="42" height="34" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
+        <circle cx="70" cy="195" r="28" fill="#86efac" stroke="#1e293b" stroke-width="3"/>
+        <line x1="70" y1="223" x2="70" y2="250" stroke="#1e293b" stroke-width="4"/>
+        <circle cx="415" cy="195" r="28" fill="#86efac" stroke="#1e293b" stroke-width="3"/>
+        <line x1="415" y1="223" x2="415" y2="250" stroke="#1e293b" stroke-width="4"/>
+        <rect x="130" y="242" width="220" height="24" rx="12" fill="#1e293b"/>
+        <text x="240" y="258" text-anchor="middle" font-family="Prompt, sans-serif" font-size="12" font-weight="bold" fill="#fde047">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</text>
+      </svg>
+    `);
+
     function autoConvertLocalIcon() {
       const img = new Image();
       img.crossOrigin = 'Anonymous';
@@ -829,6 +933,27 @@
         } catch (e) {}
       };
       img.src = 'icon.png';
+    }
+
+    // ฟังก์ชันอัปโหลดเปลี่ยนรูปหน้าปกคู่มือตามไฟล์แนบของผู้ใช้
+    function triggerCoverUpload() {
+      document.getElementById('coverFileInput').click();
+    }
+
+    function handleCoverUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        customCoverData = e.target.result;
+        localStorage.setItem('pdc_cover_base64', customCoverData);
+        renderEbook();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function getCoverSrc() {
+      return customCoverData || 'cover.jpg';
     }
 
     function showApplyView() {
@@ -878,98 +1003,94 @@
     }
 
     // =====================================================================
-    // เนื้อหาหนังสือคู่มือ E-BOOK 8 คู่หน้า (กางซ้าย-ขวา เหมือนหนังสือคู่มือจริง)
+    // เนื้อหาหนังสือคู่มือ E-BOOK 8 คู่หน้า (ปรับเป็นปีการศึกษา 2570 ทั้งหมด)
     // =====================================================================
     let currentEbookPage = 0;
+    let isFlipping = false;
     const getLogoSrc = () => customLogoData || 'icon.png';
 
-    // ฟังก์ชันสร้างหัวกระดาษและเลขหน้ามุมหนังสือคู่มือ
-    function wrapBookSpread(leftChapterTag, leftHtml, rightChapterTag, rightHtml, spreadIndex) {
+    function buildLeftPageHtml(leftChapterTag, leftHtml, spreadIndex) {
       const leftPageNum = spreadIndex * 2 + 1;
-      const rightPageNum = spreadIndex * 2 + 2;
       return `
-        <!-- หน้าซ้ายของหนังสือคู่มือ -->
-        <div class="lg:col-span-6 manual-page page-left-shadow p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-stone-300/80">
+        <div class="h-full manual-page page-left-inset p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-stone-300/80">
           <div>
-            <div class="flex items-center justify-between text-[11px] text-stone-400 font-semibold border-b border-stone-200 pb-2 mb-5">
-              <span>📖 คู่มือแนะแนวการศึกษาต่อ</span>
+            <div class="flex items-center justify-between text-[11px] text-stone-400 font-semibold border-b border-stone-200 pb-2 mb-4">
+              <span>📖 คู่มือแนะแนวการศึกษาต่อ ปีการศึกษา 2570</span>
               <span class="text-stone-500">${leftChapterTag}</span>
             </div>
             ${leftHtml}
           </div>
-          <div class="pt-4 mt-6 border-t border-stone-200/80 flex items-center justify-between text-[11px] text-stone-400 font-bold">
+          <div class="pt-3 mt-4 border-t border-stone-200/80 flex items-center justify-between text-[11px] text-stone-400 font-bold pl-6">
             <span>หน้า ${leftPageNum}</span>
             <span>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</span>
-          </div>
-        </div>
-
-        <!-- หน้าขวาของหนังสือคู่มือ -->
-        <div class="lg:col-span-6 manual-page page-right-shadow p-6 md:p-8 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-[11px] text-stone-400 font-semibold border-b border-stone-200 pb-2 mb-5">
-              <span class="text-stone-500">${rightChapterTag}</span>
-              <span>ปีการศึกษา 2569 • อ.เสนา จ.พระนครศรีอยุธยา</span>
-            </div>
-            ${rightHtml}
-          </div>
-          <div class="pt-4 mt-6 border-t border-stone-200/80 flex items-center justify-between text-[11px] text-stone-400 font-bold">
-            <span>Padung Business Administration Technology College of Sena</span>
-            <span class="pr-6">หน้า ${rightPageNum}</span>
           </div>
         </div>
       `;
     }
 
-    const ebookPages = [
+    function buildRightPageHtml(rightChapterTag, rightHtml, spreadIndex) {
+      const rightPageNum = spreadIndex * 2 + 2;
+      return `
+        <div class="h-full manual-page page-right-inset p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-[11px] text-stone-400 font-semibold border-b border-stone-200 pb-2 mb-4">
+              <span class="text-stone-500">${rightChapterTag}</span>
+              <span>ปีการศึกษา 2570 • อ.เสนา จ.พระนครศรีอยุธยา</span>
+            </div>
+            ${rightHtml}
+          </div>
+          <div class="pt-3 mt-4 border-t border-stone-200/80 flex items-center justify-between text-[11px] text-stone-400 font-bold pr-8">
+            <span>Padung Business Administration Technology College of Sena</span>
+            <span>หน้า ${rightPageNum}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    const ebookSpreads = [
       {
         title: 'บทที่ 1: ปก & สารบัญ',
-        render: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
-          const left = `
-            <div class="text-center space-y-4 py-2">
-              <div class="inline-block bg-amber-200 border-2 border-slate-800 px-4 py-1 rounded-full text-xs font-extrabold text-slate-900">
-                STUDENT & PARENT HANDBOOK 2569
-              </div>
-              <div class="relative mx-auto w-28 h-28 rounded-full bg-white border-2 border-slate-800 p-2 shadow-md flex items-center justify-center">
-                <img src="${getLogoSrc()}" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-full h-full object-contain" onerror="this.src=FALLBACK_LOGO_PNG" />
-              </div>
-              <div>
-                <h2 class="text-xl md:text-2xl font-extrabold text-slate-900 leading-snug">
-                  คู่มือแนะแนวการศึกษาต่อ<br/>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ
+        leftTag: 'บทที่ 1 : ปกคู่มือแนะแนว',
+        rightTag: 'สารบัญคู่มือแนะแนว',
+        getLeft: () => `
+          <div class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 bg-amber-200 border-2 border-slate-800 px-3.5 py-1 rounded-full text-xs font-extrabold text-slate-900">
+              <span>✨ คู่มือแนะแนวการศึกษาต่อ ปีการศึกษา 2570</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-3">
+              <img src="${getLogoSrc()}" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-16 h-16 rounded-full bg-white border-2 border-slate-800 p-1 shadow object-contain shrink-0" onerror="this.src=FALLBACK_LOGO_PNG" />
+              <div class="text-left">
+                <h2 class="text-base md:text-lg font-extrabold text-slate-900 leading-snug">
+                  วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ
                 </h2>
-                <p class="text-xs font-semibold text-slate-500 mt-1">
+                <p class="text-[11px] font-semibold text-slate-500">
                   Padung Business Administration Technology College of Sena
                 </p>
-                <p class="text-xs text-rose-600 font-bold mt-1">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</p>
-              </div>
-
-              <!-- ภาพวาดกราฟิกอาคารเรียนในหน้าปกคู่มือ -->
-              <div class="sketch-box bg-gradient-to-b from-sky-50 to-amber-50 p-4 mx-auto max-w-md">
-                <svg viewBox="0 0 360 135" class="w-full h-32">
-                  <rect x="12" y="10" width="336" height="115" rx="14" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                  <circle cx="50" cy="38" r="14" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="95" y="42" width="170" height="75" rx="6" fill="#bae6fd" stroke="#1e293b" stroke-width="2"/>
-                  <polygon points="85,42 180,14 275,42" fill="#f472b6" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="162" y="84" width="36" height="33" rx="4" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="112" y="54" width="24" height="18" rx="3" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
-                  <rect x="224" y="54" width="24" height="18" rx="3" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
-                  <circle cx="62" cy="95" r="15" fill="#86efac" stroke="#1e293b" stroke-width="2"/>
-                  <circle cx="298" cy="95" r="15" fill="#86efac" stroke="#1e293b" stroke-width="2"/>
-                  <text x="180" y="74" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#0f172a">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</text>
-                </svg>
+                <p class="text-xs text-rose-600 font-bold">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</p>
               </div>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div class="sketch-box bg-amber-100 p-4">
-                <div class="font-extrabold text-sm text-slate-900">👋 ยินดีต้อนรับนักเรียนและผู้ปกครองทุกท่าน</div>
+
+            <!-- กรอบรูปหน้าปกขนาดใหญ่ (ดึงจาก cover.jpg หรือคลิกเลือกรูปตามไฟล์แนบได้ทันที) -->
+            <div class="sketch-box bg-white p-2.5 relative group overflow-hidden">
+              <img id="coverHeroImg" src="${getCoverSrc()}" alt="ภาพหน้าปกวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="w-full h-56 md:h-60 object-cover rounded-xl border border-slate-200" onerror="this.src=FALLBACK_COVER_SVG" />
+              <button type="button" onclick="triggerCoverUpload()" class="absolute bottom-4 right-4 bg-white/95 hover:bg-amber-300 text-slate-900 border-2 border-slate-800 px-3 py-1.5 rounded-xl text-[11px] font-extrabold shadow-md transition">
+                🖼️ คลิกเลือกรูปหน้าปก
+              </button>
+            </div>
+          </div>
+        `,
+        getRight: () => {
+          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          return `
+            <div class="space-y-3.5">
+              <div class="sketch-box bg-amber-100 p-3.5">
+                <div class="font-extrabold text-sm text-slate-900">👋 ยินดีต้อนรับสู่ปีการศึกษา 2570</div>
                 <p class="text-xs text-slate-700 mt-1 leading-relaxed">
-                  คู่มือฉบับนี้สรุปข้อมูลสำคัญของ <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> ครบทั้งหลักสูตร ปวช.1–ปวส.2 เวลาเรียน การแต่งกาย ค่าเทอม โปรโมชั่น และระบบดูแลผู้เรียน
+                  คู่มือแนะแนวการศึกษาต่อฉบับนี้ รวบรวมข้อมูลของ <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> ครบทั้งหลักสูตร ปวช.1–ปวส.2 เวลาเรียน การแต่งกาย ค่าเทอม โปรโมชั่น และระบบดูแลผู้เรียน
                 </p>
               </div>
 
-              <!-- สารบัญหนังสือคู่มือจริง (มีเส้นประและเลขหน้า) -->
               <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
                 <div class="font-extrabold text-sm text-slate-900 border-b border-slate-200 pb-1.5">📑 สารบัญคู่มือแนะแนว (คลิกเปิดหน้าได้เลย)</div>
                 <div class="space-y-1.5 text-xs">
@@ -997,307 +1118,303 @@
                 </div>
               </div>
 
-              <!-- ตั๋วแจ้งสิทธิ์ 30 คนแรก -->
               <div class="coupon-box p-3.5 flex flex-wrap items-center justify-between gap-2">
                 <div class="text-xs">
-                  <span class="font-extrabold text-rose-600">🔥 สิทธิ์พิเศษ 30 คนแรก ลดค่าเทอม 1,000 บาท</span>
-                  <div class="text-slate-600">ปัจจุบันคงเหลือ <strong>${remain} / 30 สิทธิ์</strong></div>
+                  <span class="font-extrabold text-rose-600">🔥 โปรโมชั่น 30 คนแรก ลดค่าเทอม 1,000 บาท</span>
+                  <div class="text-slate-600">ปีการศึกษา 2570 ปัจจุบันคงเหลือ <strong>${remain} / 30 สิทธิ์</strong></div>
                 </div>
-                <button onclick=" nextEbookPage() " class="cute-btn px-4 py-2 rounded-xl bg-amber-300 text-slate-900 font-bold text-xs">
-                  พลิกเปิดอ่านคู่มือ ▶
+                <button onclick="nextEbookPage()" class="cute-btn px-4 py-2 rounded-xl bg-amber-300 text-slate-900 font-bold text-xs">
+                  พลิกเปิดหน้าถัดไป ▶
                 </button>
               </div>
             </div>
           `;
-          return wrapBookSpread('บทที่ 1 : ปกคู่มือแนะแนว', left, 'สารบัญคู่มือแนะแนว', right, 0);
         }
       },
       {
         title: 'บทที่ 2: อาคารสถานที่',
-        render: () => {
-          const left = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-sky-200 border border-slate-800 text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">หมวดที่ 1 : สถานที่เรียน</span>
-                <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ภาพรวมอาคารเรียน และหอประชุม</h3>
-                <p class="text-xs text-slate-600">ออกแบบพื้นที่ให้ร่มรื่น ปลอดภัย เอื้อต่อการเรียนรู้และกิจกรรมของนักศึกษา</p>
-              </div>
+        leftTag: 'บทที่ 2 : อาคารเรียนและหอประชุม',
+        rightTag: 'ห้องปฏิบัติการและระดับชั้น',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-sky-200 border border-slate-800 text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">หมวดที่ 1 : สถานที่เรียน</span>
+              <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ภาพรวมอาคารเรียน และหอประชุม</h3>
+              <p class="text-xs text-slate-600">ออกแบบพื้นที่ให้ร่มรื่น ปลอดภัย เอื้อต่อการเรียนรู้และกิจกรรมของนักศึกษา</p>
+            </div>
 
-              <div class="sketch-box bg-sky-50 p-4 flex items-center gap-4">
-                <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                  <rect x="15" y="20" width="70" height="52" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
-                  <rect x="10" y="12" width="80" height="10" rx="3" fill="#38bdf8" stroke="#1e293b" stroke-width="2.5"/>
-                  <rect x="25" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="43" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="61" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="41" y="50" width="18" height="22" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                </svg>
-                <div class="space-y-1">
-                  <div class="font-extrabold text-sm text-slate-900">1. อาคารเรียนมาตรฐาน</div>
-                  <p class="text-xs text-slate-600 leading-relaxed">อาคารเรียนของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มีความโปร่ง สะอาด ร่มรื่น และมีจุดพักผ่อนสำหรับผู้เรียน</p>
-                </div>
-              </div>
-
-              <div class="sketch-box bg-pink-50 p-4 flex items-center gap-4">
-                <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                  <polygon points="10,28 50,10 90,28" fill="#f472b6" stroke="#1e293b" stroke-width="2.5"/>
-                  <rect x="16" y="28" width="68" height="44" rx="5" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
-                  <circle cx="50" cy="50" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                </svg>
-                <div class="space-y-1">
-                  <div class="font-extrabold text-sm text-slate-900">2. หอประชุมขนาดใหญ่</div>
-                  <p class="text-xs text-slate-600 leading-relaxed">รองรับกิจกรรมปฐมนิเทศ งานวิชาการ กีฬา E-Sports และเวทีแสดงศักยภาพของนักศึกษา</p>
-                </div>
+            <div class="sketch-box bg-sky-50 p-4 flex items-center gap-4">
+              <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
+                <rect x="15" y="20" width="70" height="52" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
+                <rect x="10" y="12" width="80" height="10" rx="3" fill="#38bdf8" stroke="#1e293b" stroke-width="2.5"/>
+                <rect x="25" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+                <rect x="43" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+                <rect x="61" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+                <rect x="41" y="50" width="18" height="22" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <div class="space-y-1">
+                <div class="font-extrabold text-sm text-slate-900">1. อาคารเรียนมาตรฐาน</div>
+                <p class="text-xs text-slate-600 leading-relaxed">อาคารเรียนของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มีความโปร่ง สะอาด ร่มรื่น และมีจุดพักผ่อนสำหรับผู้เรียน</p>
               </div>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-indigo-200 border border-slate-800 text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">ห้องปฏิบัติการ & ระดับชั้น</span>
-                <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ห้องปฏิบัติการทันสมัย & ระดับชั้นที่เปิดสอน</h3>
-              </div>
 
-              <div class="sketch-box bg-indigo-50 p-4 flex items-center gap-4">
-                <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                  <rect x="18" y="14" width="64" height="40" rx="5" fill="#818cf8" stroke="#1e293b" stroke-width="2.5"/>
-                  <rect x="24" y="20" width="52" height="28" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
-                  <rect x="42" y="54" width="16" height="10" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="30" y="64" width="40" height="5" rx="2" fill="#1e293b"/>
-                </svg>
-                <div class="space-y-1">
-                  <div class="font-extrabold text-sm text-slate-900">3. ห้องปฏิบัติการเทคโนโลยีธุรกิจดิจิทัล</div>
-                  <p class="text-xs text-slate-600 leading-relaxed">คอมพิวเตอร์และอินเทอร์เน็ตความเร็วสูง สำหรับฝึกงานกราฟิก ตัดต่อสื่อ และระบบธุรกิจดิจิทัล</p>
-                </div>
-              </div>
-
-              <div class="sketch-box bg-emerald-50 p-4 flex items-center gap-4">
-                <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                  <rect x="18" y="14" width="64" height="52" rx="6" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
-                  <rect x="28" y="42" width="10" height="16" fill="#34d399" stroke="#1e293b" stroke-width="1.5"/>
-                  <rect x="45" y="32" width="10" height="26" fill="#fbbf24" stroke="#1e293b" stroke-width="1.5"/>
-                  <rect x="62" y="22" width="10" height="36" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
-                </svg>
-                <div class="space-y-1">
-                  <div class="font-extrabold text-sm text-slate-900">4. ห้องปฏิบัติการการบัญชี</div>
-                  <p class="text-xs text-slate-600 leading-relaxed">ฝึกปฏิบัติด้วยโปรแกรมบัญชีสำเร็จรูปและการจัดทำเอกสารการเงิน-ภาษีเสมือนทำงานจริง</p>
-                </div>
-              </div>
-
-              <div class="p-3.5 rounded-2xl bg-amber-100 border-2 border-slate-800 text-xs">
-                <div class="font-extrabold text-slate-900">🎓 จัดการเรียนการสอนตั้งแต่ระดับ ปวช.1 ถึง ปวส.2</div>
-                <p class="text-slate-700 mt-0.5">จบ ม.3 เข้าศึกษาต่อระดับ <strong>ปวช.1–3</strong> และจบ ม.6 หรือ ปวช.3 เข้าศึกษาต่อระดับ <strong>ปวส.1–2</strong></p>
+            <div class="sketch-box bg-pink-50 p-4 flex items-center gap-4">
+              <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
+                <polygon points="10,28 50,10 90,28" fill="#f472b6" stroke="#1e293b" stroke-width="2.5"/>
+                <rect x="16" y="28" width="68" height="44" rx="5" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
+                <circle cx="50" cy="50" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <div class="space-y-1">
+                <div class="font-extrabold text-sm text-slate-900">2. หอประชุมขนาดใหญ่</div>
+                <p class="text-xs text-slate-600 leading-relaxed">รองรับกิจกรรมปฐมนิเทศ งานวิชาการ กีฬา E-Sports และเวทีแสดงศักยภาพของนักศึกษา</p>
               </div>
             </div>
-          `;
-          return wrapBookSpread('บทที่ 2 : อาคารเรียนและหอประชุม', left, 'ห้องปฏิบัติการและระดับชั้น', right, 1);
-        }
+          </div>
+        `,
+        getRight: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-indigo-200 border border-slate-800 text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">ห้องปฏิบัติการ & ระดับชั้น</span>
+              <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ห้องปฏิบัติการทันสมัย & ระดับชั้นที่เปิดสอน</h3>
+            </div>
+
+            <div class="sketch-box bg-indigo-50 p-4 flex items-center gap-4">
+              <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
+                <rect x="18" y="14" width="64" height="40" rx="5" fill="#818cf8" stroke="#1e293b" stroke-width="2.5"/>
+                <rect x="24" y="20" width="52" height="28" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+                <rect x="42" y="54" width="16" height="10" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+                <rect x="30" y="64" width="40" height="5" rx="2" fill="#1e293b"/>
+              </svg>
+              <div class="space-y-1">
+                <div class="font-extrabold text-sm text-slate-900">3. ห้องปฏิบัติการเทคโนโลยีธุรกิจดิจิทัล</div>
+                <p class="text-xs text-slate-600 leading-relaxed">คอมพิวเตอร์และอินเทอร์เน็ตความเร็วสูง สำหรับฝึกงานกราฟิก ตัดต่อสื่อ และระบบธุรกิจดิจิทัล</p>
+              </div>
+            </div>
+
+            <div class="sketch-box bg-emerald-50 p-4 flex items-center gap-4">
+              <svg viewBox="0 0 100 80" class="w-24 h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
+                <rect x="18" y="14" width="64" height="52" rx="6" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
+                <rect x="28" y="42" width="10" height="16" fill="#34d399" stroke="#1e293b" stroke-width="1.5"/>
+                <rect x="45" y="32" width="10" height="26" fill="#fbbf24" stroke="#1e293b" stroke-width="1.5"/>
+                <rect x="62" y="22" width="10" height="36" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
+              </svg>
+              <div class="space-y-1">
+                <div class="font-extrabold text-sm text-slate-900">4. ห้องปฏิบัติการการบัญชี</div>
+                <p class="text-xs text-slate-600 leading-relaxed">ฝึกปฏิบัติด้วยโปรแกรมบัญชีสำเร็จรูปและการจัดทำเอกสารการเงิน-ภาษีเสมือนทำงานจริง</p>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-amber-100 border-2 border-slate-800 text-xs">
+              <div class="font-extrabold text-slate-900">🎓 จัดการเรียนการสอนตั้งแต่ระดับ ปวช.1 ถึง ปวส.2</div>
+              <p class="text-slate-700 mt-0.5">จบ ม.3 เข้าศึกษาต่อระดับ <strong>ปวช.1–3</strong> และจบ ม.6 หรือ ปวช.3 เข้าศึกษาต่อระดับ <strong>ปวส.1–2</strong></p>
+            </div>
+          </div>
+        `
       },
       {
         title: 'บทที่ 3: 2 สาขาวิชา',
-        render: () => {
-          const left = `
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="bg-sky-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 1</span>
-                <span class="text-2xl">📊🧾</span>
-              </div>
-              <h3 class="text-xl font-extrabold text-slate-900">สาขาการบัญชี (Accounting)</h3>
-              
-              <div class="sketch-box bg-sky-50 p-4 space-y-2">
-                <div class="font-extrabold text-xs text-sky-900">✨ ข้อดีของการเรียนสาขาการบัญชี</div>
-                <p class="text-xs text-slate-700 leading-relaxed">
-                  เป็นวิชาชีพเฉพาะทางที่ทุกธุรกิจและหน่วยงานต้องมี เรียนรู้ระบบบัญชีครบวงจร การวางแผนภาษี การเงินธุรกิจ และการใช้โปรแกรมบัญชีดิจิทัล จบแล้วหางานง่ายและมีความมั่นคงสูง
-                </p>
-              </div>
-
-              <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
-                <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
-                <ul class="space-y-1.5 text-xs text-slate-700">
-                  <li>✅ นักบัญชี / เจ้าหน้าที่การเงินในบริษัทเอกชนและรัฐวิสาหกิจ</li>
-                  <li>✅ ผู้ช่วยผู้สอบบัญชี / ที่ปรึกษาด้านภาษีอากร</li>
-                  <li>✅ พนักงานธนาคารและสถาบันการเงิน</li>
-                  <li>✅ เจ้าหน้าที่ฝ่ายจัดซื้อ ธุรการ หรือประกอบธุรกิจส่วนตัว</li>
-                </ul>
-              </div>
+        leftTag: 'บทที่ 3 : สาขาการบัญชี',
+        rightTag: 'สาขาเทคโนโลยีธุรกิจดิจิทัล',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="bg-sky-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 1</span>
+              <span class="text-2xl">📊🧾</span>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="bg-pink-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 2</span>
-                <span class="text-2xl">💻🚀</span>
-              </div>
-              <h3 class="text-xl font-extrabold text-slate-900">สาขาเทคโนโลยีธุรกิจดิจิทัล</h3>
-              
-              <div class="sketch-box bg-pink-50 p-4 space-y-2">
-                <div class="font-extrabold text-xs text-pink-900">✨ ข้อดีของการเรียนสาขาเทคโนโลยีธุรกิจดิจิทัล</div>
-                <p class="text-xs text-slate-700 leading-relaxed">
-                  ผสานความรู้บริหารธุรกิจเข้ากับเทคโนโลยีสมัยใหม่ เรียนรู้การตลาดดิจิทัล E-Commerce การออกแบบกราฟิก ตัดต่อวิดีโอ คอนเทนต์ครีเอเตอร์ และระบบสารสนเทศองค์กร
-                </p>
-              </div>
-
-              <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
-                <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
-                <ul class="space-y-1.5 text-xs text-slate-700">
-                  <li>✅ นักการตลาดดิจิทัล (Digital Marketer) & ผู้ดูแล E-Commerce</li>
-                  <li>✅ นักออกแบบกราฟิก มัลติมีเดีย และ Content Creator</li>
-                  <li>✅ เจ้าหน้าที่คอมพิวเตอร์ธุรกิจ / ผู้ดูแลระบบสารสนเทศ</li>
-                  <li>✅ ผู้ประกอบการธุรกิจออนไลน์ยุคใหม่</li>
-                </ul>
-              </div>
+            <h3 class="text-xl font-extrabold text-slate-900">สาขาการบัญชี (Accounting)</h3>
+            
+            <div class="sketch-box bg-sky-50 p-4 space-y-2">
+              <div class="font-extrabold text-xs text-sky-900">✨ ข้อดีของการเรียนสาขาการบัญชี</div>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                เป็นวิชาชีพเฉพาะทางที่ทุกธุรกิจและหน่วยงานต้องมี เรียนรู้ระบบบัญชีครบวงจร การวางแผนภาษี การเงินธุรกิจ และการใช้โปรแกรมบัญชีดิจิทัล จบแล้วหางานง่ายและมีความมั่นคงสูง
+              </p>
             </div>
-          `;
-          return wrapBookSpread('บทที่ 3 : สาขาการบัญชี', left, 'สาขาเทคโนโลยีธุรกิจดิจิทัล', right, 2);
-        }
+
+            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
+              <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
+              <ul class="space-y-1.5 text-xs text-slate-700">
+                <li>✅ นักบัญชี / เจ้าหน้าที่การเงินในบริษัทเอกชนและรัฐวิสาหกิจ</li>
+                <li>✅ ผู้ช่วยผู้สอบบัญชี / ที่ปรึกษาด้านภาษีอากร</li>
+                <li>✅ พนักงานธนาคารและสถาบันการเงิน</li>
+                <li>✅ เจ้าหน้าที่ฝ่ายจัดซื้อ ธุรการ หรือประกอบธุรกิจส่วนตัว</li>
+              </ul>
+            </div>
+          </div>
+        `,
+        getRight: () => `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="bg-pink-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 2</span>
+              <span class="text-2xl">💻🚀</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900">สาขาเทคโนโลยีธุรกิจดิจิทัล</h3>
+            
+            <div class="sketch-box bg-pink-50 p-4 space-y-2">
+              <div class="font-extrabold text-xs text-pink-900">✨ ข้อดีของการเรียนสาขาเทคโนโลยีธุรกิจดิจิทัล</div>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                ผสานความรู้บริหารธุรกิจเข้ากับเทคโนโลยีสมัยใหม่ เรียนรู้การตลาดดิจิทัล E-Commerce การออกแบบกราฟิก ตัดต่อวิดีโอ คอนเทนต์ครีเอเตอร์ และระบบสารสนเทศองค์กร
+              </p>
+            </div>
+
+            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
+              <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
+              <ul class="space-y-1.5 text-xs text-slate-700">
+                <li>✅ นักการตลาดดิจิทัล (Digital Marketer) & ผู้ดูแล E-Commerce</li>
+                <li>✅ นักออกแบบกราฟิก มัลติมีเดีย และ Content Creator</li>
+                <li>✅ เจ้าหน้าที่คอมพิวเตอร์ธุรกิจ / ผู้ดูแลระบบสารสนเทศ</li>
+                <li>✅ ผู้ประกอบการธุรกิจออนไลน์ยุคใหม่</li>
+              </ul>
+            </div>
+          </div>
+        `
       },
       {
         title: 'บทที่ 4: เวลาเรียน & นศท.',
-        render: () => {
-          const left = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-emerald-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ตารางเวลาเรียน</span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2">⏰ เวลาเรียน 08.30 – 14.45 น.</h3>
-                <p class="text-xs text-slate-600 mt-1">แบ่งเป็น <strong>5 คาบเรียน พัก 3 พัก</strong> เรียนสนุก ไม่เครียด และเลิกเรียนไม่ค่ำ</p>
-              </div>
+        leftTag: 'บทที่ 4 : ตารางเวลาเรียน',
+        rightTag: 'การเรียนนักศึกษาวิชาทหาร (นศท.)',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-emerald-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ตารางเวลาเรียน</span>
+              <h3 class="text-xl font-extrabold text-slate-900 mt-2">⏰ เวลาเรียน 08.30 – 14.45 น.</h3>
+              <p class="text-xs text-slate-600 mt-1">แบ่งเป็น <strong>5 คาบเรียน พัก 3 พัก</strong> เรียนสนุก ไม่เครียด และเลิกเรียนไม่ค่ำ</p>
+            </div>
 
-              <div class="sketch-box bg-emerald-50 p-4 space-y-2.5 text-xs">
-                <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                  <span class="font-bold">🌅 เริ่มเข้าเรียนช่วงเช้า</span>
-                  <strong class="text-emerald-700">08.30 น.</strong>
-                </div>
-                <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                  <span class="font-bold">📚 จำนวนคาบเรียนต่อวัน</span>
-                  <strong class="text-indigo-700">5 คาบเรียน (เน้นปฏิบัติ)</strong>
-                </div>
-                <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                  <span class="font-bold">🧃 ช่วงเวลาพักระหว่างวัน</span>
-                  <strong class="text-amber-700">พัก 3 พัก (เช้า • กลางวัน • บ่าย)</strong>
-                </div>
-                <div class="flex items-center justify-between bg-amber-200 p-2.5 rounded-xl border-2 border-slate-800">
-                  <span class="font-extrabold">🏡 เวลาเลิกเรียนเดินทางกลับบ้าน</span>
-                  <strong class="text-rose-700">14.45 น. (ปลอดภัย ไม่มืดค่ำ)</strong>
-                </div>
+            <div class="sketch-box bg-emerald-50 p-4 space-y-2.5 text-xs">
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
+                <span class="font-bold">🌅 เริ่มเข้าเรียนช่วงเช้า</span>
+                <strong class="text-emerald-700">08.30 น.</strong>
+              </div>
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
+                <span class="font-bold">📚 จำนวนคาบเรียนต่อวัน</span>
+                <strong class="text-indigo-700">5 คาบเรียน (เน้นปฏิบัติ)</strong>
+              </div>
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
+                <span class="font-bold">🧃 ช่วงเวลาพักระหว่างวัน</span>
+                <strong class="text-amber-700">พัก 3 พัก (เช้า • กลางวัน • บ่าย)</strong>
+              </div>
+              <div class="flex items-center justify-between bg-amber-200 p-2.5 rounded-xl border-2 border-slate-800">
+                <span class="font-extrabold">🏡 เวลาเลิกเรียนเดินทางกลับบ้าน</span>
+                <strong class="text-rose-700">14.45 น. (ปลอดภัย ไม่มืดค่ำ)</strong>
               </div>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สิทธิพิเศษผู้เรียน</span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2">🪖 การเรียนนักศึกษาวิชาทหาร (นศท.)</h3>
-              </div>
-
-              <div class="sketch-box bg-amber-50 p-5 space-y-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-14 h-14 rounded-2xl bg-white border-2 border-slate-800 flex items-center justify-center text-3xl">🎖️</div>
-                  <div class="text-xs text-slate-700 leading-relaxed">
-                    <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> สนับสนุนและดำเนินการประสานงานให้นักศึกษาได้เรียน <strong>นักศึกษาวิชาทหาร (นศท. / รด.)</strong> ควบคู่กับการเรียนตามหลักสูตรปกติ
-                  </div>
-                </div>
-                <ul class="space-y-1.5 text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-slate-300">
-                  <li>• รองรับทั้งผู้สมัครเรียน นศท. รายใหม่ (ชั้นปีที่ 1)</li>
-                  <li>• รองรับผู้ที่เรียน นศท. ต่อเนื่องจากโรงเรียนเดิม (ชั้นปีที่ 2–3)</li>
-                  <li>• มีอาจารย์ผู้กำกับนักศึกษาวิชาทหารดูแลการส่งเอกสารและตารางฝึกอย่างใกล้ชิด</li>
-                </ul>
-              </div>
+          </div>
+        `,
+        getRight: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สิทธิพิเศษผู้เรียน</span>
+              <h3 class="text-xl font-extrabold text-slate-900 mt-2">🪖 การเรียนนักศึกษาวิชาทหาร (นศท.)</h3>
             </div>
-          `;
-          return wrapBookSpread('บทที่ 4 : ตารางเวลาเรียน', left, 'การเรียนนักศึกษาวิชาทหาร (นศท.)', right, 3);
-        }
+
+            <div class="sketch-box bg-amber-50 p-5 space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-white border-2 border-slate-800 flex items-center justify-center text-3xl">🎖️</div>
+                <div class="text-xs text-slate-700 leading-relaxed">
+                  <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> สนับสนุนและดำเนินการประสานงานให้นักศึกษาได้เรียน <strong>นักศึกษาวิชาทหาร (นศท. / รด.)</strong> ควบคู่กับการเรียนตามหลักสูตรปกติ
+                </div>
+              </div>
+              <ul class="space-y-1.5 text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-slate-300">
+                <li>• รองรับทั้งผู้สมัครเรียน นศท. รายใหม่ (ชั้นปีที่ 1)</li>
+                <li>• รองรับผู้ที่เรียน นศท. ต่อเนื่องจากโรงเรียนเดิม (ชั้นปีที่ 2–3)</li>
+                <li>• มีอาจารย์ผู้กำกับนักศึกษาวิชาทหารดูแลการส่งเอกสารและตารางฝึกอย่างใกล้ชิด</li>
+              </ul>
+            </div>
+          </div>
+        `
       },
       {
         title: 'บทที่ 5: การแต่งกาย',
-        render: () => {
-          const left = `
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="bg-sky-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวช.</span>
-                <span class="text-xs font-bold text-slate-500">ปวช.1 – ปวช.3</span>
-              </div>
-              <h3 class="text-lg font-extrabold text-slate-900">👔 การแต่งกายระดับชั้น ปวช.</h3>
+        leftTag: 'บทที่ 5 : เครื่องแบบระดับชั้น ปวช.',
+        rightTag: 'เครื่องแบบระดับชั้น ปวส.',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="bg-sky-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวช.</span>
+              <span class="text-xs font-bold text-slate-500">ปวช.1 – ปวช.3</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-900">👔 การแต่งกายระดับชั้น ปวช.</h3>
 
-              <div class="sketch-box bg-sky-50 p-4 space-y-3">
-                <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
-                  <circle cx="65" cy="20" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="50" y="32" width="30" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="53" y="56" width="24" height="22" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
-                  <circle cx="155" cy="20" r="10" fill="#f472b6" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                  <polygon points="142,54 168,54 174,78 136,78" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
-                </svg>
-                <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
-                  <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนสั้น ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงขายาวสีกรมท่า/ดำ เข็มขัดตราสถาบัน รองเท้าหนังหุ้มส้นสีดำ</p>
-                  <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวปกเชิ้ต ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพคลุมเข่า เข็มขัดตราสถาบัน รองเท้าคัทชูสีดำ</p>
-                </div>
+            <div class="sketch-box bg-sky-50 p-4 space-y-3">
+              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
+                <circle cx="65" cy="20" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
+                <rect x="50" y="32" width="30" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                <rect x="53" y="56" width="24" height="22" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
+                <circle cx="155" cy="20" r="10" fill="#f472b6" stroke="#1e293b" stroke-width="2"/>
+                <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="142,54 168,54 174,78 136,78" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนสั้น ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงขายาวสีกรมท่า/ดำ เข็มขัดตราสถาบัน รองเท้าหนังหุ้มส้นสีดำ</p>
+                <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวปกเชิ้ต ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพคลุมเข่า เข็มขัดตราสถาบัน รองเท้าคัทชูสีดำ</p>
               </div>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="bg-pink-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวส.</span>
-                <span class="text-xs font-bold text-slate-500">ปวส.1 – ปวส.2</span>
-              </div>
-              <h3 class="text-lg font-extrabold text-slate-900">🎓 การแต่งกายระดับชั้น ปวส.</h3>
+          </div>
+        `,
+        getRight: () => `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="bg-pink-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวส.</span>
+              <span class="text-xs font-bold text-slate-500">ปวส.1 – ปวส.2</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-900">🎓 การแต่งกายระดับชั้น ปวส.</h3>
 
-              <div class="sketch-box bg-pink-50 p-4 space-y-3">
-                <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
-                  <circle cx="65" cy="20" r="10" fill="#38bdf8" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="48" y="32" width="34" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                  <polygon points="65,34 62,52 65,55 68,52" fill="#be185d"/>
-                  <rect x="53" y="56" width="24" height="22" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
-                  <circle cx="155" cy="20" r="10" fill="#a855f7" stroke="#1e293b" stroke-width="2"/>
-                  <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                  <polygon points="143,54 167,54 170,78 140,78" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
-                </svg>
-                <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
-                  <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนยาว ผูกเนกไทตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงสแล็คขายาวสุภาพ รองเท้าหนังหุ้มส้นสีดำ</p>
-                  <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวแขนสั้นติดกระดุมและเข็มตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพ รองเท้าคัทชูหุ้มส้นสีดำ</p>
-                </div>
+            <div class="sketch-box bg-pink-50 p-4 space-y-3">
+              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
+                <circle cx="65" cy="20" r="10" fill="#38bdf8" stroke="#1e293b" stroke-width="2"/>
+                <rect x="48" y="32" width="34" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="65,34 62,52 65,55 68,52" fill="#be185d"/>
+                <rect x="53" y="56" width="24" height="22" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+                <circle cx="155" cy="20" r="10" fill="#a855f7" stroke="#1e293b" stroke-width="2"/>
+                <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="143,54 167,54 170,78 140,78" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+              </svg>
+              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนยาว ผูกเนกไทตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงสแล็คขายาวสุภาพ รองเท้าหนังหุ้มส้นสีดำ</p>
+                <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวแขนสั้นติดกระดุมและเข็มตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพ รองเท้าคัทชูหุ้มส้นสีดำ</p>
               </div>
             </div>
-          `;
-          return wrapBookSpread('บทที่ 5 : เครื่องแบบระดับชั้น ปวช.', left, 'เครื่องแบบระดับชั้น ปวส.', right, 4);
-        }
+          </div>
+        `
       },
       {
         title: 'บทที่ 6: ค่าเทอม & โปรโมชั่น',
-        render: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
-          const left = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ค่าธรรมเนียมการศึกษา</span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2">💳 อัตราค่าเทอม & การกู้ยืม กยศ.</h3>
-              </div>
+        leftTag: 'บทที่ 6 : ค่าเทอมและกองทุน กยศ.',
+        rightTag: 'โปรโมชั่นในการสมัครเรียน ปีการศึกษา 2570',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ค่าธรรมเนียมการศึกษา</span>
+              <h3 class="text-xl font-extrabold text-slate-900 mt-2">💳 อัตราค่าเทอม & การกู้ยืม กยศ.</h3>
+            </div>
 
-              <div class="grid grid-cols-2 gap-3">
-                <div class="sketch-box bg-sky-100 p-4 text-center">
-                  <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวช.</div>
-                  <div class="text-2xl font-extrabold text-slate-900 mt-1">5,500.-</div>
-                  <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
-                </div>
-                <div class="sketch-box bg-pink-100 p-4 text-center">
-                  <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวส.</div>
-                  <div class="text-2xl font-extrabold text-slate-900 mt-1">11,500.-</div>
-                  <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
-                </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sketch-box bg-sky-100 p-4 text-center">
+                <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวช.</div>
+                <div class="text-2xl font-extrabold text-slate-900 mt-1">5,500.-</div>
+                <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
               </div>
-
-              <div class="sketch-box bg-emerald-50 p-4 space-y-1.5">
-                <div class="font-extrabold text-sm text-slate-900">🏦 รองรับการกู้ยืมเพื่อการศึกษา (กยศ.)</div>
-                <p class="text-xs text-slate-700 leading-relaxed">
-                  นักศึกษาทั้งระดับ ปวช. และ ปวส. สามารถยื่นกู้ยืมกองทุน <strong>กยศ.</strong> ได้ โดยมีทีมอาจารย์แนะแนวของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ คอยดูแลเอกสารให้ทุกขั้นตอน
-                </p>
+              <div class="sketch-box bg-pink-100 p-4 text-center">
+                <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวส.</div>
+                <div class="text-2xl font-extrabold text-slate-900 mt-1">11,500.-</div>
+                <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
               </div>
             </div>
-          `;
-          const right = `
+
+            <div class="sketch-box bg-emerald-50 p-4 space-y-1.5">
+              <div class="font-extrabold text-sm text-slate-900">🏦 รองรับการกู้ยืมเพื่อการศึกษา (กยศ.)</div>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                นักศึกษาทั้งระดับ ปวช. และ ปวส. สามารถยื่นกู้ยืมกองทุน <strong>กยศ.</strong> ได้ โดยมีทีมอาจารย์แนะแนวของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ คอยดูแลเอกสารให้ทุกขั้นตอน
+              </p>
+            </div>
+          </div>
+        `,
+        getRight: () => {
+          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          return `
             <div class="space-y-3.5">
               <div class="flex items-center justify-between">
-                <span class="bg-rose-200 border-2 border-slate-800 text-rose-900 text-xs font-extrabold px-3 py-1 rounded-full">🎁 โปรโมชั่นพิเศษ</span>
+                <span class="bg-rose-200 border-2 border-slate-800 text-rose-900 text-xs font-extrabold px-3 py-1 rounded-full">🎁 โปรโมชั่นพิเศษ 2570</span>
                 <span class="text-xs font-extrabold text-rose-600">คงเหลือ ${remain} / 30 สิทธิ์</span>
               </div>
               <h3 class="text-lg font-extrabold text-slate-900">คูปองส่วนลดค่าเทอม & ทุนการศึกษา</h3>
@@ -1318,92 +1435,92 @@
               </div>
             </div>
           `;
-          return wrapBookSpread('บทที่ 6 : ค่าเทอมและกองทุน กยศ.', left, 'โปรโมชั่นในการสมัครเรียน', right, 5);
         }
       },
       {
         title: 'บทที่ 7: ดูแลผู้เรียน',
-        render: () => {
-          const left = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-purple-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระบบดูแลผู้เรียน</span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2">🛡️ ระบบดูแลช่วยเหลือผู้เรียน</h3>
-                <p class="text-xs text-slate-600 mt-1">ดูแลใกล้ชิดเหมือนคนในครอบครัว เพื่อให้ผู้ปกครองอุ่นใจตลอดการศึกษา</p>
-              </div>
-
-              <div class="sketch-box bg-amber-50 p-4 space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">👨‍🏫 1. อาจารย์ที่ปรึกษาดูแลรายบุคคล</div>
-                <p class="text-xs text-slate-600 leading-relaxed">ติดตามการมาเรียน การส่งงาน และให้คำปรึกษาช่วยเหลือผู้เรียนอย่างใกล้ชิด</p>
-              </div>
-
-              <div class="sketch-box bg-sky-50 p-4 space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">🏡 2. เยี่ยมบ้านและประสานผู้ปกครอง</div>
-                <p class="text-xs text-slate-600 leading-relaxed">แจ้งข้อมูลข่าวสารและร่วมมือกับผู้ปกครองในการดูแลส่งเสริมศักยภาพของผู้เรียน</p>
-              </div>
+        leftTag: 'บทที่ 7 : ระบบดูแลช่วยเหลือผู้เรียน (1)',
+        rightTag: 'ระบบดูแลช่วยเหลือผู้เรียน (2)',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-purple-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระบบดูแลผู้เรียน</span>
+              <h3 class="text-xl font-extrabold text-slate-900 mt-2">🛡️ ระบบดูแลช่วยเหลือผู้เรียน</h3>
+              <p class="text-xs text-slate-600 mt-1">ดูแลใกล้ชิดเหมือนคนในครอบครัว เพื่อให้ผู้ปกครองอุ่นใจตลอดการศึกษา</p>
             </div>
-          `;
-          const right = `
-            <div class="space-y-4">
-              <div class="sketch-box bg-emerald-50 p-4 space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">🛡️ 3. สถานศึกษาปลอดภัย ไร้สิ่งเสพติด</div>
-                <p class="text-xs text-slate-600 leading-relaxed">กวดขันระเบียบวินัย ป้องกันอบายมุขและการทะเลาะวิวาท เลิกเรียน 14.45 น. กลับบ้านปลอดภัย</p>
-              </div>
 
-              <div class="sketch-box bg-pink-50 p-4 space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">🚀 4. แนะแนวฝึกงานและส่งต่ออาชีพ</div>
-                <p class="text-xs text-slate-600 leading-relaxed">ประสานสถานประกอบการชั้นนำในการฝึกงาน และเตรียมความพร้อมสู่อาชีพทันทีหลังจบการศึกษา</p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-slate-900 text-white text-xs space-y-1">
-                <div class="text-amber-300 font-bold">💛 ความมั่นใจของผู้ปกครอง</div>
-                <p class="text-slate-300 leading-relaxed">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มุ่งสร้างทั้งความรู้ ทักษะวิชาชีพ และคุณธรรมควบคู่กัน</p>
-              </div>
+            <div class="sketch-box bg-amber-50 p-4 space-y-1">
+              <div class="font-extrabold text-sm text-slate-900">👨‍🏫 1. อาจารย์ที่ปรึกษาดูแลรายบุคคล</div>
+              <p class="text-xs text-slate-600 leading-relaxed">ติดตามการมาเรียน การส่งงาน และให้คำปรึกษาช่วยเหลือผู้เรียนอย่างใกล้ชิด</p>
             </div>
-          `;
-          return wrapBookSpread('บทที่ 7 : ระบบดูแลช่วยเหลือผู้เรียน (1)', left, 'ระบบดูแลช่วยเหลือผู้เรียน (2)', right, 6);
-        }
+
+            <div class="sketch-box bg-sky-50 p-4 space-y-1">
+              <div class="font-extrabold text-sm text-slate-900">🏡 2. เยี่ยมบ้านและประสานผู้ปกครอง</div>
+              <p class="text-xs text-slate-600 leading-relaxed">แจ้งข้อมูลข่าวสารและร่วมมือกับผู้ปกครองในการดูแลส่งเสริมศักยภาพของผู้เรียน</p>
+            </div>
+          </div>
+        `,
+        getRight: () => `
+          <div class="space-y-4">
+            <div class="sketch-box bg-emerald-50 p-4 space-y-1">
+              <div class="font-extrabold text-sm text-slate-900">🛡️ 3. สถานศึกษาปลอดภัย ไร้สิ่งเสพติด</div>
+              <p class="text-xs text-slate-600 leading-relaxed">กวดขันระเบียบวินัย ป้องกันอบายมุขและการทะเลาะวิวาท เลิกเรียน 14.45 น. กลับบ้านปลอดภัย</p>
+            </div>
+
+            <div class="sketch-box bg-pink-50 p-4 space-y-1">
+              <div class="font-extrabold text-sm text-slate-900">🚀 4. แนะแนวฝึกงานและส่งต่ออาชีพ</div>
+              <p class="text-xs text-slate-600 leading-relaxed">ประสานสถานประกอบการชั้นนำในการฝึกงาน และเตรียมความพร้อมสู่อาชีพทันทีหลังจบการศึกษา</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900 text-white text-xs space-y-1">
+              <div class="text-amber-300 font-bold">💛 ความมั่นใจของผู้ปกครอง</div>
+              <p class="text-slate-300 leading-relaxed">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มุ่งสร้างทั้งความรู้ ทักษะวิชาชีพ และคุณธรรมควบคู่กัน</p>
+            </div>
+          </div>
+        `
       },
       {
         title: 'บทที่ 8: ติดต่อ & สมัครเรียน',
-        render: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
-          const left = `
-            <div class="space-y-4">
-              <div>
-                <span class="bg-emerald-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">บทสุดท้าย</span>
-                <h3 class="text-xl font-extrabold text-slate-900 mt-2">📍 ข้อมูลติดต่อสอบถามเพิ่มเติม</h3>
-              </div>
+        leftTag: 'บทที่ 8 : ข้อมูลติดต่อสอบถาม',
+        rightTag: 'ลิงก์กรอกใบสมัครเรียนออนไลน์ ปีการศึกษา 2570',
+        getLeft: () => `
+          <div class="space-y-4">
+            <div>
+              <span class="bg-emerald-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">บทสุดท้าย</span>
+              <h3 class="text-xl font-extrabold text-slate-900 mt-2">📍 ข้อมูลติดต่อสอบถามเพิ่มเติม</h3>
+            </div>
 
-              <div class="sketch-box bg-white p-4 space-y-2.5 text-xs text-slate-700">
-                <div>
-                  <strong class="text-slate-900 block">🏫 สถานศึกษา:</strong>
-                  วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ<br/>
-                  <span class="text-slate-500">Padung Business Administration Technology College of Sena</span>
-                </div>
-                <div>
-                  <strong class="text-slate-900 block">📍 ที่ตั้ง:</strong>
-                  อำเภอเสนา จังหวัดพระนครศรีอยุธยา
-                </div>
-                <div>
-                  <strong class="text-slate-900 block">🕘 เวลาทำการรับสมัคร:</strong>
-                  เปิดบริการทุกวัน เวลา 08.30 – 16.30 น.
-                </div>
-                <div>
-                  <strong class="text-slate-900 block">📄 เอกสารที่ใช้แนบใบสมัคร:</strong>
-                  1. สำเนาใบแสดงผลการศึกษา<br/>
-                  2. สำเนาทะเบียนบ้าน และสำเนาบัตรประชาชนของนักศึกษา บิดา มารดา
-                </div>
+            <div class="sketch-box bg-white p-4 space-y-2.5 text-xs text-slate-700">
+              <div>
+                <strong class="text-slate-900 block">🏫 สถานศึกษา:</strong>
+                วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ<br/>
+                <span class="text-slate-500">Padung Business Administration Technology College of Sena</span>
+              </div>
+              <div>
+                <strong class="text-slate-900 block">📍 ที่ตั้ง:</strong>
+                อำเภอเสนา จังหวัดพระนครศรีอยุธยา
+              </div>
+              <div>
+                <strong class="text-slate-900 block">🕘 เวลาทำการรับสมัคร:</strong>
+                เปิดบริการทุกวัน เวลา 08.30 – 16.30 น.
+              </div>
+              <div>
+                <strong class="text-slate-900 block">📄 เอกสารที่ใช้แนบใบสมัคร:</strong>
+                1. สำเนาใบแสดงผลการศึกษา<br/>
+                2. สำเนาทะเบียนบ้าน และสำเนาบัตรประชาชนของนักศึกษา บิดา มารดา
               </div>
             </div>
-          `;
-          const right = `
+          </div>
+        `,
+        getRight: () => {
+          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          return `
             <div class="space-y-4 flex flex-col justify-center h-full">
               <div class="sketch-box bg-gradient-to-br from-amber-100 via-pink-100 to-sky-100 p-6 text-center space-y-4">
                 <img src="${getLogoSrc()}" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-20 h-20 mx-auto rounded-full bg-white p-1 border-2 border-slate-800 object-contain" onerror="this.src=FALLBACK_LOGO_PNG" />
                 <div>
-                  <span class="bg-rose-600 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full">ONLINE ADMISSION LINK</span>
-                  <h3 class="text-lg font-extrabold text-slate-900 mt-2">พร้อมสมัครเรียนออนไลน์แล้วหรือยัง?</h3>
+                  <span class="bg-rose-600 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full">ADMISSION 2570</span>
+                  <h3 class="text-lg font-extrabold text-slate-900 mt-2">พร้อมสมัครเรียนปีการศึกษา 2570 แล้วหรือยัง?</h3>
                   <p class="text-xs text-slate-700 mt-1">
                     ปัจจุบันโปรโมชั่น 30 คนแรก (ลด 1,000 บาท) คงเหลือ <strong class="text-rose-600">${remain} สิทธิ์</strong><br/>
                     ผู้สมัครคนถัดไปจะได้รับลำดับที่ <strong>#${totalRegisteredCount + 1}</strong>
@@ -1416,40 +1533,89 @@
               </div>
             </div>
           `;
-          return wrapBookSpread('บทที่ 8 : ข้อมูลติดต่อสอบถาม', left, 'ลิงก์กรอกใบสมัครเรียนออนไลน์', right, 7);
         }
       }
     ];
 
-    function renderEbook(direction = '') {
-      const contentEl = document.getElementById('ebookContent');
-      contentEl.innerHTML = ebookPages[currentEbookPage].render();
+    function getSpreadMarkup(idx) {
+      const s = ebookSpreads[idx];
+      return `
+        <div class="lg:col-span-6">${buildLeftPageHtml(s.leftTag, s.getLeft(), idx)}</div>
+        <div class="lg:col-span-6">${buildRightPageHtml(s.rightTag, s.getRight(), idx)}</div>
+      `;
+    }
 
-      if (direction === 'next') {
-        const box = document.getElementById('bookPaperContainer');
-        box.classList.remove('flip-next-anim', 'flip-prev-anim');
-        void box.offsetWidth;
-        box.classList.add('flip-next-anim');
-      } else if (direction === 'prev') {
-        const box = document.getElementById('bookPaperContainer');
-        box.classList.remove('flip-next-anim', 'flip-prev-anim');
-        void box.offsetWidth;
-        box.classList.add('flip-prev-anim');
-      }
-
-      document.getElementById('ebookPageIndicator').innerText = `คู่หน้าที่ ${currentEbookPage + 1} / ${ebookPages.length}`;
-      document.getElementById('ebookPageDots').innerHTML = ebookPages.map((p, idx) => `
+    function updateBookNavigationUi() {
+      document.getElementById('ebookPageIndicator').innerText = `คู่หน้าที่ ${currentEbookPage + 1} / ${ebookSpreads.length}`;
+      document.getElementById('ebookPageDots').innerHTML = ebookSpreads.map((p, idx) => `
         <button onclick="goToEbookPage(${idx})" class="px-3 py-1 rounded-t-xl border-2 border-slate-800 text-xs font-bold transition ${idx === currentEbookPage ? 'bg-amber-300 text-slate-950 -translate-y-0.5 shadow' : 'bg-white/80 text-slate-600 hover:bg-white'}">
           ${p.title}
         </button>
       `).join('');
     }
-    function nextEbookPage() { if (currentEbookPage < ebookPages.length - 1) { currentEbookPage++; renderEbook('next'); } }
-    function prevEbookPage() { if (currentEbookPage > 0) { currentEbookPage--; renderEbook('prev'); } }
+
+    // ฟังก์ชันแสดงหน้าปกติ
+    function renderEbook() {
+      document.getElementById('ebookContent').innerHTML = getSpreadMarkup(currentEbookPage);
+      updateBookNavigationUi();
+    }
+
+    // ฟังก์ชันจำลองการพลิกหน้ากระดาษ 3 มิติแบบหนังสือจริง
+    function animateBookTurn(targetIdx) {
+      if (isFlipping || targetIdx === currentEbookPage || targetIdx < 0 || targetIdx >= ebookSpreads.length) return;
+      isFlipping = true;
+
+      const direction = targetIdx > currentEbookPage ? 'next' : 'prev';
+      const curSpread = ebookSpreads[currentEbookPage];
+      const nextSpread = ebookSpreads[targetIdx];
+
+      const contentEl = document.getElementById('ebookContent');
+      const leafLayer = document.getElementById('turningLeafLayer');
+
+      if (direction === 'next') {
+        // ด้านล่างซ้ายยังคงเป็นหน้าซ้ายเดิม ส่วนด้านล่างขวาเป็นหน้าขวาของคู่หน้าถัดไปที่รอเผยออกมา
+        contentEl.innerHTML = `
+          <div class="lg:col-span-6">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div>
+          <div class="lg:col-span-6">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>
+        `;
+        // แผ่นกระดาษที่กำลังพลิกจากขวาไปซ้าย: ด้านหน้าคือหน้าขวาเดิม, ด้านหลังคือหน้าซ้ายใหม่
+        leafLayer.className = 'turning-leaf-right';
+        leafLayer.innerHTML = `
+          <div class="leaf-face leaf-front">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div>
+          <div class="leaf-face leaf-back">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div>
+        `;
+      } else {
+        // พลิกย้อนกลับจากซ้ายไปขวา
+        contentEl.innerHTML = `
+          <div class="lg:col-span-6">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div>
+          <div class="lg:col-span-6">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div>
+        `;
+        leafLayer.className = 'turning-leaf-left';
+        leafLayer.innerHTML = `
+          <div class="leaf-face leaf-front">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div>
+          <div class="leaf-face leaf-back">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>
+        `;
+      }
+
+      currentEbookPage = targetIdx;
+      updateBookNavigationUi();
+
+      setTimeout(() => {
+        leafLayer.className = 'hidden';
+        leafLayer.innerHTML = '';
+        renderEbook();
+        isFlipping = false;
+      }, 720);
+    }
+
+    function nextEbookPage() {
+      if (currentEbookPage < ebookSpreads.length - 1) animateBookTurn(currentEbookPage + 1);
+    }
+    function prevEbookPage() {
+      if (currentEbookPage > 0) animateBookTurn(currentEbookPage - 1);
+    }
     function goToEbookPage(idx) {
-      const dir = idx > currentEbookPage ? 'next' : 'prev';
-      currentEbookPage = idx;
-      renderEbook(dir);
+      animateBookTurn(idx);
     }
 
     function render13Boxes(containerId, idStr) {
@@ -1467,7 +1633,7 @@
     function syncFormToPaper() {
       updateQuotaDisplay();
       const nextQueue = totalRegisteredCount + 1;
-      const code = `69-${String(nextQueue).padStart(3, '0')}`;
+      const code = `70-${String(nextQueue).padStart(3, '0')}`;
       document.getElementById('p1_queueNo').innerText = `#${nextQueue}`;
       document.getElementById('p1_studentCode').innerText = code;
 
@@ -1670,7 +1836,7 @@
 
       const newApp = {
         queueNo: nextQueue,
-        studentCode: `69-${String(nextQueue).padStart(3, '0')}`,
+        studentCode: `70-${String(nextQueue).padStart(3, '0')}`,
         applyDate: new Date().toLocaleDateString('th-TH'),
         level: level,
         major: document.getElementById('inp_major').value,
@@ -1741,7 +1907,7 @@
 
       btn.disabled = false;
       btn.innerText = '✅ ยืนยันการสมัครเรียน (บันทึก PDF ลง Google Drive)';
-      alert(`🎉 สมัครเรียนสำเร็จ!\nลำดับผู้สมัครของคุณคือ คนที่ #${newApp.queueNo} (${newApp.prefix}${newApp.fullName})\nระบบได้สร้างไฟล์ PDF 1 หน้า A4 เก็บเข้า Google Drive เรียบร้อยแล้วครับ`);
+      alert(`🎉 สมัครเรียนปีการศึกษา 2570 สำเร็จ!\nลำดับผู้สมัครของคุณคือ คนที่ #${newApp.queueNo} (${newApp.prefix}${newApp.fullName})\nระบบได้สร้างไฟล์ PDF 1 หน้า A4 เก็บเข้า Google Drive เรียบร้อยแล้วครับ`);
     }
 
     function initSignaturePad(canvasId) {
