@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบเจ้าหน้าที่ & สร้างลิงก์สายแนะแนว + พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
+  <title>ระบบเจ้าหน้าที่ & สร้างลิงก์สั้นสายแนะแนว + พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -27,31 +27,30 @@
       font-family: 'TH SarabunPSK', 'TH Sarabun New', 'Sarabun', sans-serif !important;
     }
     
+    /* ข้อ 2 ที่ปรับแก้: ขยับหัวกระดาษใบมอบตัวขึ้น และไม่ดันท้ายกระดาษลงไปชิดขอบล่าง */
     .a4-paper {
       width: 210mm;
       height: 296mm;
       max-height: 296mm;
-      padding: 10mm 15mm;
+      padding: 4mm 15mm 22mm 15mm;
       margin: 0 auto;
       background: #ffffff;
       color: #000000;
       box-sizing: border-box;
       box-shadow: 0 15px 35px rgba(0,0,0,0.12);
       position: relative;
-      line-height: 1.32;
-      font-size: 16pt;
+      line-height: 1.24;
+      font-size: 15.5pt;
       border-radius: 4px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: block;
     }
     .dotted-line {
       border-bottom: 1px dotted #000000;
       display: inline-block;
       padding: 0 6px;
-      min-height: 20px;
-      line-height: 1.05;
+      min-height: 19px;
+      line-height: 1.02;
       color: #000000;
       font-weight: bold;
     }
@@ -81,7 +80,7 @@
         width: 210mm !important;
         height: 296mm !important;
         max-height: 296mm !important;
-        padding: 10mm 15mm !important;
+        padding: 4mm 15mm 22mm 15mm !important;
         border-radius: 0 !important;
         page-break-after: avoid !important;
         page-break-inside: avoid !important;
@@ -92,7 +91,6 @@
 </head>
 <body>
 
-  <!-- แถบเมนูสำหรับเจ้าหน้าที่ -->
   <header class="no-print bg-slate-900 text-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
@@ -120,8 +118,6 @@
   <main class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
 
     <section class="no-print space-y-5">
-      
-      <!-- สถิติภาพรวม -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
           <div class="text-xs text-slate-500">ผู้สมัครทั้งหมด (ปีการศึกษา 2570)</div>
@@ -141,54 +137,65 @@
         </div>
       </div>
 
-      <!-- =============================================================== -->
-      <!-- เครื่องมือสร้างลิงก์ & QR Code ประจำสายแนะแนวสำหรับอาจารย์แต่ละสาย -->
-      <!-- =============================================================== -->
+      <!-- ข้อ 3 ที่ปรับแก้: ปุ่มกดสร้างลิงก์สั้นเมื่อเปลี่ยนข้อมูล + ดาวน์โหลด QR Code ส่งให้อาจารย์ -->
       <div class="bg-gradient-to-r from-sky-50 via-indigo-50 to-amber-50 rounded-2xl shadow-sm border-2 border-sky-200 p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <span class="bg-sky-700 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">GUIDANCE LINK & QR GENERATOR</span>
-            <h2 class="font-extrabold text-base text-slate-900 mt-1">🧭 สร้างลิงก์ E-Book & ใบสมัครแยกตามอาจารย์แต่ละสายแนะแนว</h2>
-            <p class="text-xs text-slate-600">เมื่อนักเรียนกดสมัครจากลิงก์นี้ ข้อมูลใน E-Book จะเปลี่ยนตามชื่ออาจารย์ และแจ้งในใบสมัครทันทีว่ามาจากอาจารย์สายไหน</p>
+            <span class="bg-sky-700 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">SHORT LINK & QR GENERATOR</span>
+            <h2 class="font-extrabold text-base text-slate-900 mt-1">🧭 สร้างลิงก์สั้นแยกสายแนะแนว & ดาวน์โหลด QR Code ส่งให้อาจารย์</h2>
+            <p class="text-xs text-slate-600">เมื่อแก้ไขข้อมูลสายแนะแนว ให้กดปุ่ม <strong>"⚡ กดสร้างลิงก์สั้น & อัปเดต QR Code"</strong> ระบบจะย่อลิงก์ให้สั้นและอัปเดต QR Code ทันที</p>
           </div>
+          <span id="genStatusBadge" class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold px-3 py-1 rounded-full">
+            ✓ ลิงก์สั้นและ QR Code พร้อมใช้งาน
+          </span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
           <div class="md:col-span-8 space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">ชื่อสายแนะแนว</label>
-                <input type="text" id="gen_team" oninput="buildTeacherLink()" value="สายแนะแนวที่ 1" placeholder="เช่น สายแนะแนวที่ 1" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+                <label class="block text-xs font-bold text-slate-700 mb-1">1. ชื่อสายแนะแนว</label>
+                <input type="text" id="gen_team" oninput="markLinkPending()" value="สายที่ 1" placeholder="เช่น สายที่ 1" class="w-full border-2 border-slate-200 focus:border-sky-600 outline-none rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">ชื่ออาจารย์ผู้แนะแนว</label>
-                <input type="text" id="gen_teacher" oninput="buildTeacherLink()" value="อ.ชุติเดช พระลักษณ์" placeholder="เช่น อ.ชุติเดช" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+                <label class="block text-xs font-bold text-slate-700 mb-1">2. ชื่ออาจารย์ผู้แนะแนว</label>
+                <input type="text" id="gen_teacher" oninput="markLinkPending()" value="อ.ชุติเดช" placeholder="เช่น อ.ชุติเดช" class="w-full border-2 border-slate-200 focus:border-sky-600 outline-none rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">เบอร์โทรติดต่ออาจารย์</label>
-                <input type="text" id="gen_tel" oninput="buildTeacherLink()" value="098-112-5089" placeholder="เช่น 098-xxx-xxxx" class="w-full border rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
+                <label class="block text-xs font-bold text-slate-700 mb-1">3. เบอร์โทรติดต่อ</label>
+                <input type="text" id="gen_tel" oninput="markLinkPending()" value="098-112-5089" placeholder="เช่น 098-xxx-xxxx" class="w-full border-2 border-slate-200 focus:border-sky-600 outline-none rounded-xl px-3 py-2 text-xs bg-white font-semibold" />
               </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
-              <input type="text" id="gen_resultUrl" readonly class="flex-1 border rounded-xl px-3 py-2 text-xs bg-white text-slate-700 font-mono" />
-              <button onclick="copyTeacherLink()" class="px-4 py-2 rounded-xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs shadow">
-                📋 คัดลอกลิงก์ประจำสาย
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <button type="button" id="btnBuildShort" onclick="buildTeacherLink(true)" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs shadow-md transition active:scale-95">
+                ⚡ กดสร้างลิงก์สั้น & อัปเดต QR Code
               </button>
-              <a id="gen_openLink" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs shadow">
+              <button type="button" onclick="copyTeacherLink()" class="px-4 py-2.5 rounded-xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs shadow transition">
+                📋 คัดลอกลิงก์สั้น
+              </button>
+              <a id="gen_openLink" href="#" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs shadow transition">
                 🔗 ทดสอบเปิดลิงก์
               </a>
             </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">ลิงก์แบบสั้นสำหรับส่งให้อาจารย์ประจำสายแนะแนว:</label>
+              <input type="text" id="gen_resultUrl" readonly class="w-full border rounded-xl px-3 py-2 text-xs bg-white/90 text-slate-800 font-mono font-semibold" />
+            </div>
           </div>
 
-          <div class="md:col-span-4 flex flex-col items-center justify-center bg-white p-3 rounded-2xl border border-slate-200">
-            <img id="gen_qrImg" src="" alt="QR Code ประจำสายแนะแนว" class="w-28 h-28 object-contain" />
-            <span class="text-[11px] font-bold text-slate-600 mt-1">QR Code ประจำสายแนะแนวนี้</span>
+          <div class="md:col-span-4 flex flex-col items-center justify-center bg-white p-4 rounded-2xl border-2 border-slate-200 shadow-sm space-y-2">
+            <img id="gen_qrImg" crossorigin="anonymous" src="" alt="QR Code ประจำสายแนะแนว" class="w-32 h-32 object-contain border p-1 rounded-xl" />
+            <div id="gen_qrCaption" class="text-xs font-extrabold text-slate-800 text-center">สายที่ 1 (อ.ชุติเดช)</div>
+            <button type="button" onclick="downloadTeacherQrCard()" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs shadow transition flex items-center justify-center gap-1.5">
+              <span>⬇️ ดาวน์โหลด QR Code ส่งให้อาจารย์</span>
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- ตารางค้นหารายชื่อผู้สมัคร + กรองตามสายแนะแนว -->
+      <!-- ตารางค้นหารายชื่อผู้สมัคร -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -234,107 +241,105 @@
     </section>
 
     <!-- ========================================================= -->
-    <!-- กระดาษใบมอบตัวนักเรียน A4 ตามไฟล์แนบที่ 2 (TH Sarabun PSK 1 หน้าเดียวจบ) -->
+    <!-- กระดาษใบมอบตัวนักเรียน A4 (ขยับหัวกระดาษขึ้น ท้ายกระดาษสมดุลสวยงาม) -->
     <!-- ========================================================= -->
     <section class="overflow-x-auto">
       <div id="reportPaper" class="a4-paper font-official">
         
-        <div>
-          <div class="flex justify-between items-start mb-1">
-            <div class="w-1/3 pt-2" style="font-size: 13.5pt;">
-              ลำดับผู้สมัคร: <strong id="p2_queueNo">#1</strong> | <span id="p2_guidanceNote" class="text-slate-700"></span>
-            </div>
-            <div class="w-1/3 flex justify-center">
-              <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-20 h-20 object-contain" onerror="this.src=FALLBACK_LOGO_SVG" />
-            </div>
-            <div class="w-1/3 text-right pt-2" style="font-size: 15pt;">
-              เลขประจำตัว <span id="p2_studentCode" class="dotted-line min-w-[90px] text-center">70-001</span>
-            </div>
+        <div class="flex justify-between items-start mb-0.5">
+          <div class="w-1/3 pt-1" style="font-size: 13pt;">
+            ลำดับผู้สมัคร: <strong id="p2_queueNo">#1</strong> | <span id="p2_guidanceNote" class="text-slate-700"></span>
           </div>
-
-          <div class="text-center mb-3" style="line-height: 1.2;">
-            <div class="font-bold" style="font-size: 20pt;">ใบมอบตัวนักเรียน</div>
-            <div class="font-bold" style="font-size: 18pt;">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
-            <div style="font-size: 16pt;">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
-            <div class="pt-1" style="font-size: 16pt;">
-              วันที่ <span id="p2_day" class="dotted-line min-w-[45px]"></span>
-              เดือน <span id="p2_month" class="dotted-line min-w-[100px]"></span>
-              พ.ศ. <span id="p2_year" class="dotted-line min-w-[65px]"></span>
-            </div>
+          <div class="w-1/3 flex justify-center">
+            <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo" style="width: 68px; height: 68px; object-fit: contain;" onerror="this.src=FALLBACK_LOGO_SVG" />
           </div>
-
-          <div class="space-y-1.5">
-            <div class="indent-10">
-              ข้าพเจ้า (ชื่อผู้ปกครอง) <span id="p2_guardianName" class="dotted-line min-w-[350px]"></span>
-            </div>
-            <div>
-              ที่อยู่ปัจจุบันของผู้ปกครอง บ้านเลขที่ <span id="p2_addrNo" class="dotted-line min-w-[65px] text-center"></span>
-              หมู่ที่ <span id="p2_addrMoo" class="dotted-line min-w-[45px] text-center"></span>
-              ตำบล <span id="p2_addrTambon" class="dotted-line min-w-[170px]"></span>
-            </div>
-            <div>
-              อำเภอ <span id="p2_addrAmphoe" class="dotted-line min-w-[140px]">เสนา</span>
-              จังหวัด <span id="p2_addrProvince" class="dotted-line min-w-[160px]">พระนครศรีอยุธยา</span>
-              รหัสไปรษณีย์ <span id="p2_addrZip" class="dotted-line min-w-[100px] text-center">13110</span>
-            </div>
-            <div>
-              อาชีพผู้ปกครอง <span id="p2_guardianJob" class="dotted-line min-w-[140px]"></span>
-              สถานที่ทำงาน <span id="p2_guardianWork" class="dotted-line min-w-[160px]"></span>
-              จังหวัด <span id="p2_guardianWorkProv" class="dotted-line min-w-[130px]">พระนครศรีอยุธยา</span>
-            </div>
-            <div class="indent-10">
-              ขอรับรองว่า (นาย/นางสาว) <span id="p2_studentName" class="dotted-line min-w-[320px]"></span>
-            </div>
-            <div>
-              เกี่ยวข้องเป็น <span id="p2_relation" class="dotted-line min-w-[110px] text-center"></span>
-              ซึ่งอยู่ในความปกครองของข้าพเจ้า ข้าพเจ้าจะดูแล อบรมสั่งสอน ให้มีความเคารพเชื่อฟังและพฤติกรรมตามกฎระเบียบของโรงเรียนในหัวข้อต่อไปนี้
-            </div>
-
-            <ol class="list-decimal pl-12 space-y-1 py-1">
-              <li>จะต้องแต่งกายถูกต้องตามระเบียบที่โรงเรียนกำหนดไว้ทุกประการ</li>
-              <li>ไม่มาโรงเรียนสาย ขาดเรียน หรือจงใจหนีเรียนโดยไม่มีเหตุผลสมควร</li>
-              <li>ไม่เล่นการพนัน ดื่มของมึนเมา หรือ เสพยาเสพติดทุกชนิด</li>
-              <li>ไม่ก่อเหตุทะเลาะวิวาท หรือ ก่อคดีอาชญากรรมทุกชนิด หรือสร้างความวุ่นวาย ยุ่งยากในการปกครองดูแล</li>
-              <li>ให้ความเคารพเชื่อฟัง ครู อาจารย์ ยึดถือกฎระเบียบข้อบังคับของโรงเรียนโดยเคร่งครัด</li>
-              <li>เมื่อทางโรงเรียนมีความประสงค์จะพบผู้ปกครอง ขอให้ผู้ปกครองมาพบตามที่โรงเรียนแจ้งทุกครั้ง</li>
-            </ol>
-
-            <p class="indent-10 pt-1">
-              ข้าพเจ้าได้รับทราบข้อกำหนดเกี่ยวกับคุณสมบัติการเข้าสมัครเป็นนักศึกษาแล้ว และขอรับรองว่าข้อความหรือเอกสารประกอบการสมัครเรียนข้างต้นเป็นความจริงทุกประการ หากปรากฏภายหลังว่าข้อความหรือเอกสารหลักฐานที่ใช้ในการสมัครไม่ครบถ้วน หรือมีการปลอมแปลงเอกสาร ข้าพเจ้ายินยอมให้ถอนสภาพความเป็นนักศึกษา รวมทั้งไม่เรียกร้องค่าเสียหายใด ๆ จากสถานศึกษาทั้งสิ้น
-            </p>
+          <div class="w-1/3 text-right pt-1" style="font-size: 14.5pt;">
+            เลขประจำตัว <span id="p2_studentCode" class="dotted-line min-w-[90px] text-center">70-001</span>
           </div>
         </div>
 
-        <!-- ส่วนลงลายมือชื่อ 3 ฝ่ายท้ายกระดาษ -->
-        <div class="space-y-3 flex flex-col items-center pb-1">
+        <div class="text-center mb-2" style="line-height: 1.15;">
+          <div class="font-bold" style="font-size: 19pt;">ใบมอบตัวนักเรียน</div>
+          <div class="font-bold" style="font-size: 17pt;">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
+          <div style="font-size: 15pt;">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
+          <div class="pt-0.5" style="font-size: 15pt;">
+            วันที่ <span id="p2_day" class="dotted-line min-w-[45px]"></span>
+            เดือน <span id="p2_month" class="dotted-line min-w-[100px]"></span>
+            พ.ศ. <span id="p2_year" class="dotted-line min-w-[65px]"></span>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="indent-10">
+            ข้าพเจ้า (ชื่อผู้ปกครอง) <span id="p2_guardianName" class="dotted-line min-w-[350px]"></span>
+          </div>
+          <div>
+            ที่อยู่ปัจจุบันของผู้ปกครอง บ้านเลขที่ <span id="p2_addrNo" class="dotted-line min-w-[65px] text-center"></span>
+            หมู่ที่ <span id="p2_addrMoo" class="dotted-line min-w-[45px] text-center"></span>
+            ตำบล <span id="p2_addrTambon" class="dotted-line min-w-[170px]"></span>
+          </div>
+          <div>
+            อำเภอ <span id="p2_addrAmphoe" class="dotted-line min-w-[140px]">เสนา</span>
+            จังหวัด <span id="p2_addrProvince" class="dotted-line min-w-[160px]">พระนครศรีอยุธยา</span>
+            รหัสไปรษณีย์ <span id="p2_addrZip" class="dotted-line min-w-[100px] text-center">13110</span>
+          </div>
+          <div>
+            อาชีพผู้ปกครอง <span id="p2_guardianJob" class="dotted-line min-w-[140px]"></span>
+            สถานที่ทำงาน <span id="p2_guardianWork" class="dotted-line min-w-[160px]"></span>
+            จังหวัด <span id="p2_guardianWorkProv" class="dotted-line min-w-[130px]">พระนครศรีอยุธยา</span>
+          </div>
+          <div class="indent-10">
+            ขอรับรองว่า (นาย/นางสาว) <span id="p2_studentName" class="dotted-line min-w-[320px]"></span>
+          </div>
+          <div>
+            เกี่ยวข้องเป็น <span id="p2_relation" class="dotted-line min-w-[110px] text-center"></span>
+            ซึ่งอยู่ในความปกครองของข้าพเจ้า ข้าพเจ้าจะดูแล อบรมสั่งสอน ให้มีความเคารพเชื่อฟังและพฤติกรรมตามกฎระเบียบของโรงเรียนในหัวข้อต่อไปนี้
+          </div>
+
+          <ol class="list-decimal pl-12 space-y-0.5 py-0.5">
+            <li>จะต้องแต่งกายถูกต้องตามระเบียบที่โรงเรียนกำหนดไว้ทุกประการ</li>
+            <li>ไม่มาโรงเรียนสาย ขาดเรียน หรือจงใจหนีเรียนโดยไม่มีเหตุผลสมควร</li>
+            <li>ไม่เล่นการพนัน ดื่มของมึนเมา หรือ เสพยาเสพติดทุกชนิด</li>
+            <li>ไม่ก่อเหตุทะเลาะวิวาท หรือ ก่อคดีอาชญากรรมทุกชนิด หรือสร้างความวุ่นวาย ยุ่งยากในการปกครองดูแล</li>
+            <li>ให้ความเคารพเชื่อฟัง ครู อาจารย์ ยึดถือกฎระเบียบข้อบังคับของโรงเรียนโดยเคร่งครัด</li>
+            <li>เมื่อทางโรงเรียนมีความประสงค์จะพบผู้ปกครอง ขอให้ผู้ปกครองมาพบตามที่โรงเรียนแจ้งทุกครั้ง</li>
+          </ol>
+
+          <p class="indent-10 pt-0.5">
+            ข้าพเจ้าได้รับทราบข้อกำหนดเกี่ยวกับคุณสมบัติการเข้าสมัครเป็นนักศึกษาแล้ว และขอรับรองว่าข้อความหรือเอกสารประกอบการสมัครเรียนข้างต้นเป็นความจริงทุกประการ หากปรากฏภายหลังว่าข้อความหรือเอกสารหลักฐานที่ใช้ในการสมัครไม่ครบถ้วน หรือมีการปลอมแปลงเอกสาร ข้าพเจ้ายินยอมให้ถอนสภาพความเป็นนักศึกษา รวมทั้งไม่เรียกร้องค่าเสียหายใด ๆ จากสถานศึกษาทั้งสิ้น
+          </p>
+        </div>
+
+        <!-- ส่วนลงลายมือชื่อ 3 ฝ่าย (ขยับขึ้นมาอยู่ในระยะสมดุล ไม่ต่ำติดขอบกระดาษ) -->
+        <div class="mt-3 space-y-2 flex flex-col items-center">
           <div class="text-center">
             <div class="flex items-center justify-center gap-2">
               <span>ลงชื่อ</span>
-              <canvas id="sigRepGuardian" width="190" height="38" class="sig-pad rounded"></canvas>
+              <canvas id="sigRepGuardian" width="180" height="32" class="sig-pad rounded"></canvas>
               <span>ผู้ปกครอง</span>
             </div>
             <div>(<span id="p2_sigGuardian" class="dotted-line min-w-[190px]"></span>)</div>
-            <button onclick="clearCanvas('sigRepGuardian')" class="no-print text-red-600 underline" style="font-size: 11pt;">ล้างลายเซ็นผู้ปกครอง</button>
+            <button onclick="clearCanvas('sigRepGuardian')" class="no-print text-red-600 underline" style="font-size: 10pt;">ล้างลายเซ็นผู้ปกครอง</button>
           </div>
 
           <div class="text-center">
             <div class="flex items-center justify-center gap-2">
               <span>ลงชื่อ</span>
-              <canvas id="sigRepStudent" width="190" height="38" class="sig-pad rounded"></canvas>
+              <canvas id="sigRepStudent" width="180" height="32" class="sig-pad rounded"></canvas>
               <span>นักศึกษา</span>
             </div>
             <div>(<span id="p2_sigStudent" class="dotted-line min-w-[190px]"></span>)</div>
-            <button onclick="clearCanvas('sigRepStudent')" class="no-print text-red-600 underline" style="font-size: 11pt;">ล้างลายเซ็นนักศึกษา</button>
+            <button onclick="clearCanvas('sigRepStudent')" class="no-print text-red-600 underline" style="font-size: 10pt;">ล้างลายเซ็นนักศึกษา</button>
           </div>
 
           <div class="text-center">
             <div class="flex items-center justify-center gap-2">
               <span>ลงชื่อ</span>
-              <canvas id="sigRepOfficer" width="190" height="38" class="sig-pad rounded"></canvas>
+              <canvas id="sigRepOfficer" width="180" height="32" class="sig-pad rounded"></canvas>
               <span>ผู้รับมอบตัว</span>
             </div>
             <div>(..........................................................)</div>
-            <button onclick="clearCanvas('sigRepOfficer')" class="no-print text-red-600 underline" style="font-size: 11pt;">ล้างลายเซ็นผู้รับมอบตัว</button>
+            <button onclick="clearCanvas('sigRepOfficer')" class="no-print text-red-600 underline" style="font-size: 10pt;">ล้างลายเซ็นผู้รับมอบตัว</button>
           </div>
         </div>
 
@@ -359,26 +364,124 @@
     let applicants = JSON.parse(localStorage.getItem('pdc_applicants') || '[]');
     let selectedApplicant = null;
 
-    // ฟังก์ชันสร้างลิงก์และ QR Code ประจำสายแนะแนว
-    function buildTeacherLink() {
-      const team = document.getElementById('gen_team').value.trim() || 'สายแนะแนวที่ 1';
-      const teacher = document.getElementById('gen_teacher').value.trim() || 'อาจารย์แนะแนว';
+    function markLinkPending() {
+      const badge = document.getElementById('genStatusBadge');
+      badge.className = 'bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold px-3 py-1 rounded-full animate-pulse';
+      badge.innerText = '⚠️ มีการเปลี่ยนข้อมูล (กรุณากดปุ่มสร้างลิงก์สั้น)';
+    }
+
+    // ข้อ 3: ปุ่มสร้างลิงก์แบบสั้น (ย่อพารามิเตอร์ + แปลงเป็น Short URL ผ่าน TinyURL อัตโนมัติเมื่อออนไลน์)
+    async function buildTeacherLink(showFeedback = false) {
+      const team = document.getElementById('gen_team').value.trim() || 'สายที่ 1';
+      const teacher = document.getElementById('gen_teacher').value.trim() || 'อ.แนะแนว';
       const tel = document.getElementById('gen_tel').value.trim() || '';
 
+      const btn = document.getElementById('btnBuildShort');
+      if (btn) btn.innerText = '⏳ กำลังย่อลิงก์สั้น...';
+
       const baseUrl = window.location.href.replace(/admin\.html.*$/, 'index.html');
-      const params = new URLSearchParams({ team, teacher, tel });
-      const finalUrl = `${baseUrl}?${params.toString()}`;
+      const params = new URLSearchParams({ t: team, a: teacher, p: tel });
+      let finalUrl = `${baseUrl}?${params.toString()}`;
+
+      // หากเปิดบนเว็บไซต์ออนไลน์ (http/https) จะย่อลิงก์ให้สั้นลงผ่าน TinyURL API อัตโนมัติ
+      if (window.location.protocol.startsWith('http') && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+        try {
+          const tinyRes = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(finalUrl)}`);
+          if (tinyRes.ok) {
+            const shortTxt = await tinyRes.text();
+            if (shortTxt.startsWith('http')) finalUrl = shortTxt.trim();
+          }
+        } catch (e) {}
+      }
 
       document.getElementById('gen_resultUrl').value = finalUrl;
       document.getElementById('gen_openLink').href = finalUrl;
-      document.getElementById('gen_qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(finalUrl)}`;
+      document.getElementById('gen_qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(finalUrl)}`;
+      document.getElementById('gen_qrCaption').innerText = `${team} (${teacher})`;
+
+      if (btn) btn.innerText = '⚡ กดสร้างลิงก์สั้น & อัปเดต QR Code';
+
+      const badge = document.getElementById('genStatusBadge');
+      badge.className = 'bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold px-3 py-1 rounded-full';
+      badge.innerText = '✓ สร้างลิงก์สั้นและอัปเดต QR Code เรียบร้อยแล้ว';
+
+      if (showFeedback) {
+        alert(`สร้างลิงก์สั้นและอัปเดต QR Code สำหรับ "${team} (${teacher})" เรียบร้อยแล้วครับ!`);
+      }
     }
 
     function copyTeacherLink() {
       const inp = document.getElementById('gen_resultUrl');
       inp.select();
       navigator.clipboard.writeText(inp.value);
-      alert('คัดลอกลิงก์ประจำสายแนะแนวเรียบร้อยแล้ว! ส่งลิงก์นี้ให้อาจารย์ประจำสายนำไปให้นักเรียนสแกนหรือกดสมัครได้เลยครับ');
+      alert('คัดลอกลิงก์สั้นประจำสายแนะแนวเรียบร้อยแล้ว!');
+    }
+
+    // ดาวน์โหลดรูปการ์ด QR Code (.png) ส่งให้อาจารย์ประจำสายแนะแนว
+    async function downloadTeacherQrCard() {
+      const team = document.getElementById('gen_team').value.trim() || 'สายแนะแนว';
+      const teacher = document.getElementById('gen_teacher').value.trim() || 'อาจารย์แนะแนว';
+      const tel = document.getElementById('gen_tel').value.trim() || '';
+      const qrUrl = document.getElementById('gen_qrImg').src;
+
+      try {
+        const res = await fetch(qrUrl);
+        const blob = await res.blob();
+        const bitmap = await createImageBitmap(blob);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 520;
+        canvas.height = 640;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(12, 12, canvas.width - 24, canvas.height - 24);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(12, 12, canvas.width - 24, 95);
+        ctx.fillStyle = '#fde047';
+        ctx.font = 'bold 21px Prompt, Sarabun, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ', canvas.width / 2, 52);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '15px Prompt, Sarabun, sans-serif';
+        ctx.fillText('สแกนอ่านคู่มือ E-Book & กรอกใบสมัครเรียน (ปีการศึกษา 2570)', canvas.width / 2, 82);
+
+        ctx.drawImage(bitmap, 90, 125, 340, 340);
+
+        ctx.fillStyle = '#f0f9ff';
+        ctx.fillRect(36, 480, canvas.width - 72, 115);
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(36, 480, canvas.width - 72, 115);
+
+        ctx.fillStyle = '#0369a1';
+        ctx.font = 'bold 22px Prompt, Sarabun, sans-serif';
+        ctx.fillText(team, canvas.width / 2, 518);
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 19px Prompt, Sarabun, sans-serif';
+        ctx.fillText(`อาจารย์ผู้แนะแนว: ${teacher}`, canvas.width / 2, 550);
+
+        if (tel) {
+          ctx.fillStyle = '#475569';
+          ctx.font = '16px Prompt, Sarabun, sans-serif';
+          ctx.fillText(`โทรติดต่อ: ${tel}`, canvas.width / 2, 578);
+        }
+
+        const safeName = `QR_${team}_${teacher}`.replace(/\s+/g, '_');
+        const link = document.createElement('a');
+        link.download = `${safeName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (err) {
+        window.open(qrUrl, '_blank');
+      }
     }
 
     function getApplicantGuidanceText(a) {
@@ -425,7 +528,7 @@
     function updateStats() {
       const total = applicants.length;
       const usedEarly = Math.min(applicants.filter(a => a && a.promoEarlyBird).length, MAX_EARLY_BIRD);
-      const remain = Math.max(0, MAX_EARLY_BIRD - usedEarly);
+      const remain = Math.max(0, MAX_EARLY_BIRD - Math.max(usedEarly, total));
       const accCount = applicants.filter(a => a && a.major === 'สาขาการบัญชี').length;
       const digCount = applicants.filter(a => a && a.major !== 'สาขาการบัญชี').length;
 
@@ -563,7 +666,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      buildTeacherLink();
+      buildTeacherLink(false);
       syncReportPaper();
       fetchApplicantsFromCloud();
       ['sigRepGuardian', 'sigRepStudent', 'sigRepOfficer'].forEach(initSignaturePad);
