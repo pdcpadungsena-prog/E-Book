@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบเจ้าหน้าที่ & สร้างลิงก์สั้นสายแนะแนว + พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
+  <title>ระบบเจ้าหน้าที่ & ส่งออก Excel สายแนะแนว + พิมพ์ใบมอบตัว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -101,13 +101,16 @@
       </div>
 
       <div class="flex flex-wrap items-center gap-2">
-        <button onclick="fetchApplicantsFromCloud()" id="syncBtn" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs shadow">
+        <button onclick="fetchApplicantsFromCloud()" id="syncBtn" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs shadow transition">
           🔄 ดึงรายชื่อล่าสุดจาก Google Sheets
         </button>
-        <a href="https://drive.google.com/drive/folders/1gOq0K3Bhb8xmjbYYDNCa8u1_0Xz58WB5" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15">
+        <button onclick="exportSummaryByGuidanceCSV()" class="px-3.5 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-extrabold text-xs shadow transition flex items-center gap-1">
+          📊 ส่งออก Excel สรุปยอดสายแนะแนว (.csv)
+        </button>
+        <a href="https://drive.google.com/drive/folders/1gOq0K3Bhb8xmjbYYDNCa8u1_0Xz58WB5" target="_blank" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15">
           📂 เปิดโฟลเดอร์ Google Drive
         </a>
-        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs shadow">
+        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs shadow">
           🖨️ พิมพ์ใบมอบตัวนักเรียน (1 หน้า A4)
         </button>
       </div>
@@ -117,6 +120,7 @@
   <main class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
 
     <section class="no-print space-y-5">
+      <!-- การ์ดสถิติภาพรวม -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
           <div class="text-xs text-slate-500">ผู้สมัครทั้งหมด (ปีการศึกษา 2570)</div>
@@ -194,11 +198,47 @@
         </div>
       </div>
 
+      <!-- ตารางสรุปยอดผู้สมัครแยกตามสายแนะแนว พร้อมปุ่มส่งออก Excel (.csv) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">GUIDANCE TEAM SUMMARY</span>
+            <h2 class="font-extrabold text-base text-slate-900 mt-1">📊 สรุปยอดผู้สมัครเรียนแยกตาม "สายแนะแนว"</h2>
+            <p class="text-xs text-slate-500">แสดงจำนวนผู้สมัครแยกตามสายแนะแนว ระดับชั้น สาขาวิชา และโปรโมชั่น สามารถกดส่งออกเป็นไฟล์ Excel (.csv) ได้ทันที</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="exportSummaryByGuidanceCSV()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
+              <span>📊 ส่งออกสรุปยอดแยกตามสายแนะแนว + รายชื่อ (.csv)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border rounded-xl">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead class="bg-emerald-50 text-emerald-950 border-b">
+              <tr>
+                <th class="p-2.5">สายแนะแนว (อาจารย์ผู้แนะแนว)</th>
+                <th class="p-2.5 text-center">รวมผู้สมัคร</th>
+                <th class="p-2.5 text-center">ระดับ ปวช.</th>
+                <th class="p-2.5 text-center">ระดับ ปวส.</th>
+                <th class="p-2.5 text-center">สาขาการบัญชี</th>
+                <th class="p-2.5 text-center">สาขาธุรกิจดิจิทัล</th>
+                <th class="p-2.5 text-center">สิทธิ์ 30 คนแรก</th>
+                <th class="p-2.5 text-center">ทุนเรียนดี</th>
+                <th class="p-2.5 text-center">กู้ กยศ.</th>
+                <th class="p-2.5">โรงเรียนเดิมที่สมัครเข้ามา</th>
+              </tr>
+            </thead>
+            <tbody id="guidanceSummaryTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- ตารางค้นหารายชื่อผู้สมัคร + กรองตามสายแนะแนว และ กรองตามโรงเรียนเดิม -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="font-extrabold text-base text-slate-900">🔍 รายชื่อผู้สมัครเรียน (แสดงโรงเรียนเดิม & สายอาจารย์แนะแนว)</h2>
+            <h2 class="font-extrabold text-base text-slate-900">🔍 รายชื่อผู้สมัครเรียนรายบุคคล (คลิกที่รายชื่อเพื่อออกใบมอบตัวนักเรียน)</h2>
             <p class="text-xs text-slate-500">คลิกเลือกชื่อผู้สมัครจากตาราง ข้อมูลจะแสดงในใบมอบตัวด้านล่างทันที</p>
           </div>
           <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
@@ -495,6 +535,265 @@
       return a.gradSchool.trim();
     }
 
+    // สร้างข้อมูลสรุปยอดแยกตามสายแนะแนว (ใช้ทั้งแสดงบนหน้าจอและส่งออกไฟล์ Excel .csv)
+    function buildGuidanceSummaryGroups() {
+      const map = {};
+      applicants.forEach(a => {
+        if (!a) return;
+        const key = getApplicantGuidanceText(a);
+        if (!map[key]) {
+          map[key] = {
+            guidanceLabel: key,
+            guidanceTeam: a.guidanceTeam || key,
+            guidanceTeacher: a.guidanceTeacher || '-',
+            total: 0,
+            vocCount: 0,
+            hvocCount: 0,
+            accCount: 0,
+            digCount: 0,
+            earlyBirdCount: 0,
+            goodGradeCount: 0,
+            loanCount: 0,
+            schools: new Set(),
+            items: []
+          };
+        }
+        const g = map[key];
+        g.total++;
+        if (a.level === 'ปวช.') g.vocCount++;
+        else if (a.level === 'ปวส.') g.hvocCount++;
+
+        if (a.major === 'สาขาการบัญชี') g.accCount++;
+        else g.digCount++;
+
+        if (a.promoEarlyBird) g.earlyBirdCount++;
+        if (a.promoGoodGrade) g.goodGradeCount++;
+        if (a.promoLoan) g.loanCount++;
+
+        const sch = getApplicantSchoolText(a);
+        if (sch && sch !== 'ไม่ระบุโรงเรียนเดิม') g.schools.add(sch);
+        g.items.push(a);
+      });
+      return Object.values(map).sort((a, b) => b.total - a.total);
+    }
+
+    // แสดงตารางสรุปยอดแยกตามสายแนะแนวบนหน้าจอ
+    function renderGuidanceSummaryTable() {
+      const groups = buildGuidanceSummaryGroups();
+      const tbody = document.getElementById('guidanceSummaryTableBody');
+      if (!tbody) return;
+
+      if (groups.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" class="p-4 text-center text-slate-400">ยังไม่มีข้อมูลผู้สมัครในระบบ</td></tr>`;
+        return;
+      }
+
+      let sumTotal = 0, sumVoc = 0, sumHvoc = 0, sumAcc = 0, sumDig = 0, sumEarly = 0, sumGrade = 0, sumLoan = 0;
+
+      const rowsHtml = groups.map(g => {
+        sumTotal += g.total;
+        sumVoc += g.vocCount;
+        sumHvoc += g.hvocCount;
+        sumAcc += g.accCount;
+        sumDig += g.digCount;
+        sumEarly += g.earlyBirdCount;
+        sumGrade += g.goodGradeCount;
+        sumLoan += g.loanCount;
+        const schoolList = Array.from(g.schools).join(', ') || '-';
+
+        return `
+          <tr class="border-b hover:bg-slate-50">
+            <td class="p-2.5 font-bold text-sky-900">${g.guidanceLabel}</td>
+            <td class="p-2.5 text-center font-extrabold text-slate-900">${g.total}</td>
+            <td class="p-2.5 text-center">${g.vocCount}</td>
+            <td class="p-2.5 text-center">${g.hvocCount}</td>
+            <td class="p-2.5 text-center text-blue-800 font-semibold">${g.accCount}</td>
+            <td class="p-2.5 text-center text-indigo-800 font-semibold">${g.digCount}</td>
+            <td class="p-2.5 text-center text-rose-700 font-semibold">${g.earlyBirdCount}</td>
+            <td class="p-2.5 text-center text-emerald-700 font-semibold">${g.goodGradeCount}</td>
+            <td class="p-2.5 text-center text-purple-700 font-semibold">${g.loanCount}</td>
+            <td class="p-2.5 text-slate-600">${schoolList}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const footerHtml = `
+        <tr class="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
+          <td class="p-2.5">รวมทั้งหมด (${groups.length} สายแนะแนว)</td>
+          <td class="p-2.5 text-center text-emerald-800">${sumTotal} คน</td>
+          <td class="p-2.5 text-center">${sumVoc}</td>
+          <td class="p-2.5 text-center">${sumHvoc}</td>
+          <td class="p-2.5 text-center text-blue-900">${sumAcc}</td>
+          <td class="p-2.5 text-center text-indigo-900">${sumDig}</td>
+          <td class="p-2.5 text-center text-rose-800">${sumEarly}</td>
+          <td class="p-2.5 text-center text-emerald-800">${sumGrade}</td>
+          <td class="p-2.5 text-center text-purple-900">${sumLoan}</td>
+          <td class="p-2.5">-</td>
+        </tr>
+      `;
+
+      tbody.innerHTML = rowsHtml + footerHtml;
+    }
+
+    // ฟังก์ชันแปลงค่าแต่ละช่องให้อยู่ในรูปแบบ CSV ที่ปลอดภัยสำหรับ Microsoft Excel
+    function escapeCsvCell(val, forceText = false) {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      if (forceText && str !== '' && str !== '-') {
+        return `="${str}"`;
+      }
+      return `"${str}"`;
+    }
+
+    // ฟังก์ชันส่งออกข้อมูลสรุปยอดผู้สมัครแยกตาม "สายแนะแนว" เป็นไฟล์ Excel (.csv)
+    function exportSummaryByGuidanceCSV() {
+      if (!applicants || applicants.length === 0) {
+        alert('ยังไม่มีข้อมูลผู้สมัครสำหรับส่งออกเป็นไฟล์ Excel ครับ');
+        return;
+      }
+
+      const groups = buildGuidanceSummaryGroups();
+      const lines = [];
+
+      // ส่วนที่ 1: ตารางสรุปยอดผู้สมัครแยกตามสายแนะแนว
+      lines.push(['รายงานสรุปยอดผู้สมัครเรียนแยกตามสายแนะแนว - วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ (ปีการศึกษา 2570)'].map(c => escapeCsvCell(c)).join(','));
+      lines.push([`วันที่ออกรายงาน: ${new Date().toLocaleString('th-TH')}`].map(c => escapeCsvCell(c)).join(','));
+      lines.push('');
+
+      lines.push([
+        'ลำดับที่',
+        'สายแนะแนว (อาจารย์ผู้แนะแนว)',
+        'จำนวนผู้สมัครรวม (คน)',
+        'ระดับ ปวช. (คน)',
+        'ระดับ ปวส. (คน)',
+        'สาขาการบัญชี (คน)',
+        'สาขาเทคโนโลยีธุรกิจดิจิทัล (คน)',
+        'สิทธิ์ 30 คนแรก (คน)',
+        'สิทธิ์ทุนเรียนดี (คน)',
+        'ประสงค์กู้ กยศ. (คน)',
+        'โรงเรียนเดิมที่สมัครเข้ามา'
+      ].map(c => escapeCsvCell(c)).join(','));
+
+      let sumTotal = 0, sumVoc = 0, sumHvoc = 0, sumAcc = 0, sumDig = 0, sumEarly = 0, sumGrade = 0, sumLoan = 0;
+
+      groups.forEach((g, idx) => {
+        sumTotal += g.total;
+        sumVoc += g.vocCount;
+        sumHvoc += g.hvocCount;
+        sumAcc += g.accCount;
+        sumDig += g.digCount;
+        sumEarly += g.earlyBirdCount;
+        sumGrade += g.goodGradeCount;
+        sumLoan += g.loanCount;
+
+        lines.push([
+          idx + 1,
+          g.guidanceLabel,
+          g.total,
+          g.vocCount,
+          g.hvocCount,
+          g.accCount,
+          g.digCount,
+          g.earlyBirdCount,
+          g.goodGradeCount,
+          g.loanCount,
+          Array.from(g.schools).join(' / ') || '-'
+        ].map(c => escapeCsvCell(c)).join(','));
+      });
+
+      lines.push([
+        'รวมทั้งหมด',
+        `${groups.length} สายแนะแนว`,
+        sumTotal,
+        sumVoc,
+        sumHvoc,
+        sumAcc,
+        sumDig,
+        sumEarly,
+        sumGrade,
+        sumLoan,
+        '-'
+      ].map(c => escapeCsvCell(c)).join(','));
+
+      lines.push('');
+      lines.push('');
+
+      // ส่วนที่ 2: รายชื่อผู้สมัครรายบุคคล จัดกลุ่มแยกตามสายแนะแนวและโรงเรียนเดิม
+      lines.push(['รายละเอียดรายชื่อผู้สมัครเรียนแยกตามสายแนะแนวและโรงเรียนเดิม'].map(c => escapeCsvCell(c)).join(','));
+      lines.push([
+        'สายแนะแนว',
+        'อาจารย์ผู้แนะแนว',
+        'ลำดับที่สมัคร',
+        'เลขประจำตัว',
+        'วันที่สมัคร',
+        'ชื่อ - นามสกุล',
+        'เลขบัตรประชาชน',
+        'ระดับชั้นที่สมัคร',
+        'สาขาวิชา',
+        'วุฒิการศึกษาเดิม',
+        'โรงเรียนเดิม',
+        'อำเภอ รร.เดิม',
+        'จังหวัด รร.เดิม',
+        'เกรดเฉลี่ย (GPA)',
+        'สิทธิ์โปรโมชั่นที่ได้รับ',
+        'ค่าเทอมสุทธิ (บาท)',
+        'เบอร์มือถือผู้สมัคร',
+        'ชื่อผู้ปกครอง/ผู้ติดต่อ',
+        'ความสัมพันธ์',
+        'เบอร์โทรผู้ปกครอง'
+      ].map(c => escapeCsvCell(c)).join(','));
+
+      groups.forEach(g => {
+        g.items.forEach(a => {
+          const promos = [
+            a.promoEarlyBird ? '30คนแรก(-1,000)' : '',
+            a.promoSibling ? 'พี่-น้อง' : '',
+            a.promoGoodGrade ? 'ทุนเรียนดี' : '',
+            a.promoLoan ? 'กยศ.' : '',
+            a.promoRorDor ? 'นศท.' : ''
+          ].filter(Boolean).join(', ') || 'สมัครปกติ';
+
+          const rowCells = [
+            escapeCsvCell(a.guidanceTeam || g.guidanceLabel),
+            escapeCsvCell(a.guidanceTeacher || '-'),
+            escapeCsvCell(a.queueNo || ''),
+            escapeCsvCell(a.studentCode || '', true),
+            escapeCsvCell(a.applyDate || ''),
+            escapeCsvCell(`${a.prefix || ''}${a.fullName || ''}`),
+            escapeCsvCell(a.citizenId || '', true),
+            escapeCsvCell(a.level || ''),
+            escapeCsvCell(a.major || ''),
+            escapeCsvCell(a.gradFrom || ''),
+            escapeCsvCell(a.gradSchool || '-'),
+            escapeCsvCell(a.gradAmphoe || '-'),
+            escapeCsvCell(a.gradProvince || '-'),
+            escapeCsvCell(a.gpa || '-'),
+            escapeCsvCell(promos),
+            escapeCsvCell(a.netTuition || ''),
+            escapeCsvCell(a.mobile || '-', true),
+            escapeCsvCell(a.contactName || '-'),
+            escapeCsvCell(a.contactRel || '-'),
+            escapeCsvCell(a.contactMobile || '-', true)
+          ];
+          lines.push(rowCells.join(','));
+        });
+      });
+
+      // ใส่ UTF-8 BOM (\uFEFF) เพื่อให้เปิดในโปรแกรม Microsoft Excel แล้วภาษาไทยไม่เพี้ยน
+      const csvContent = '\uFEFF' + lines.join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `สรุปยอดผู้สมัครแยกตามสายแนะแนว_วผบ_2570_${dateStr}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
     function populateFilterDropdowns() {
       const teamSel = document.getElementById('filterTeamSelect');
       const curTeam = teamSel.value;
@@ -533,6 +832,7 @@
       btn.innerText = '🔄 ดึงรายชื่อล่าสุดจาก Google Sheets';
       updateStats();
       populateFilterDropdowns();
+      renderGuidanceSummaryTable();
       renderAdminList();
       if (applicants.length > 0 && !selectedApplicant) {
         selectApplicantForReport(applicants[0].queueNo);
@@ -691,6 +991,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       buildTeacherLink(false);
       syncReportPaper();
+      renderGuidanceSummaryTable();
       fetchApplicantsFromCloud();
       ['sigRepGuardian', 'sigRepStudent', 'sigRepOfficer'].forEach(initSignaturePad);
     });
