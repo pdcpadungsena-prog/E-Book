@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ฟอนต์ราชการ TH Sarabun PSK */
     @font-face {
       font-family: 'TH SarabunPSK';
       src: local('TH SarabunPSK'), local('THSarabunPSK'), local('TH Sarabun New'), local('THSarabunNew'),
@@ -35,37 +34,21 @@
       overflow-x: hidden;
     }
 
-    /* ===================================================================== */
-    /* โครงสร้างหนังสือจริง + เอฟเฟกต์พลิกหน้ากระดาษ 3 มิติ (รองรับทั้งมือถือและคอม) */
-    /* ===================================================================== */
-    .book-viewport {
-      perspective: 2400px;
-    }
+    .book-viewport { perspective: 2400px; }
     .book-hardcover {
       background: linear-gradient(145deg, #1e293b, #0f172a);
       padding: 8px 10px 12px 10px;
       border-radius: 22px;
-      box-shadow:
-        0 25px 50px -12px rgba(15, 23, 42, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.18);
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.18);
       position: relative;
     }
     @media (min-width: 768px) {
-      .book-hardcover {
-        padding: 12px 16px 16px 16px;
-        border-radius: 26px;
-      }
+      .book-hardcover { padding: 12px 16px 16px 16px; border-radius: 26px; }
     }
     .book-paper-block {
       background: #fffdf8;
       border-radius: 16px;
-      box-shadow:
-        -4px 0 0 #f3efe6,
-        -8px 0 0 #e2ddd2,
-        4px 0 0 #f3efe6,
-        8px 0 0 #e2ddd2,
-        0 5px 0 #ebe6dc,
-        0 9px 0 #d8d2c5;
+      box-shadow: -4px 0 0 #f3efe6, -8px 0 0 #e2ddd2, 4px 0 0 #f3efe6, 8px 0 0 #e2ddd2, 0 5px 0 #ebe6dc, 0 9px 0 #d8d2c5;
       position: relative;
       border: 1px solid #d6d0c4;
       transform-style: preserve-3d;
@@ -79,67 +62,28 @@
 
     @media (min-width: 1024px) {
       .book-spine-center {
-        background: linear-gradient(90deg,
-          rgba(255,253,248,0) 0%,
-          rgba(15,23,42,0.04) 43%,
-          rgba(15,23,42,0.18) 49.2%,
-          rgba(15,23,42,0.26) 50%,
-          rgba(255,255,255,0.65) 51.2%,
-          rgba(15,23,42,0.05) 57%,
-          rgba(255,253,248,0) 100%
-        );
+        background: linear-gradient(90deg, rgba(255,253,248,0) 0%, rgba(15,23,42,0.04) 43%, rgba(15,23,42,0.18) 49.2%, rgba(15,23,42,0.26) 50%, rgba(255,255,255,0.65) 51.2%, rgba(15,23,42,0.05) 57%, rgba(255,253,248,0) 100%);
       }
-      .page-left-inset {
-        box-shadow: inset -22px 0 30px -16px rgba(15, 23, 42, 0.14);
-      }
-      .page-right-inset {
-        box-shadow: inset 22px 0 30px -16px rgba(15, 23, 42, 0.14);
-      }
+      .page-left-inset { box-shadow: inset -22px 0 30px -16px rgba(15, 23, 42, 0.14); }
+      .page-right-inset { box-shadow: inset 22px 0 30px -16px rgba(15, 23, 42, 0.14); }
     }
 
-    /* แผ่นกระดาษ 3 มิติที่กำลังพลิก */
     .turning-leaf-right {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      transform-origin: left center;
-      transform-style: preserve-3d;
-      z-index: 40;
-      pointer-events: none;
+      position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+      transform-origin: left center; transform-style: preserve-3d; z-index: 40; pointer-events: none;
       animation: turnRightToLeft 0.68s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     }
     .turning-leaf-left {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      transform-origin: right center;
-      transform-style: preserve-3d;
-      z-index: 40;
-      pointer-events: none;
+      position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+      transform-origin: right center; transform-style: preserve-3d; z-index: 40; pointer-events: none;
       animation: turnLeftToRight 0.68s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     }
     @media (max-width: 1023px) {
-      .turning-leaf-right, .turning-leaf-left {
-        width: 100%;
-        left: 0;
-        transform-origin: left center;
-      }
+      .turning-leaf-right, .turning-leaf-left { width: 100%; left: 0; transform-origin: left center; }
     }
 
-    .leaf-face {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      background-color: #fffdf8;
-      overflow: hidden;
-    }
-    .leaf-back {
-      transform: rotateY(180deg);
-    }
+    .leaf-face { position: absolute; inset: 0; backface-visibility: hidden; background-color: #fffdf8; overflow: hidden; }
+    .leaf-back { transform: rotateY(180deg); }
 
     @keyframes turnRightToLeft {
       0% { transform: rotateY(0deg); box-shadow: -5px 0 15px rgba(15, 23, 42, 0.1); }
@@ -153,217 +97,69 @@
     }
 
     .bookmark-ribbon {
-      width: 24px;
-      height: 56px;
-      background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 35;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
-      border-left: 2px solid #fbbf24;
-      border-right: 2px solid #fbbf24;
+      width: 24px; height: 56px; background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 35;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+      border-left: 2px solid #fbbf24; border-right: 2px solid #fbbf24;
     }
 
     .page-curl-right {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 48px;
-      height: 48px;
+      position: absolute; bottom: 0; right: 0; width: 48px; height: 48px;
       background: linear-gradient(135deg, transparent 48%, #d6d0c4 50%, #fffdf8 58%, #cbd5e1 100%);
-      box-shadow: -4px -4px 10px rgba(0,0,0,0.12);
-      border-top-left-radius: 12px;
-      cursor: pointer;
-      z-index: 30;
-      transition: all 0.2s ease;
+      box-shadow: -4px -4px 10px rgba(0,0,0,0.12); border-top-left-radius: 12px; cursor: pointer; z-index: 30; transition: all 0.2s ease;
     }
     .page-curl-right:hover { width: 64px; height: 64px; }
     .page-curl-left {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 44px;
-      height: 44px;
+      position: absolute; bottom: 0; left: 0; width: 44px; height: 44px;
       background: linear-gradient(225deg, transparent 48%, #d6d0c4 50%, #fffdf8 58%, #cbd5e1 100%);
-      box-shadow: 4px -4px 10px rgba(0,0,0,0.12);
-      border-top-right-radius: 12px;
-      cursor: pointer;
-      z-index: 30;
-      transition: all 0.2s ease;
+      box-shadow: 4px -4px 10px rgba(0,0,0,0.12); border-top-right-radius: 12px; cursor: pointer; z-index: 30; transition: all 0.2s ease;
     }
     .page-curl-left:hover { width: 60px; height: 60px; }
 
-    .sketch-box {
-      border: 2px solid #1e293b;
-      border-radius: 18px;
-      box-shadow: 4px 4px 0px #1e293b;
-    }
-    .coupon-box {
-      border: 2px dashed #e11d48;
-      border-radius: 16px;
-      background: #fff1f2;
-    }
-    .toc-line {
-      border-bottom: 1.5px dotted #94a3b8;
-      flex-grow: 1;
-      margin: 0 8px;
-      position: relative;
-      top: -4px;
-    }
-    .cute-btn {
-      border: 2px solid #1e293b;
-      box-shadow: 3px 3px 0px #1e293b;
-      transition: all 0.15s ease;
-    }
-    .cute-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 5px 5px 0px #1e293b;
-    }
-    .cute-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px #1e293b;
-    }
+    .sketch-box { border: 2px solid #1e293b; border-radius: 18px; box-shadow: 4px 4px 0px #1e293b; }
+    .coupon-box { border: 2px dashed #e11d48; border-radius: 16px; background: #fff1f2; }
+    .toc-line { border-bottom: 1.5px dotted #94a3b8; flex-grow: 1; margin: 0 8px; position: relative; top: -4px; }
+    .cute-btn { border: 2px solid #1e293b; box-shadow: 3px 3px 0px #1e293b; transition: all 0.15s ease; }
+    .cute-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0px #1e293b; }
+    .cute-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #1e293b; }
 
-    /* แถบสารบัญบนมือถือเลื่อนซ้าย-ขวาได้ลื่นๆ */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* ===================================================================== */
-    /* สไตล์กระดาษใบสมัคร A4 + ระบบย่อหน้าจอบนมือถืออัตโนมัติ */
-    /* ===================================================================== */
-    .a4-responsive-shell {
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      transform-origin: top center;
-    }
+    /* กระดาษใบสมัคร A4 ขยับหัวกระดาษขึ้นและดึงท้ายกระดาษให้สมดุลสวยงาม */
+    .a4-responsive-shell { width: 100%; overflow: hidden; display: flex; justify-content: center; transform-origin: top center; }
     .a4-paper {
-      width: 210mm;
-      min-width: 210mm;
-      height: 296mm;
-      max-height: 296mm;
-      padding: 8mm 12mm;
-      margin: 0 auto;
-      background: #ffffff;
-      color: #000000;
-      box-sizing: border-box;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      width: 210mm; min-width: 210mm; height: 296mm; max-height: 296mm;
+      padding: 3mm 12mm 20mm 12mm; margin: 0 auto; background: #ffffff; color: #000000;
+      box-sizing: border-box; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
       font-family: 'TH SarabunPSK', 'TH Sarabun New', 'Sarabun', sans-serif !important;
-      font-size: 15pt;
-      line-height: 1.22;
-      position: relative;
-      overflow: hidden;
-      transform-origin: top center;
+      font-size: 14pt; line-height: 1.12; position: relative; overflow: hidden; transform-origin: top center;
     }
-    .a4-paper * {
-      font-family: 'TH SarabunPSK', 'TH Sarabun New', 'Sarabun', sans-serif !important;
-    }
-    .dot-fill {
-      display: inline-block;
-      border-bottom: 1px dotted #000000;
-      padding: 0 4px;
-      font-weight: bold;
-      color: #000000;
-      line-height: 1.05;
-      text-align: center;
-      vertical-align: baseline;
-    }
-    .dot-fill-left {
-      display: inline-block;
-      border-bottom: 1px dotted #000000;
-      padding: 0 6px;
-      font-weight: bold;
-      color: #000000;
-      line-height: 1.05;
-      text-align: left;
-      vertical-align: baseline;
-    }
-    .id-table {
-      display: inline-table;
-      border-collapse: collapse;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-    .id-table td.box {
-      width: 18px;
-      height: 22px;
-      border: 1px solid #000000;
-      text-align: center;
-      vertical-align: middle;
-      font-weight: bold;
-      font-size: 14.5pt;
-      line-height: 20px;
-      padding: 0;
-      background: #ffffff;
-    }
-    .id-table td.gap {
-      width: 6px;
-      border: none;
-    }
-    .chk-box {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 1px solid #000000;
-      text-align: center;
-      line-height: 12px;
-      font-weight: bold;
-      font-size: 13pt;
-      vertical-align: middle;
-      margin-right: 3px;
-    }
-    canvas.sig-pad {
-      border: 1px dashed #94a3b8;
-      background: #f8fafc;
-      cursor: crosshair;
-      touch-action: none;
-      vertical-align: middle;
-    }
+    .a4-paper * { font-family: 'TH SarabunPSK', 'TH Sarabun New', 'Sarabun', sans-serif !important; }
+    .dot-fill { display: inline-block; border-bottom: 1px dotted #000000; padding: 0 4px; font-weight: bold; color: #000000; line-height: 1.0; text-align: center; vertical-align: baseline; }
+    .dot-fill-left { display: inline-block; border-bottom: 1px dotted #000000; padding: 0 6px; font-weight: bold; color: #000000; line-height: 1.0; text-align: left; vertical-align: baseline; }
+    .id-table { display: inline-table; border-collapse: collapse; vertical-align: middle; margin-left: 4px; }
+    .id-table td.box { width: 17px; height: 19px; border: 1px solid #000000; text-align: center; vertical-align: middle; font-weight: bold; font-size: 13.5pt; line-height: 17px; padding: 0; background: #ffffff; }
+    .id-table td.gap { width: 5px; border: none; }
+    .chk-box { display: inline-block; width: 13px; height: 13px; border: 1px solid #000000; text-align: center; line-height: 11px; font-weight: bold; font-size: 12pt; vertical-align: middle; margin-right: 3px; }
+    canvas.sig-pad { border: 1px dashed #94a3b8; background: #f8fafc; cursor: crosshair; touch-action: none; vertical-align: middle; }
 
     @media print {
       @page { size: A4 portrait; margin: 0mm; }
-      html, body {
-        width: 210mm !important;
-        height: 296mm !important;
-        background: #ffffff !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-      }
+      html, body { width: 210mm !important; height: 296mm !important; background: #ffffff !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; }
       .no-print { display: none !important; }
       #view-ebook { display: none !important; }
       #view-apply { display: block !important; margin: 0 !important; padding: 0 !important; }
-      .a4-responsive-shell {
-        height: auto !important;
-        overflow: visible !important;
-      }
-      .a4-paper {
-        transform: none !important;
-        box-shadow: none !important;
-        margin: 0 !important;
-        width: 210mm !important;
-        height: 296mm !important;
-        padding: 8mm 12mm !important;
-        page-break-after: avoid !important;
-        page-break-inside: avoid !important;
-      }
+      .a4-responsive-shell { height: auto !important; overflow: visible !important; }
+      .a4-paper { transform: none !important; box-shadow: none !important; margin: 0 !important; width: 210mm !important; height: 296mm !important; padding: 3mm 12mm 20mm 12mm !important; page-break-after: avoid !important; page-break-inside: avoid !important; }
       canvas.sig-pad { border: none !important; background: transparent !important; }
     }
   </style>
 </head>
 <body class="min-h-screen pb-16">
 
-  <!-- ===================================================================== -->
-  <!-- แถบเมนูด้านบน (รองรับหน้าจอมือถือ + แสดงชื่อสายแนะแนวอัตโนมัติ) -->
-  <!-- ===================================================================== -->
   <header class="no-print sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-slate-800 shadow-sm">
     <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
-      
-      <!-- โลโก้และชื่อเต็มวิทยาลัย -->
       <div class="flex items-center gap-2.5 cursor-pointer" onclick="showEbookView()">
         <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-50 p-1 border-2 border-slate-800 object-contain shrink-0" onerror="this.src=FALLBACK_LOGO_PNG" />
         <div>
@@ -375,7 +171,6 @@
         </div>
       </div>
 
-      <!-- ปุ่มขวา: โควตา 30 คนแรก & ปุ่มสมัครเรียน -->
       <div class="flex items-center gap-2 ml-auto">
         <div class="hidden sm:flex items-center gap-1.5 bg-amber-50 border-2 border-slate-800 px-3 py-1 rounded-full text-xs">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -390,9 +185,7 @@
           <span>📝 สมัครเรียน</span>
         </button>
       </div>
-
     </div>
-    <!-- แถบแจ้งโควตาและชื่ออาจารย์แนะแนวสำหรับหน้าจอมือถือ -->
     <div class="sm:hidden bg-slate-900 text-white px-3 py-1.5 text-[11px] flex items-center justify-between">
       <span id="mobileTeamBanner" class="text-amber-300 font-semibold truncate">📍 แนะแนวโดย: ส่วนกลางวิทยาลัย</span>
       <span id="mobileQuotaText" class="bg-rose-600 text-white font-bold px-2 py-0.5 rounded-full shrink-0">30 คนแรก เหลือ 30 สิทธิ์</span>
@@ -402,11 +195,9 @@
   <main class="max-w-6xl mx-auto px-2.5 sm:px-4 pt-4">
 
     <!-- ===================================================================== -->
-    <!-- ส่วนที่ 1: หนังสือคู่มือแนะแนว E-BOOK (รองรับนิ้วปัดซ้าย-ขวาบนมือถือ) -->
+    <!-- ส่วนที่ 1: หนังสือคู่มือแนะแนว E-BOOK -->
     <!-- ===================================================================== -->
     <section id="view-ebook" class="no-print space-y-3">
-      
-      <!-- แถบเลือกบท (บนมือถือเลื่อนซ้าย-ขวาได้) -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1" id="ebookPageDots"></div>
         <div class="flex items-center justify-between sm:justify-end gap-1.5 bg-white px-3 py-1.5 rounded-full border-2 border-slate-800 shadow-sm shrink-0">
@@ -416,33 +207,22 @@
         </div>
       </div>
 
-      <!-- ตัวเล่มหนังสือคู่มือ -->
       <div class="book-viewport">
         <div class="book-hardcover">
           <div id="bookPaperContainer" class="book-paper-block">
-            
             <div class="bookmark-ribbon hidden lg:block" title="คู่มือแนะแนวการศึกษาต่อ ปีการศึกษา 2570"></div>
-
-            <!-- พื้นที่กางหนังสือ 2 หน้า + รองรับการใช้นิ้วปัดซ้าย/ขวาบนมือถือ -->
             <div id="bookTouchArea" class="relative overflow-hidden rounded-t-[15px]">
               <div id="ebookContent" class="grid grid-cols-1 lg:grid-cols-12 min-h-[540px] lg:min-h-[595px] book-spine-center relative"></div>
               <div id="turningLeafLayer" class="hidden"></div>
-
               <div onclick="prevEbookPage()" class="page-curl-left hidden lg:block" title="คลิกเพื่อพลิกย้อนกลับ"></div>
               <div onclick="nextEbookPage()" class="page-curl-right hidden lg:block" title="คลิกเพื่อพลิกหน้าถัดไป"></div>
             </div>
 
-            <!-- แถบปุ่มพลิกหน้าขนาดใหญ่สำหรับมือถือ (ช่วยให้กดง่ายด้วยนิ้วโป้ง) -->
             <div class="lg:hidden bg-amber-50 border-t border-stone-300 px-3 py-2.5 flex items-center justify-between gap-2">
-              <button onclick="prevEbookPage()" class="flex-1 py-2 rounded-xl bg-white border-2 border-slate-800 text-xs font-bold active:bg-slate-100">
-                ◀ พลิกหน้าก่อน
-              </button>
-              <button onclick="nextEbookPage()" class="flex-1 py-2 rounded-xl bg-amber-300 border-2 border-slate-800 text-xs font-extrabold active:bg-amber-400">
-                พลิกหน้าถัดไป ▶
-              </button>
+              <button onclick="prevEbookPage()" class="flex-1 py-2 rounded-xl bg-white border-2 border-slate-800 text-xs font-bold active:bg-slate-100">◀ พลิกหน้าก่อน</button>
+              <button onclick="nextEbookPage()" class="flex-1 py-2 rounded-xl bg-amber-300 border-2 border-slate-800 text-xs font-extrabold active:bg-amber-400">พลิกหน้าถัดไป ▶</button>
             </div>
 
-            <!-- แถบสีดำด้านล่างของเล่มคู่มือ -->
             <div class="bg-slate-900 text-white px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t-2 border-slate-800 rounded-b-[15px] relative z-30">
               <div class="flex items-center gap-3">
                 <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white p-0.5 object-contain shrink-0 border border-amber-300" onerror="this.src=FALLBACK_LOGO_PNG" />
@@ -459,18 +239,15 @@
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
     </section>
 
     <!-- ===================================================================== -->
-    <!-- ส่วนที่ 2: ระบบกรอกใบสมัครออนไลน์ (ซ่อนไว้ แสดงเมื่อกดปุ่มสมัครเรียนเท่านั้น) -->
+    <!-- ส่วนที่ 2: ระบบกรอกใบสมัครออนไลน์ -->
     <!-- ===================================================================== -->
     <section id="view-apply" class="hidden space-y-5">
-      
       <div class="no-print sketch-box bg-gradient-to-r from-amber-100 via-pink-100 to-sky-100 p-3.5 sm:p-4 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border-2 border-slate-800 flex items-center justify-center text-xl shrink-0">📝</div>
@@ -480,18 +257,12 @@
           </div>
         </div>
         <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-          <button onclick="showEbookView()" class="cute-btn px-3 py-2 rounded-xl bg-white text-slate-800 text-xs font-bold">
-            📖 กลับหน้าคู่มือ
-          </button>
-          <button onclick="window.print()" class="cute-btn px-3.5 py-2 rounded-xl bg-sky-300 text-slate-900 text-xs font-bold">
-            🖨️ พิมพ์ / บันทึก PDF
-          </button>
+          <button onclick="showEbookView()" class="cute-btn px-3 py-2 rounded-xl bg-white text-slate-800 text-xs font-bold">📖 กลับหน้าคู่มือ</button>
+          <button onclick="window.print()" class="cute-btn px-3.5 py-2 rounded-xl bg-sky-300 text-slate-900 text-xs font-bold">🖨️ พิมพ์ / บันทึก PDF</button>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- คอลัมน์ซ้าย: ฟอร์มกรอกข้อมูล (ออกแบบให้กรอกบนมือถือได้ง่าย) -->
         <div class="no-print lg:col-span-5 sketch-box p-4 sm:p-5 space-y-4 bg-white">
           <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
             <div>
@@ -499,46 +270,39 @@
               <p class="text-xs text-slate-500">ข้อมูลจะเติมลงในใบสมัคร A4 อัตโนมัติ</p>
             </div>
             <div class="text-right bg-rose-50 border-2 border-rose-300 px-3 py-1 rounded-2xl">
-              <div class="text-[10px] font-bold text-rose-700">ลำดับผู้สมัคร</div>
+              <div class="text-[10px] font-bold text-rose-700">ลำดับผู้สมัครของคุณ</div>
               <div id="formQueueBadge" class="font-extrabold text-base text-rose-600">คนที่ #1</div>
             </div>
           </div>
 
-          <!-- กล่องแสดงสายแนะแนว/อาจารย์ผู้แนะแนว (ดึงจากลิงก์อัตโนมัติ หรือเลือกได้) -->
-          <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold text-sky-950">🧭 สมัครผ่านสายแนะแนว / อาจารย์แนะแนว</span>
-              <span id="lockTeamBadge" class="hidden text-[10px] bg-sky-200 text-sky-900 font-bold px-2 py-0.5 rounded-full">ดึงจากลิงก์อัตโนมัติ</span>
+          <!-- ข้อ 1 ที่ปรับแก้: ล็อกสายอาจารย์แนะแนวตามลิงก์ 100% ไม่มี Dropdown ให้เลือก -->
+          <div class="bg-sky-50 border-2 border-sky-400 rounded-2xl p-3.5 flex items-center justify-between gap-2">
+            <div class="space-y-0.5">
+              <div class="text-[11px] font-bold text-sky-800">🔒 สายอาจารย์ผู้แนะแนว (ล็อกตามลิงก์อัตโนมัติ)</div>
+              <div id="lockedGuidanceDisplay" class="font-extrabold text-xs sm:text-sm text-slate-900">ส่วนกลางวิทยาลัย (ฝ่ายแนะแนวรับสมัคร)</div>
+              <div id="lockedGuidanceTel" class="text-[11px] text-slate-600">ติดต่อห้องธุรการรับสมัคร</div>
             </div>
-            <select id="inp_guidanceSelect" onchange="handleGuidanceSelectChange()" class="w-full border border-sky-300 rounded-xl px-3 py-2 text-xs font-bold bg-white text-slate-900">
-              <option value="สมัครออนไลน์ด้วยตนเอง|ฝ่ายแนะแนวส่วนกลาง|035-201-xxx">สมัครออนไลน์ด้วยตนเอง (ฝ่ายแนะแนวส่วนกลาง)</option>
-              <option value="สายแนะแนวที่ 1|อาจารย์ประจำสายแนะแนวที่ 1|ติดต่อฝ่ายแนะแนว">สายแนะแนวที่ 1</option>
-              <option value="สายแนะแนวที่ 2|อาจารย์ประจำสายแนะแนวที่ 2|ติดต่อฝ่ายแนะแนว">สายแนะแนวที่ 2</option>
-              <option value="สายแนะแนวที่ 3|อาจารย์ประจำสายแนะแนวที่ 3|ติดต่อฝ่ายแนะแนว">สายแนะแนวที่ 3</option>
-              <option value="สายแนะแนวที่ 4|อาจารย์ประจำสายแนะแนวที่ 4|ติดต่อฝ่ายแนะแนว">สายแนะแนวที่ 4</option>
-              <option value="custom">ระบุชื่ออาจารย์ผู้แนะแนวด้วยตนเอง...</option>
-            </select>
-            <input type="text" id="inp_customTeacher" oninput="syncFormToPaper()" placeholder="พิมพ์ชื่ออาจารย์ผู้แนะแนว / โรงเรียนที่แนะแนว" class="hidden w-full border border-sky-300 rounded-xl px-3 py-1.5 text-xs bg-white" />
+            <span class="bg-sky-200 text-sky-950 border border-sky-400 text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0">ล็อกสายแนะแนว</span>
           </div>
 
-          <!-- เลือกรับสิทธิ์โปรโมชั่น -->
+          <!-- ข้อ 4 ที่ปรับแก้: โควตา 30 คนแรกปิดล็อกเมื่อเต็ม & ทุนเรียนดีติ๊กอัตโนมัติเมื่อ GPA >= 3.00 -->
           <div class="bg-amber-50/80 border-2 border-amber-300 rounded-2xl p-3.5 space-y-2">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-xs text-slate-900">🎁 เลือกรับโปรโมชั่นในใบสมัคร</span>
+              <span class="font-bold text-xs text-slate-900">🎁 สิทธิ์โปรโมชั่นในใบสมัคร</span>
               <span id="formQuotaRemain" class="text-[11px] font-bold text-emerald-800 bg-emerald-200 px-2.5 py-0.5 rounded-full">เหลือ 30/30 สิทธิ์</span>
             </div>
-            <label class="flex items-center gap-2 text-xs cursor-pointer font-medium">
+            <label id="lblPromoEarly" class="flex items-center gap-2 text-xs cursor-pointer font-medium">
               <input type="checkbox" id="inp_promoEarly" checked onchange="syncFormToPaper()" class="w-4 h-4 rounded" />
-              <span><strong>โปรฯ 30 คนแรก:</strong> ลดค่าเทอมทันที <strong class="text-rose-600">1,000 บาท</strong></span>
+              <span><strong>โปรฯ 30 คนแรก:</strong> ลดค่าเทอมทันที <strong class="text-rose-600">1,000 บาท</strong> <span id="earlyLockNote" class="text-[10px] text-slate-500"></span></span>
             </label>
             <label class="flex items-center gap-2 text-xs cursor-pointer font-medium">
               <input type="checkbox" id="inp_promoSibling" onchange="syncFormToPaper()" class="w-4 h-4 rounded" />
               <span><strong>โปรฯ พี่ - น้อง:</strong> ได้รับส่วนลดค่าเทอม</span>
             </label>
             <input type="text" id="inp_siblingName" oninput="syncFormToPaper()" placeholder="ระบุชื่อพี่/น้อง ที่เรียนอยู่ (ถ้ามี)" class="w-full text-xs border border-amber-300 rounded-xl px-3 py-1.5 bg-white" />
-            <label class="flex items-center gap-2 text-xs cursor-pointer font-medium">
-              <input type="checkbox" id="inp_promoGoodGrade" onchange="syncFormToPaper()" class="w-4 h-4 rounded" />
-              <span><strong>ทุนเรียนดี:</strong> ผลการเรียนดีจากโรงเรียนเดิม</span>
+            <label class="flex items-center gap-2 text-xs font-medium bg-white/80 p-2 rounded-xl border border-amber-200">
+              <input type="checkbox" id="inp_promoGoodGrade" disabled class="w-4 h-4 rounded" />
+              <span><strong>ทุนเรียนดี:</strong> <span id="goodGradeAutoBadge" class="text-slate-600">ติ๊กอัตโนมัติเมื่อกรอกเกรดเฉลี่ย 3.00 ขึ้นไป</span></span>
             </label>
             <div class="grid grid-cols-2 gap-2 pt-2 border-t border-amber-200">
               <label class="flex items-center gap-2 text-xs cursor-pointer font-bold text-slate-800">
@@ -551,12 +315,11 @@
               </label>
             </div>
             <div class="bg-white rounded-xl p-2 border border-amber-200 flex items-center justify-between text-xs">
-              <span class="text-slate-600">ค่าเทอมหลังหักส่วนลด 30 คนแรก:</span>
+              <span class="text-slate-600">ค่าเทอมสุทธิเบื้องต้น:</span>
               <strong id="liveNetTuition" class="text-sm font-extrabold text-emerald-700">4,500 บาท</strong>
             </div>
           </div>
 
-          <!-- ระดับชั้น & สาขา -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <div>
               <label class="block text-xs font-bold mb-1">ระดับชั้นที่สมัคร</label>
@@ -574,7 +337,6 @@
             </div>
           </div>
 
-          <!-- ข้อ 1-2 -->
           <div class="space-y-2 border-t pt-3">
             <div class="text-xs font-bold text-slate-800">1-2. ข้อมูลผู้สมัคร</div>
             <div class="grid grid-cols-3 gap-2">
@@ -592,7 +354,6 @@
             <input type="text" id="inp_citizenId" maxlength="13" inputmode="numeric" oninput="syncFormToPaper()" placeholder="เลขบัตรประชาชนผู้สมัคร 13 หลัก" class="w-full border rounded-xl px-3 py-2 text-xs font-mono" />
           </div>
 
-          <!-- ข้อ 3 -->
           <div class="space-y-2 border-t pt-3">
             <div class="text-xs font-bold text-slate-800">3. ที่อยู่ปัจจุบันที่ติดต่อได้</div>
             <div class="grid grid-cols-3 gap-2">
@@ -612,7 +373,6 @@
             </div>
           </div>
 
-          <!-- ข้อ 4 -->
           <div class="space-y-2 border-t pt-3">
             <div class="text-xs font-bold text-slate-800">4. ข้อมูลบิดา และ มารดา</div>
             <div class="grid grid-cols-3 gap-2">
@@ -629,7 +389,6 @@
             <input type="text" id="inp_motherId" maxlength="13" inputmode="numeric" oninput="syncFormToPaper()" placeholder="เลขบัตรประชาชนมารดา 13 หลัก" class="w-full border rounded-xl px-2.5 py-2 text-xs font-mono" />
           </div>
 
-          <!-- ข้อ 5 -->
           <div class="space-y-2 border-t pt-3">
             <div class="text-xs font-bold text-slate-800">5. บุคคลใกล้เคียงที่ติดต่อได้</div>
             <div class="grid grid-cols-3 gap-2">
@@ -642,7 +401,6 @@
             </div>
           </div>
 
-          <!-- ข้อ 6 & 8 -->
           <div class="space-y-2 border-t pt-3">
             <div class="text-xs font-bold text-slate-800">6. สถานภาพการศึกษาเดิม & 8. เอกสารแนบ</div>
             <div class="grid grid-cols-3 gap-2">
@@ -657,7 +415,7 @@
               <input type="text" id="inp_gradAmphoe" oninput="syncFormToPaper()" placeholder="อำเภอ" class="border rounded-xl px-2.5 py-2 text-xs" />
               <input type="text" id="inp_gradProvince" oninput="syncFormToPaper()" placeholder="จังหวัด" class="border rounded-xl px-2.5 py-2 text-xs" />
               <input type="text" id="inp_gradDate" oninput="syncFormToPaper()" placeholder="ว/ด/ป ที่จบ" class="border rounded-xl px-2.5 py-2 text-xs" />
-              <input type="text" id="inp_gpa" oninput="syncFormToPaper()" placeholder="เกรดเฉลี่ย" class="border rounded-xl px-2.5 py-2 text-xs" />
+              <input type="number" step="0.01" min="0" max="4" id="inp_gpa" oninput="syncFormToPaper()" placeholder="เกรดเฉลี่ย (เช่น 3.25)" class="border-2 border-emerald-400 rounded-xl px-2.5 py-2 text-xs font-bold bg-emerald-50/40" />
             </div>
             <div class="flex flex-wrap gap-3 text-xs pt-1">
               <label class="flex items-center gap-1"><input type="checkbox" id="inp_docTranscript" checked onchange="syncFormToPaper()" /> ใบแสดงผลการศึกษา</label>
@@ -666,7 +424,6 @@
             </div>
           </div>
 
-          <!-- กระดานเซ็นชื่อขนาดใหญ่สำหรับมือถือ (เซ็นง่ายและซิงค์ลงใบสมัคร A4 อัตโนมัติ) -->
           <div class="space-y-2 border-t pt-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-slate-800">✍️ เซ็นชื่อผู้สมัครออนไลน์ (ใช้นิ้วเขียนได้เลย)</span>
@@ -686,21 +443,20 @@
         </div>
 
         <!-- =============================================================== -->
-        <!-- คอลัมน์ขวา: กระดาษใบสมัคร A4 (ย่อพอดีจอบนมือถือ + พิมพ์ A4 คมชัด) -->
+        <!-- คอลัมน์ขวา: กระดาษใบสมัคร A4 (ขยับหัวกระดาษขึ้น ท้ายกระดาษสมดุล) -->
         <!-- =============================================================== -->
         <div class="lg:col-span-7">
           <div class="no-print text-center text-xs text-slate-600 mb-2 lg:hidden">
-            🔍 ตัวอย่างใบสมัครขนาด A4 (ปรับย่อพอดีหน้าจอมือถืออัตโนมัติ)
+            🔍 ตัวอย่างใบสมัครขนาด A4 (ย่อพอดีหน้าจอมือถืออัตโนมัติ)
           </div>
           <div id="a4PreviewShell" class="a4-responsive-shell">
             <div id="applicationPaper" class="a4-paper">
               
-              <!-- กล่องกำกับลำดับที่สมัคร, สายแนะแนว และโปรโมชั่น -->
-              <div style="border: 1.5px solid #000; padding: 4px 8px; margin-bottom: 6px; background: #f8fafc; font-size: 13pt;">
+              <div style="border: 1.5px solid #000; padding: 2.5px 8px; margin-bottom: 3px; background: #f8fafc; font-size: 12pt;">
                 <table style="width: 100%; border-collapse: collapse;">
                   <tr>
                     <td style="text-align: left; font-weight: bold;">
-                      ลำดับผู้สมัคร: <span id="p1_queueNo" style="color: #b91c1c; font-size: 14.5pt;">#1</span>
+                      ลำดับผู้สมัคร: <span id="p1_queueNo" style="color: #b91c1c; font-size: 13.5pt;">#1</span>
                       (<span id="p1_quotaStatus">สิทธิ์ 30 คนแรก -1,000 บ.</span>)
                       | สายแนะแนว: <span id="p1_guidanceLabel" style="color: #0369a1;">ส่วนกลางวิทยาลัย</span>
                     </td>
@@ -715,56 +471,52 @@
                 </table>
               </div>
 
-              <!-- ส่วนหัวใบสมัคร 3 คอลัมน์ -->
-              <table style="width: 100%; border-collapse: collapse; margin-bottom: 4px;">
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 2px;">
                 <tr>
-                  <td style="width: 48%; vertical-align: top; line-height: 1.15;">
-                    <div style="font-size: 18pt; font-weight: bold;">ใบสมัครเข้าศึกษาต่อ (ปีการศึกษา 2570)</div>
-                    <div style="font-size: 16.5pt; font-weight: bold;">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
-                    <div style="font-size: 11.5pt; font-weight: bold;">Padung Business Administration Technology College of Sena</div>
-                    <div style="font-size: 14.5pt;">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
-                    <div style="margin-top: 4px; font-size: 14.5pt;">
+                  <td style="width: 48%; vertical-align: top; line-height: 1.08;">
+                    <div style="font-size: 17pt; font-weight: bold;">ใบสมัครเข้าศึกษาต่อ (ปีการศึกษา 2570)</div>
+                    <div style="font-size: 15.5pt; font-weight: bold;">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</div>
+                    <div style="font-size: 10.5pt; font-weight: bold;">Padung Business Administration Technology College of Sena</div>
+                    <div style="font-size: 13.5pt;">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</div>
+                    <div style="margin-top: 2px; font-size: 13.5pt;">
                       <div><span class="chk-box" id="p1_lvlVoc">/</span> ระดับประกาศนียบัตรวิชาชีพ (ปวช.)</div>
-                      <div style="margin-top: 2px;"><span class="chk-box" id="p1_lvlHvoc">&nbsp;</span> ระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</div>
+                      <div style="margin-top: 1px;"><span class="chk-box" id="p1_lvlHvoc">&nbsp;</span> ระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</div>
                     </div>
                   </td>
-                  <td style="width: 22%; vertical-align: top; text-align: center; padding-top: 2px;">
-                    <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo" style="width: 78px; height: 78px; object-fit: contain;" onerror="this.src=FALLBACK_LOGO_PNG" />
+                  <td style="width: 22%; vertical-align: top; text-align: center; padding-top: 0px;">
+                    <img src="icon.png" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo" style="width: 68px; height: 68px; object-fit: contain;" onerror="this.src=FALLBACK_LOGO_PNG" />
                   </td>
                   <td style="width: 30%; vertical-align: top; text-align: right;">
-                    <div style="font-size: 14.5pt; margin-bottom: 4px;">
+                    <div style="font-size: 13.5pt; margin-bottom: 2px;">
                       เลขประจำตัว <span id="p1_studentCode" class="dot-fill" style="width: 85px;">70-001</span>
                     </div>
-                    <div style="width: 26mm; height: 32mm; border: 1px solid #000; margin-left: auto; text-align: center; padding-top: 10mm; font-size: 12pt; line-height: 1.1;">
+                    <div style="width: 24mm; height: 27mm; border: 1px solid #000; margin-left: auto; text-align: center; padding-top: 7.5mm; font-size: 11pt; line-height: 1.1;">
                       รูปถ่าย<br/>1 นิ้ว
                     </div>
                   </td>
                 </tr>
               </table>
 
-              <div style="font-weight: bold; font-size: 14.5pt; margin-bottom: 3px;">ผู้สมัครลงรายการข้อ 1-3 ด้วยตัวบรรจง</div>
+              <div style="font-weight: bold; font-size: 13.5pt; margin-bottom: 1.5px;">ผู้สมัครลงรายการข้อ 1-3 ด้วยตัวบรรจง</div>
 
-              <!-- ข้อ 1: ชื่อ อายุ และ วัน/เดือน/ปีเกิด อยู่บรรทัดเดียวกันทั้งหมด -->
-              <div style="white-space: nowrap; margin-bottom: 5px;">
+              <div style="white-space: nowrap; margin-bottom: 2.5px;">
                 1. ชื่อ - นามสกุล (นาย/นาง/นางสาว) <span id="p1_fullName" class="dot-fill-left" style="width: 195px;"></span>
                 อายุ <span id="p1_age" class="dot-fill" style="width: 34px;"></span> ปี
                 วัน/เดือน/ปีเกิด <span id="p1_dob" class="dot-fill" style="width: 105px;"></span>
               </div>
 
-              <!-- ข้อ 2 -->
-              <div style="white-space: nowrap; margin-bottom: 5px;">
+              <div style="white-space: nowrap; margin-bottom: 2.5px;">
                 2. เลขประจำตัวประชาชน <span id="p1_citizenBoxes"></span>
               </div>
 
-              <!-- ข้อ 3 -->
-              <div style="margin-bottom: 5px;">
-                <div style="white-space: nowrap; margin-bottom: 3px;">
+              <div style="margin-bottom: 2.5px;">
+                <div style="white-space: nowrap; margin-bottom: 1.5px;">
                   3. ที่อยู่ปัจจุบันของผู้สมัครที่ติดต่อได้ บ้านเลขที่ <span id="p1_addrNo" class="dot-fill" style="width: 55px;"></span>
                   หมู่ที่ <span id="p1_addrMoo" class="dot-fill" style="width: 35px;"></span>
                   ถนน <span id="p1_addrRoad" class="dot-fill-left" style="width: 85px;"></span>
                   ตำบล <span id="p1_addrTambon" class="dot-fill-left" style="width: 115px;"></span>
                 </div>
-                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 3px;">
+                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 1.5px;">
                   อำเภอ <span id="p1_addrAmphoe" class="dot-fill-left" style="width: 125px;">เสนา</span>
                   จังหวัด <span id="p1_addrProvince" class="dot-fill-left" style="width: 150px;">พระนครศรีอยุธยา</span>
                   รหัสไปรษณีย์ <span id="p1_addrZip" class="dot-fill" style="width: 85px;">13110</span>
@@ -775,17 +527,16 @@
                 </div>
               </div>
 
-              <!-- ข้อ 4 -->
-              <div style="margin-bottom: 5px;">
-                <div style="white-space: nowrap; margin-bottom: 3px;">
+              <div style="margin-bottom: 2.5px;">
+                <div style="white-space: nowrap; margin-bottom: 1.5px;">
                   4. ชื่อ - สกุล บิดา <span id="p1_fatherName" class="dot-fill-left" style="width: 205px;"></span>
                   อาชีพ <span id="p1_fatherJob" class="dot-fill-left" style="width: 115px;"></span>
                   เบอร์โทรศัพท์ <span id="p1_fatherTel" class="dot-fill-left" style="width: 120px;"></span>
                 </div>
-                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 3px;">
+                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 1.5px;">
                   เลขประจำตัวประชาชน <span id="p1_fatherBoxes"></span>
                 </div>
-                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 3px;">
+                <div style="white-space: nowrap; padding-left: 14px; margin-bottom: 1.5px;">
                   ชื่อ - สกุล มารดา (นาง/นางสาว) <span id="p1_motherName" class="dot-fill-left" style="width: 165px;"></span>
                   อาชีพ <span id="p1_motherJob" class="dot-fill-left" style="width: 115px;"></span>
                   เบอร์โทรศัพท์ <span id="p1_motherTel" class="dot-fill-left" style="width: 120px;"></span>
@@ -795,9 +546,8 @@
                 </div>
               </div>
 
-              <!-- ข้อ 5 -->
-              <div style="margin-bottom: 5px;">
-                <div style="white-space: nowrap; margin-bottom: 3px;">
+              <div style="margin-bottom: 2.5px;">
+                <div style="white-space: nowrap; margin-bottom: 1.5px;">
                   5. บุคคลใกล้เคียงที่ติดต่อได้ (นาย/นาง/นางสาว) <span id="p1_contactName" class="dot-fill-left" style="width: 195px;"></span>
                   เกี่ยวข้องเป็น <span id="p1_contactRel" class="dot-fill" style="width: 85px;"></span> ของผู้สมัคร
                 </div>
@@ -807,25 +557,24 @@
                 </div>
               </div>
 
-              <!-- ข้อ 6 -->
-              <div style="margin-bottom: 5px;">
+              <div style="margin-bottom: 2.5px;">
                 <div>6. สถานภาพการศึกษา</div>
                 <div style="padding-left: 20px;">
                   สำเร็จการศึกษา &nbsp;&nbsp; (<span id="p1_gradM3" style="font-weight: bold;">/</span>) ระดับชั้นมัธยมศึกษาปีที่ 3
                 </div>
-                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 2px;">
+                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 1px;">
                   จากโรงเรียน <span id="p1_m3School" class="dot-fill-left" style="width: 190px;"></span>
                   อำเภอ <span id="p1_m3Amphoe" class="dot-fill-left" style="width: 105px;"></span>
                   จังหวัด <span id="p1_m3Province" class="dot-fill-left" style="width: 125px;"></span>
                 </div>
-                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 2px;">
+                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 1px;">
                   วัน/เดือน/ปี ที่จบ <span id="p1_m3Date" class="dot-fill" style="width: 145px;"></span>
                   ผลการเรียนเฉลี่ย <span id="p1_m3Gpa" class="dot-fill" style="width: 95px;"></span>
                 </div>
                 <div style="padding-left: 20px;">
                   สำเร็จการศึกษา &nbsp;&nbsp; (<span id="p1_gradM6" style="font-weight: bold;">&nbsp;</span>) ระดับชั้นมัธยมศึกษาปีที่ 6 &nbsp;&nbsp;&nbsp; (<span id="p1_gradVoc3" style="font-weight: bold;">&nbsp;</span>) ระดับประกาศนียบัตรวิชาชีพ (ปวช.) ปีที่ 3
                 </div>
-                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 2px;">
+                <div style="white-space: nowrap; padding-left: 20px; margin-bottom: 1px;">
                   จากโรงเรียน <span id="p1_m6School" class="dot-fill-left" style="width: 190px;"></span>
                   อำเภอ <span id="p1_m6Amphoe" class="dot-fill-left" style="width: 105px;"></span>
                   จังหวัด <span id="p1_m6Province" class="dot-fill-left" style="width: 125px;"></span>
@@ -836,8 +585,7 @@
                 </div>
               </div>
 
-              <!-- ข้อ 7 -->
-              <div style="margin-bottom: 5px;">
+              <div style="margin-bottom: 2.5px;">
                 <div>7. วิชาเอกที่สมัคร</div>
                 <table style="width: 100%; border-collapse: collapse; margin-left: 20px;">
                   <tr>
@@ -853,45 +601,44 @@
                 </table>
               </div>
 
-              <!-- ข้อ 8 -->
-              <div style="margin-bottom: 6px;">
+              <div style="margin-bottom: 3px;">
                 <div>8. เอกสารที่ส่งมาพร้อมใบสมัคร (ทำเครื่องหมาย / หน้ารายการเอกสารแนบ)</div>
                 <div style="padding-left: 20px;">
                   <span class="chk-box" id="p1_docTrans">/</span> สำเนาใบแสดงผลการศึกษา &nbsp;&nbsp;&nbsp;&nbsp;
                   <span class="chk-box" id="p1_docHouse">/</span> สำเนาทะเบียนบ้าน สำเนาบัตรประชาชนของนักศึกษา และบิดา มารดา
                 </div>
-                <div style="padding-left: 20px; margin-top: 2px;">
+                <div style="padding-left: 20px; margin-top: 1px;">
                   <span class="chk-box" id="p1_docOtherChk">&nbsp;</span> อื่นๆ <span id="p1_docOtherTxt" class="dot-fill-left" style="width: 360px;"></span>
                 </div>
               </div>
 
-              <!-- ส่วนลงลายมือชื่อ -->
-              <table style="width: 100%; border-collapse: collapse; margin-top: 6px;">
+              <!-- ส่วนลงลายมือชื่อ (ขยับขึ้นมาอยู่ในระยะสมดุล ไม่ชิดขอบล่าง) -->
+              <table style="width: 100%; border-collapse: collapse; margin-top: 3px;">
                 <tr>
                   <td style="width: 50%; text-align: center; vertical-align: top;">
                     <div>
                       (ลงชื่อผู้สมัคร)
-                      <span id="sigApplicantWrap"><canvas id="sigApplicant" width="160" height="36" class="sig-pad"></canvas></span>
+                      <span id="sigApplicantWrap"><canvas id="sigApplicant" width="150" height="30" class="sig-pad"></canvas></span>
                     </div>
-                    <div style="margin-top: 2px;">(<span id="p1_sigName" class="dot-fill" style="width: 170px;"></span>)</div>
-                    <div class="no-print" style="margin-top: 2px;">
-                      <button type="button" onclick="clearMobileAndPaperSig()" style="font-size: 11pt; color: #dc2626; text-decoration: underline;">ล้างลายเซ็นผู้สมัคร</button>
+                    <div style="margin-top: 1px;">(<span id="p1_sigName" class="dot-fill" style="width: 170px;"></span>)</div>
+                    <div class="no-print" style="margin-top: 1px;">
+                      <button type="button" onclick="clearMobileAndPaperSig()" style="font-size: 10pt; color: #dc2626; text-decoration: underline;">ล้างลายเซ็นผู้สมัคร</button>
                     </div>
                   </td>
                   <td style="width: 50%; text-align: center; vertical-align: top;">
                     <div>
                       (ลงชื่อผู้รับสมัคร)
-                      <span id="sigOfficerWrap"><canvas id="sigOfficer" width="160" height="36" class="sig-pad"></canvas></span>
+                      <span id="sigOfficerWrap"><canvas id="sigOfficer" width="150" height="30" class="sig-pad"></canvas></span>
                     </div>
-                    <div style="margin-top: 2px;">(<span id="p1_officerSigName" class="dot-fill" style="width: 170px;"></span>)</div>
-                    <div class="no-print" style="margin-top: 2px;">
-                      <button type="button" onclick="clearCanvas('sigOfficer')" style="font-size: 11pt; color: #dc2626; text-decoration: underline;">ล้างลายเซ็นผู้รับสมัคร</button>
+                    <div style="margin-top: 1px;">(<span id="p1_officerSigName" class="dot-fill" style="width: 170px;"></span>)</div>
+                    <div class="no-print" style="margin-top: 1px;">
+                      <button type="button" onclick="clearCanvas('sigOfficer')" style="font-size: 10pt; color: #dc2626; text-decoration: underline;">ล้างลายเซ็นผู้รับสมัคร</button>
                     </div>
                   </td>
                 </tr>
               </table>
 
-              <div style="text-align: center; margin-top: 4px;">
+              <div style="text-align: center; margin-top: 2px;">
                 วันที่ <span id="p1_day" class="dot-fill" style="width: 40px;"></span>
                 เดือน <span id="p1_month" class="dot-fill" style="width: 95px;"></span>
                 พ.ศ. <span id="p1_year" class="dot-fill" style="width: 60px;"></span>
@@ -915,9 +662,6 @@
     let earlyBirdUsedCount = 0;
     let customLogoData = '';
 
-    // =====================================================================
-    // ระบบดึงข้อมูลอาจารย์แนะแนวแต่ละสายจากลิงก์ URL (เช่น ?team=สายที่1&teacher=อ.ชุติเดช&tel=098-xxx)
-    // =====================================================================
     let activeGuidance = {
       team: 'ส่วนกลางวิทยาลัย',
       teacher: 'ฝ่ายแนะแนวรับสมัคร',
@@ -925,47 +669,31 @@
       fromUrl: false
     };
 
+    // รองรับทั้งลิงก์สั้น (?t=...&a=...&p=...), ลิงก์เข้ารหัสสั้น (?c=...) และลิงก์ปกติ
     function initGuidanceFromUrl() {
       const params = new URLSearchParams(window.location.search);
-      const teamParam = params.get('team') || params.get('route');
-      const teacherParam = params.get('teacher') || params.get('aj');
-      const telParam = params.get('tel') || params.get('phone');
+      let teamParam = params.get('t') || params.get('team') || params.get('route');
+      let teacherParam = params.get('a') || params.get('teacher') || params.get('aj');
+      let telParam = params.get('p') || params.get('tel') || params.get('phone');
+
+      const codeParam = params.get('c');
+      if (codeParam) {
+        try {
+          const decoded = decodeURIComponent(escape(atob(codeParam)));
+          const parts = decoded.split('|');
+          if (parts[0]) teamParam = parts[0];
+          if (parts[1]) teacherParam = parts[1];
+          if (parts[2]) telParam = parts[2];
+        } catch (e) {}
+      }
 
       if (teamParam || teacherParam) {
         activeGuidance.team = teamParam || 'สายแนะแนวสัญจร';
         activeGuidance.teacher = teacherParam || teamParam || 'อาจารย์แนะแนว';
         activeGuidance.tel = telParam || 'ติดต่ออาจารย์ผู้แนะแนว';
         activeGuidance.fromUrl = true;
-
-        // เพิ่มตัวเลือกของลิงก์นี้เข้าไปใน Dropdown และล็อกไว้ให้ทันที
-        const sel = document.getElementById('inp_guidanceSelect');
-        const val = `${activeGuidance.team}|${activeGuidance.teacher}|${activeGuidance.tel}`;
-        const opt = document.createElement('option');
-        opt.value = val;
-        opt.textContent = `${activeGuidance.team} (${activeGuidance.teacher})`;
-        sel.insertBefore(opt, sel.firstChild);
-        sel.value = val;
-        document.getElementById('lockTeamBadge').classList.remove('hidden');
       }
       updateGuidanceBanners();
-    }
-
-    function handleGuidanceSelectChange() {
-      const selVal = document.getElementById('inp_guidanceSelect').value;
-      const customInp = document.getElementById('inp_customTeacher');
-      if (selVal === 'custom') {
-        customInp.classList.remove('hidden');
-        activeGuidance.team = 'ระบุอาจารย์แนะแนว';
-        activeGuidance.teacher = customInp.value || 'อาจารย์ผู้แนะแนว';
-      } else {
-        customInp.classList.add('hidden');
-        const [team, teacher, tel] = selVal.split('|');
-        activeGuidance.team = team;
-        activeGuidance.teacher = teacher;
-        activeGuidance.tel = tel || '';
-      }
-      updateGuidanceBanners();
-      syncFormToPaper();
     }
 
     function updateGuidanceBanners() {
@@ -974,6 +702,11 @@
         : activeGuidance.team;
       document.getElementById('headerTeamBadge').innerText = label;
       document.getElementById('mobileTeamBanner').innerText = `📍 แนะแนวโดย: ${label}`;
+
+      const lockedDisp = document.getElementById('lockedGuidanceDisplay');
+      const lockedTel = document.getElementById('lockedGuidanceTel');
+      if (lockedDisp) lockedDisp.innerText = label;
+      if (lockedTel) lockedTel.innerText = `📞 เบอร์ติดต่อสายแนะแนว: ${activeGuidance.tel}`;
     }
 
     function createFallbackLogoPng() {
@@ -992,14 +725,11 @@
     }
     const FALLBACK_LOGO_PNG = createFallbackLogoPng();
 
-    // รูปหน้าปกกราฟิกสำรอง กรณีที่ยังไม่ได้วางไฟล์ cover.jpg ลงในโฟลเดอร์
     const FALLBACK_COVER_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280">
         <defs>
           <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e0f2fe"/>
-            <stop offset="50%" stop-color="#fce7f3"/>
-            <stop offset="100%" stop-color="#fef3c7"/>
+            <stop offset="0%" stop-color="#e0f2fe"/><stop offset="50%" stop-color="#fce7f3"/><stop offset="100%" stop-color="#fef3c7"/>
           </linearGradient>
         </defs>
         <rect width="480" height="280" rx="18" fill="url(#sky)"/>
@@ -1035,13 +765,12 @@
       img.src = 'icon.png';
     }
 
-    // ย่อแผ่นใบสมัคร A4 บนหน้าจอมือถือให้อัตโนมัติ (ไม่ล้นจอ)
     function scaleA4ForMobile() {
       const shell = document.getElementById('a4PreviewShell');
       const paper = document.getElementById('applicationPaper');
       if (!shell || !paper) return;
       const availableWidth = shell.clientWidth;
-      const paperWidthPx = 794; // 210mm
+      const paperWidthPx = 794;
       if (availableWidth < paperWidthPx) {
         const scale = availableWidth / paperWidthPx;
         paper.style.transform = `scale(${scale})`;
@@ -1086,24 +815,29 @@
       }
     }
 
+    // ข้อ 4 ที่ปรับแก้: เมื่อครบ 30 คนแล้ว ยังคงรันลำดับที่ไปเรื่อยๆ (#31, #32...) แต่ปิดช่องทำเครื่องหมาย 30 คนแรก
     function updateQuotaDisplay() {
-      const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
       const nextQueue = totalRegisteredCount + 1;
+      const usedCount = Math.min(MAX_EARLY_BIRD, Math.max(earlyBirdUsedCount, totalRegisteredCount));
+      const remain = Math.max(0, MAX_EARLY_BIRD - usedCount);
+
       document.getElementById('headerQuotaText').innerText = `คงเหลือ ${remain}/${MAX_EARLY_BIRD}`;
-      document.getElementById('mobileQuotaText').innerText = `30 คนแรก เหลือ ${remain} สิทธิ์`;
+      document.getElementById('mobileQuotaText').innerText = remain > 0 ? `30 คนแรก เหลือ ${remain} สิทธิ์` : `ครบ 30 คนแล้ว (ลำดับที่ #${nextQueue})`;
       document.getElementById('formQueueBadge').innerText = `คนที่ #${nextQueue}`;
-      document.getElementById('formQuotaRemain').innerText = `เหลือ ${remain}/${MAX_EARLY_BIRD} สิทธิ์`;
+      document.getElementById('formQuotaRemain').innerText = remain > 0 ? `เหลือ ${remain}/${MAX_EARLY_BIRD} สิทธิ์` : `ครบโควตา 30 คนแรกแล้ว`;
 
       const earlyChk = document.getElementById('inp_promoEarly');
-      if (remain <= 0) {
+      const earlyNote = document.getElementById('earlyLockNote');
+      if (remain <= 0 || nextQueue > MAX_EARLY_BIRD) {
         earlyChk.checked = false;
         earlyChk.disabled = true;
+        if (earlyNote) earlyNote.innerText = '(ครบโควตา 30 คนแรกแล้ว ปิดการทำเครื่องหมาย)';
+      } else {
+        earlyChk.disabled = false;
+        if (earlyNote) earlyNote.innerText = '';
       }
     }
 
-    // =====================================================================
-    // เนื้อหาหนังสือคู่มือ E-BOOK 8 คู่หน้า (ล็อกรูปหน้าปก cover.jpg + แสดงชื่ออาจารย์แนะแนว)
-    // =====================================================================
     let currentEbookPage = 0;
     let isFlipping = false;
     const getLogoSrc = () => customLogoData || 'icon.png';
@@ -1156,26 +890,17 @@
             <div class="inline-flex items-center gap-2 bg-amber-200 border-2 border-slate-800 px-3.5 py-1 rounded-full text-xs font-extrabold text-slate-900">
               <span>✨ คู่มือแนะแนวการศึกษาต่อ ปีการศึกษา 2570</span>
             </div>
-
             <div class="flex items-center justify-center gap-3">
               <img src="${getLogoSrc()}" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-2 border-slate-800 p-1 shadow object-contain shrink-0" onerror="this.src=FALLBACK_LOGO_PNG" />
               <div class="text-left">
-                <h2 class="text-sm sm:text-lg font-extrabold text-slate-900 leading-snug">
-                  วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ
-                </h2>
-                <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500">
-                  Padung Business Administration Technology College of Sena
-                </p>
+                <h2 class="text-sm sm:text-lg font-extrabold text-slate-900 leading-snug">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</h2>
+                <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500">Padung Business Administration Technology College of Sena</p>
                 <p class="text-xs text-rose-600 font-bold">อำเภอเสนา จังหวัดพระนครศรีอยุธยา</p>
               </div>
             </div>
-
-            <!-- กรอบรูปหน้าปก ล็อกให้ดึงจากไฟล์ cover.jpg โดยไม่มีปุ่มให้คนภายนอกกดเปลี่ยน -->
             <div class="sketch-box bg-white p-2 overflow-hidden">
               <img src="cover.jpg" alt="ภาพหน้าปกวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="w-full h-48 sm:h-56 object-cover rounded-xl border border-slate-200" onerror="this.src=FALLBACK_COVER_SVG" />
             </div>
-
-            <!-- ป้ายชื่ออาจารย์แนะแนวประจำสาย (เปลี่ยนตามลิงก์อัตโนมัติ) -->
             <div class="bg-sky-50 border-2 border-slate-800 rounded-2xl px-3.5 py-2 text-xs flex flex-wrap items-center justify-between gap-2">
               <span class="font-bold text-slate-800">🧭 สายแนะแนว: <strong class="text-sky-800">${activeGuidance.team}</strong></span>
               <span class="font-semibold text-slate-700">👨‍🏫 ${activeGuidance.teacher} (${activeGuidance.tel})</span>
@@ -1183,51 +908,31 @@
           </div>
         `,
         getRight: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          const remain = Math.max(0, MAX_EARLY_BIRD - Math.max(earlyBirdUsedCount, totalRegisteredCount));
           return `
             <div class="space-y-3.5">
               <div class="sketch-box bg-amber-100 p-3.5">
                 <div class="font-extrabold text-sm text-slate-900">👋 ยินดีต้อนรับสู่ปีการศึกษา 2570</div>
-                <p class="text-xs text-slate-700 mt-1 leading-relaxed">
-                  คู่มือแนะแนวการศึกษาต่อฉบับนี้ รวบรวมข้อมูลของ <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> ครบทั้งหลักสูตร ปวช.1–ปวส.2 เวลาเรียน การแต่งกาย ค่าเทอม โปรโมชั่น และระบบดูแลผู้เรียน
-                </p>
+                <p class="text-xs text-slate-700 mt-1 leading-relaxed">คู่มือแนะแนวการศึกษาต่อฉบับนี้ รวบรวมข้อมูลของ <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> ครบทั้งหลักสูตร ปวช.1–ปวส.2 เวลาเรียน การแต่งกาย ค่าเทอม โปรโมชั่น และระบบดูแลผู้เรียน</p>
               </div>
-
               <div class="bg-white border-2 border-slate-800 rounded-2xl p-3.5 sm:p-4 space-y-2">
                 <div class="font-extrabold text-xs sm:text-sm text-slate-900 border-b border-slate-200 pb-1.5">📑 สารบัญคู่มือแนะแนว (แตะเลือกหน้าได้เลย)</div>
                 <div class="space-y-1.5 text-xs">
-                  <button onclick="goToEbookPage(1)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>🏫 บทที่ 2 : อาคารเรียน หอประชุม & ห้องปฏิบัติการ</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 3–4</span>
-                  </button>
-                  <button onclick="goToEbookPage(2)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>💻 บทที่ 3 : 2 สาขาที่เปิดสอน & อาชีพที่รองรับ</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 5–6</span>
-                  </button>
-                  <button onclick="goToEbookPage(3)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>⏰ บทที่ 4 : เวลาเรียน 08.30–14.45 น. & การเรียน นศท.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 7–8</span>
-                  </button>
-                  <button onclick="goToEbookPage(4)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>👔 บทที่ 5 : การแต่งกายนักศึกษา ปวช. และ ปวส.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 9–10</span>
-                  </button>
-                  <button onclick="goToEbookPage(5)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>🎁 บทที่ 6 : ค่าเทอม โปรโมชั่นส่วนลด & กู้ยืม กยศ.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 11–12</span>
-                  </button>
-                  <button onclick="goToEbookPage(6)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>🛡️ บทที่ 7 : ระบบดูแลช่วยเหลือผู้เรียน</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 13–14</span>
-                  </button>
-                  <button onclick="goToEbookPage(7)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5">
-                    <span>📍 บทที่ 8 : ข้อมูลติดต่อสอบถาม & ใบสมัครออนไลน์</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 15–16</span>
-                  </button>
+                  <button onclick="goToEbookPage(1)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>🏫 บทที่ 2 : อาคารเรียน หอประชุม & ห้องปฏิบัติการ</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 3–4</span></button>
+                  <button onclick="goToEbookPage(2)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>💻 บทที่ 3 : 2 สาขาที่เปิดสอน & อาชีพที่รองรับ</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 5–6</span></button>
+                  <button onclick="goToEbookPage(3)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>⏰ บทที่ 4 : เวลาเรียน 08.30–14.45 น. & การเรียน นศท.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 7–8</span></button>
+                  <button onclick="goToEbookPage(4)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>👔 บทที่ 5 : การแต่งกายนักศึกษา ปวช. และ ปวส.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 9–10</span></button>
+                  <button onclick="goToEbookPage(5)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>🎁 บทที่ 6 : ค่าเทอม โปรโมชั่นส่วนลด & กู้ยืม กยศ.</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 11–12</span></button>
+                  <button onclick="goToEbookPage(6)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>🛡️ บทที่ 7 : ระบบดูแลช่วยเหลือผู้เรียน</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 13–14</span></button>
+                  <button onclick="goToEbookPage(7)" class="w-full flex items-baseline text-left hover:text-rose-600 font-semibold py-0.5"><span>📍 บทที่ 8 : ข้อมูลติดต่อสอบถาม & ใบสมัครออนไลน์</span><span class="toc-line"></span><span class="font-bold shrink-0">หน้า 15–16</span></button>
                 </div>
               </div>
-
               <div class="coupon-box p-3.5 flex flex-wrap items-center justify-between gap-2">
                 <div class="text-xs">
                   <span class="font-extrabold text-rose-600">🔥 โปรโมชั่น 30 คนแรก ลดค่าเทอม 1,000 บาท</span>
                   <div class="text-slate-600">ปีการศึกษา 2570 ปัจจุบันคงเหลือ <strong>${remain} / 30 สิทธิ์</strong></div>
                 </div>
-                <button onclick="nextEbookPage()" class="cute-btn px-4 py-2 rounded-xl bg-amber-300 text-slate-900 font-bold text-xs">
-                  พลิกเปิดอ่าน ▶
-                </button>
+                <button onclick="nextEbookPage()" class="cute-btn px-4 py-2 rounded-xl bg-amber-300 text-slate-900 font-bold text-xs">พลิกเปิดอ่าน ▶</button>
               </div>
             </div>
           `;
@@ -1244,32 +949,13 @@
               <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ภาพรวมอาคารเรียน และหอประชุม</h3>
               <p class="text-xs text-slate-600">ออกแบบพื้นที่ให้ร่มรื่น ปลอดภัย เอื้อต่อการเรียนรู้และกิจกรรมของนักศึกษา</p>
             </div>
-
             <div class="sketch-box bg-sky-50 p-3.5 sm:p-4 flex items-center gap-3.5">
-              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                <rect x="15" y="20" width="70" height="52" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/>
-                <rect x="10" y="12" width="80" height="10" rx="3" fill="#38bdf8" stroke="#1e293b" stroke-width="2.5"/>
-                <rect x="25" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                <rect x="43" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                <rect x="61" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/>
-                <rect x="41" y="50" width="18" height="22" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-              </svg>
-              <div class="space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">1. อาคารเรียนมาตรฐาน</div>
-                <p class="text-xs text-slate-600 leading-relaxed">อาคารเรียนของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มีความโปร่ง สะอาด ร่มรื่น และมีจุดพักผ่อนสำหรับผู้เรียน</p>
-              </div>
+              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5"><rect x="15" y="20" width="70" height="52" rx="5" fill="#bae6fd" stroke="#1e293b" stroke-width="2.5"/><rect x="10" y="12" width="80" height="10" rx="3" fill="#38bdf8" stroke="#1e293b" stroke-width="2.5"/><rect x="25" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><rect x="43" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><rect x="61" y="30" width="14" height="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><rect x="41" y="50" width="18" height="22" fill="#fde047" stroke="#1e293b" stroke-width="2"/></svg>
+              <div class="space-y-1"><div class="font-extrabold text-sm text-slate-900">1. อาคารเรียนมาตรฐาน</div><p class="text-xs text-slate-600 leading-relaxed">อาคารเรียนของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มีความโปร่ง สะอาด ร่มรื่น และมีจุดพักผ่อนสำหรับผู้เรียน</p></div>
             </div>
-
             <div class="sketch-box bg-pink-50 p-3.5 sm:p-4 flex items-center gap-3.5">
-              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                <polygon points="10,28 50,10 90,28" fill="#f472b6" stroke="#1e293b" stroke-width="2.5"/>
-                <rect x="16" y="28" width="68" height="44" rx="5" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
-                <circle cx="50" cy="50" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-              </svg>
-              <div class="space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">2. หอประชุมขนาดใหญ่</div>
-                <p class="text-xs text-slate-600 leading-relaxed">รองรับกิจกรรมปฐมนิเทศ งานวิชาการ กีฬา E-Sports และเวทีแสดงศักยภาพของนักศึกษา</p>
-              </div>
+              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5"><polygon points="10,28 50,10 90,28" fill="#f472b6" stroke="#1e293b" stroke-width="2.5"/><rect x="16" y="28" width="68" height="44" rx="5" fill="#fff" stroke="#1e293b" stroke-width="2.5"/><circle cx="50" cy="50" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/></svg>
+              <div class="space-y-1"><div class="font-extrabold text-sm text-slate-900">2. หอประชุมขนาดใหญ่</div><p class="text-xs text-slate-600 leading-relaxed">รองรับกิจกรรมปฐมนิเทศ งานวิชาการ กีฬา E-Sports และเวทีแสดงศักยภาพของนักศึกษา</p></div>
             </div>
           </div>
         `,
@@ -1279,33 +965,14 @@
               <span class="bg-indigo-200 border border-slate-800 text-slate-900 text-[11px] font-bold px-2.5 py-0.5 rounded-full">ห้องปฏิบัติการ & ระดับชั้น</span>
               <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">ห้องปฏิบัติการทันสมัย & ระดับชั้นที่เปิดสอน</h3>
             </div>
-
             <div class="sketch-box bg-indigo-50 p-3.5 sm:p-4 flex items-center gap-3.5">
-              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                <rect x="18" y="14" width="64" height="40" rx="5" fill="#818cf8" stroke="#1e293b" stroke-width="2.5"/>
-                <rect x="24" y="20" width="52" height="28" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
-                <rect x="42" y="54" width="16" height="10" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
-                <rect x="30" y="64" width="40" height="5" rx="2" fill="#1e293b"/>
-              </svg>
-              <div class="space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">3. ห้องปฏิบัติการเทคโนโลยีธุรกิจดิจิทัล</div>
-                <p class="text-xs text-slate-600 leading-relaxed">คอมพิวเตอร์และอินเทอร์เน็ตความเร็วสูง สำหรับฝึกงานกราฟิก ตัดต่อสื่อ และระบบธุรกิจดิจิทัล</p>
-              </div>
+              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5"><rect x="18" y="14" width="64" height="40" rx="5" fill="#818cf8" stroke="#1e293b" stroke-width="2.5"/><rect x="24" y="20" width="52" height="28" fill="#fff" stroke="#1e293b" stroke-width="1.5"/><rect x="42" y="54" width="16" height="10" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/><rect x="30" y="64" width="40" height="5" rx="2" fill="#1e293b"/></svg>
+              <div class="space-y-1"><div class="font-extrabold text-sm text-slate-900">3. ห้องปฏิบัติการเทคโนโลยีธุรกิจดิจิทัล</div><p class="text-xs text-slate-600 leading-relaxed">คอมพิวเตอร์และอินเทอร์เน็ตความเร็วสูง สำหรับฝึกงานกราฟิก ตัดต่อสื่อ และระบบธุรกิจดิจิทัล</p></div>
             </div>
-
             <div class="sketch-box bg-emerald-50 p-3.5 sm:p-4 flex items-center gap-3.5">
-              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5">
-                <rect x="18" y="14" width="64" height="52" rx="6" fill="#fff" stroke="#1e293b" stroke-width="2.5"/>
-                <rect x="28" y="42" width="10" height="16" fill="#34d399" stroke="#1e293b" stroke-width="1.5"/>
-                <rect x="45" y="32" width="10" height="26" fill="#fbbf24" stroke="#1e293b" stroke-width="1.5"/>
-                <rect x="62" y="22" width="10" height="36" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
-              </svg>
-              <div class="space-y-1">
-                <div class="font-extrabold text-sm text-slate-900">4. ห้องปฏิบัติการการบัญชี</div>
-                <p class="text-xs text-slate-600 leading-relaxed">ฝึกปฏิบัติด้วยโปรแกรมบัญชีสำเร็จรูปและการจัดทำเอกสารการเงิน-ภาษีเสมือนทำงานจริง</p>
-              </div>
+              <svg viewBox="0 0 100 80" class="w-20 h-16 sm:w-24 sm:h-20 shrink-0 bg-white rounded-xl border border-slate-800 p-1.5"><rect x="18" y="14" width="64" height="52" rx="6" fill="#fff" stroke="#1e293b" stroke-width="2.5"/><rect x="28" y="42" width="10" height="16" fill="#34d399" stroke="#1e293b" stroke-width="1.5"/><rect x="45" y="32" width="10" height="26" fill="#fbbf24" stroke="#1e293b" stroke-width="1.5"/><rect x="62" y="22" width="10" height="36" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/></svg>
+              <div class="space-y-1"><div class="font-extrabold text-sm text-slate-900">4. ห้องปฏิบัติการการบัญชี</div><p class="text-xs text-slate-600 leading-relaxed">ฝึกปฏิบัติด้วยโปรแกรมบัญชีสำเร็จรูปและการจัดทำเอกสารการเงิน-ภาษีเสมือนทำงานจริง</p></div>
             </div>
-
             <div class="p-3.5 rounded-2xl bg-amber-100 border-2 border-slate-800 text-xs">
               <div class="font-extrabold text-slate-900">🎓 จัดการเรียนการสอนตั้งแต่ระดับ ปวช.1 ถึง ปวส.2</div>
               <p class="text-slate-700 mt-0.5">จบ ม.3 เข้าศึกษาต่อระดับ <strong>ปวช.1–3</strong> และจบ ม.6 หรือ ปวช.3 เข้าศึกษาต่อระดับ <strong>ปวส.1–2</strong></p>
@@ -1319,54 +986,18 @@
         rightTag: 'สาขาเทคโนโลยีธุรกิจดิจิทัล',
         getLeft: () => `
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="bg-sky-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 1</span>
-              <span class="text-2xl">📊🧾</span>
-            </div>
+            <div class="flex items-center justify-between"><span class="bg-sky-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 1</span><span class="text-2xl">📊🧾</span></div>
             <h3 class="text-xl font-extrabold text-slate-900">สาขาการบัญชี (Accounting)</h3>
-            
-            <div class="sketch-box bg-sky-50 p-4 space-y-2">
-              <div class="font-extrabold text-xs text-sky-900">✨ ข้อดีของการเรียนสาขาการบัญชี</div>
-              <p class="text-xs text-slate-700 leading-relaxed">
-                เป็นวิชาชีพเฉพาะทางที่ทุกธุรกิจและหน่วยงานต้องมี เรียนรู้ระบบบัญชีครบวงจร การวางแผนภาษี การเงินธุรกิจ และการใช้โปรแกรมบัญชีดิจิทัล จบแล้วหางานง่ายและมีความมั่นคงสูง
-              </p>
-            </div>
-
-            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
-              <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
-              <ul class="space-y-1.5 text-xs text-slate-700">
-                <li>✅ นักบัญชี / เจ้าหน้าที่การเงินในบริษัทเอกชนและรัฐวิสาหกิจ</li>
-                <li>✅ ผู้ช่วยผู้สอบบัญชี / ที่ปรึกษาด้านภาษีอากร</li>
-                <li>✅ พนักงานธนาคารและสถาบันการเงิน</li>
-                <li>✅ เจ้าหน้าที่ฝ่ายจัดซื้อ ธุรการ หรือประกอบธุรกิจส่วนตัว</li>
-              </ul>
-            </div>
+            <div class="sketch-box bg-sky-50 p-4 space-y-2"><div class="font-extrabold text-xs text-sky-900">✨ ข้อดีของการเรียนสาขาการบัญชี</div><p class="text-xs text-slate-700 leading-relaxed">เป็นวิชาชีพเฉพาะทางที่ทุกธุรกิจและหน่วยงานต้องมี เรียนรู้ระบบบัญชีครบวงจร การวางแผนภาษี การเงินธุรกิจ และการใช้โปรแกรมบัญชีดิจิทัล จบแล้วหางานง่ายและมีความมั่นคงสูง</p></div>
+            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2"><div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div><ul class="space-y-1.5 text-xs text-slate-700"><li>✅ นักบัญชี / เจ้าหน้าที่การเงินในบริษัทเอกชนและรัฐวิสาหกิจ</li><li>✅ ผู้ช่วยผู้สอบบัญชี / ที่ปรึกษาด้านภาษีอากร</li><li>✅ พนักงานธนาคารและสถาบันการเงิน</li><li>✅ เจ้าหน้าที่ฝ่ายจัดซื้อ ธุรการ หรือประกอบธุรกิจส่วนตัว</li></ul></div>
           </div>
         `,
         getRight: () => `
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="bg-pink-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 2</span>
-              <span class="text-2xl">💻🚀</span>
-            </div>
+            <div class="flex items-center justify-between"><span class="bg-pink-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สาขาที่ 2</span><span class="text-2xl">💻🚀</span></div>
             <h3 class="text-xl font-extrabold text-slate-900">สาขาเทคโนโลยีธุรกิจดิจิทัล</h3>
-            
-            <div class="sketch-box bg-pink-50 p-4 space-y-2">
-              <div class="font-extrabold text-xs text-pink-900">✨ ข้อดีของการเรียนสาขาเทคโนโลยีธุรกิจดิจิทัล</div>
-              <p class="text-xs text-slate-700 leading-relaxed">
-                ผสานความรู้บริหารธุรกิจเข้ากับเทคโนโลยีสมัยใหม่ เรียนรู้การตลาดดิจิทัล E-Commerce การออกแบบกราฟิก ตัดต่อวิดีโอ คอนเทนต์ครีเอเตอร์ และระบบสารสนเทศองค์กร
-              </p>
-            </div>
-
-            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2">
-              <div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div>
-              <ul class="space-y-1.5 text-xs text-slate-700">
-                <li>✅ นักการตลาดดิจิทัล (Digital Marketer) & ผู้ดูแล E-Commerce</li>
-                <li>✅ นักออกแบบกราฟิก มัลติมีเดีย และ Content Creator</li>
-                <li>✅ เจ้าหน้าที่คอมพิวเตอร์ธุรกิจ / ผู้ดูแลระบบสารสนเทศ</li>
-                <li>✅ ผู้ประกอบการธุรกิจออนไลน์ยุคใหม่</li>
-              </ul>
-            </div>
+            <div class="sketch-box bg-pink-50 p-4 space-y-2"><div class="font-extrabold text-xs text-pink-900">✨ ข้อดีของการเรียนสาขาเทคโนโลยีธุรกิจดิจิทัล</div><p class="text-xs text-slate-700 leading-relaxed">ผสานความรู้บริหารธุรกิจเข้ากับเทคโนโลยีสมัยใหม่ เรียนรู้การตลาดดิจิทัล E-Commerce การออกแบบกราฟิก ตัดต่อวิดีโอ คอนเทนต์ครีเอเตอร์ และระบบสารสนเทศองค์กร</p></div>
+            <div class="bg-white border-2 border-slate-800 rounded-2xl p-4 space-y-2"><div class="font-extrabold text-xs text-slate-900">💼 งานที่รองรับเมื่อจบการศึกษา:</div><ul class="space-y-1.5 text-xs text-slate-700"><li>✅ นักการตลาดดิจิทัล (Digital Marketer) & ผู้ดูแล E-Commerce</li><li>✅ นักออกแบบกราฟิก มัลติมีเดีย และ Content Creator</li><li>✅ เจ้าหน้าที่คอมพิวเตอร์ธุรกิจ / ผู้ดูแลระบบสารสนเทศ</li><li>✅ ผู้ประกอบการธุรกิจออนไลน์ยุคใหม่</li></ul></div>
           </div>
         `
       },
@@ -1376,45 +1007,22 @@
         rightTag: 'การเรียนนักศึกษาวิชาทหาร (นศท.)',
         getLeft: () => `
           <div class="space-y-4">
-            <div>
-              <span class="bg-emerald-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ตารางเวลาเรียน</span>
-              <h3 class="text-xl font-extrabold text-slate-900 mt-2">⏰ เวลาเรียน 08.30 – 14.45 น.</h3>
-              <p class="text-xs text-slate-600 mt-1">แบ่งเป็น <strong>5 คาบเรียน พัก 3 พัก</strong> เรียนสนุก ไม่เครียด และเลิกเรียนไม่ค่ำ</p>
-            </div>
-
+            <div><span class="bg-emerald-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ตารางเวลาเรียน</span><h3 class="text-xl font-extrabold text-slate-900 mt-2">⏰ เวลาเรียน 08.30 – 14.45 น.</h3><p class="text-xs text-slate-600 mt-1">แบ่งเป็น <strong>5 คาบเรียน พัก 3 พัก</strong> เรียนสนุก ไม่เครียด และเลิกเรียนไม่ค่ำ</p></div>
             <div class="sketch-box bg-emerald-50 p-4 space-y-2.5 text-xs">
-              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                <span class="font-bold">🌅 เริ่มเข้าเรียนช่วงเช้า</span>
-                <strong class="text-emerald-700">08.30 น.</strong>
-              </div>
-              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                <span class="font-bold">📚 จำนวนคาบเรียนต่อวัน</span>
-                <strong class="text-indigo-700">5 คาบเรียน (เน้นปฏิบัติ)</strong>
-              </div>
-              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800">
-                <span class="font-bold">🧃 ช่วงเวลาพักระหว่างวัน</span>
-                <strong class="text-amber-700">พัก 3 พัก (เช้า • กลางวัน • บ่าย)</strong>
-              </div>
-              <div class="flex items-center justify-between bg-amber-200 p-2.5 rounded-xl border-2 border-slate-800">
-                <span class="font-extrabold">🏡 เวลาเลิกเรียนเดินทางกลับบ้าน</span>
-                <strong class="text-rose-700">14.45 น. (ปลอดภัย ไม่มืดค่ำ)</strong>
-              </div>
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800"><span class="font-bold">🌅 เริ่มเข้าเรียนช่วงเช้า</span><strong class="text-emerald-700">08.30 น.</strong></div>
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800"><span class="font-bold">📚 จำนวนคาบเรียนต่อวัน</span><strong class="text-indigo-700">5 คาบเรียน (เน้นปฏิบัติ)</strong></div>
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-800"><span class="font-bold">🧃 ช่วงเวลาพักระหว่างวัน</span><strong class="text-amber-700">พัก 3 พัก (เช้า • กลางวัน • บ่าย)</strong></div>
+              <div class="flex items-center justify-between bg-amber-200 p-2.5 rounded-xl border-2 border-slate-800"><span class="font-extrabold">🏡 เวลาเลิกเรียนเดินทางกลับบ้าน</span><strong class="text-rose-700">14.45 น. (ปลอดภัย ไม่มืดค่ำ)</strong></div>
             </div>
           </div>
         `,
         getRight: () => `
           <div class="space-y-4">
-            <div>
-              <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สิทธิพิเศษผู้เรียน</span>
-              <h3 class="text-xl font-extrabold text-slate-900 mt-2">🪖 การเรียนนักศึกษาวิชาทหาร (นศท.)</h3>
-            </div>
-
+            <div><span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">สิทธิพิเศษผู้เรียน</span><h3 class="text-xl font-extrabold text-slate-900 mt-2">🪖 การเรียนนักศึกษาวิชาทหาร (นศท.)</h3></div>
             <div class="sketch-box bg-amber-50 p-4 sm:p-5 space-y-3">
               <div class="flex items-center gap-3">
                 <div class="w-14 h-14 rounded-2xl bg-white border-2 border-slate-800 flex items-center justify-center text-3xl shrink-0">🎖️</div>
-                <div class="text-xs text-slate-700 leading-relaxed">
-                  <strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> สนับสนุนและดำเนินการประสานงานให้นักศึกษาได้เรียน <strong>นักศึกษาวิชาทหาร (นศท. / รด.)</strong> ควบคู่กับการเรียนตามหลักสูตรปกติ
-                </div>
+                <div class="text-xs text-slate-700 leading-relaxed"><strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ</strong> สนับสนุนและดำเนินการประสานงานให้นักศึกษาได้เรียน <strong>นักศึกษาวิชาทหาร (นศท. / รด.)</strong> ควบคู่กับการเรียนตามหลักสูตรปกติ</div>
               </div>
               <ul class="space-y-1.5 text-xs text-slate-700 bg-white p-3.5 rounded-xl border border-slate-300">
                 <li>• รองรับทั้งผู้สมัครเรียน นศท. รายใหม่ (ชั้นปีที่ 1)</li>
@@ -1431,50 +1039,21 @@
         rightTag: 'เครื่องแบบระดับชั้น ปวส.',
         getLeft: () => `
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="bg-sky-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวช.</span>
-              <span class="text-xs font-bold text-slate-500">ปวช.1 – ปวช.3</span>
-            </div>
+            <div class="flex items-center justify-between"><span class="bg-sky-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวช.</span><span class="text-xs font-bold text-slate-500">ปวช.1 – ปวช.3</span></div>
             <h3 class="text-lg font-extrabold text-slate-900">👔 การแต่งกายระดับชั้น ปวช.</h3>
-
             <div class="sketch-box bg-sky-50 p-4 space-y-3">
-              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
-                <circle cx="65" cy="20" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/>
-                <rect x="50" y="32" width="30" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                <rect x="53" y="56" width="24" height="22" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
-                <circle cx="155" cy="20" r="10" fill="#f472b6" stroke="#1e293b" stroke-width="2"/>
-                <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                <polygon points="142,54 168,54 174,78 136,78" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/>
-              </svg>
-              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
-                <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนสั้น ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงขายาวสีกรมท่า/ดำ เข็มขัดตราสถาบัน รองเท้าหนังหุ้มส้นสีดำ</p>
-                <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวปกเชิ้ต ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพคลุมเข่า เข็มขัดตราสถาบัน รองเท้าคัทชูสีดำ</p>
-              </div>
+              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2"><circle cx="65" cy="20" r="10" fill="#fde047" stroke="#1e293b" stroke-width="2"/><rect x="50" y="32" width="30" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/><rect x="53" y="56" width="24" height="22" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/><circle cx="155" cy="20" r="10" fill="#f472b6" stroke="#1e293b" stroke-width="2"/><rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/><polygon points="142,54 168,54 174,78 136,78" fill="#1e3a8a" stroke="#1e293b" stroke-width="2"/></svg>
+              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed"><p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนสั้น ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงขายาวสีกรมท่า/ดำ เข็มขัดตราสถาบัน รองเท้าหนังหุ้มส้นสีดำ</p><p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวปกเชิ้ต ติดเข็มกลัดตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพคลุมเข่า เข็มขัดตราสถาบัน รองเท้าคัทชูสีดำ</p></div>
             </div>
           </div>
         `,
         getRight: () => `
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="bg-pink-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวส.</span>
-              <span class="text-xs font-bold text-slate-500">ปวส.1 – ปวส.2</span>
-            </div>
+            <div class="flex items-center justify-between"><span class="bg-pink-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระดับ ปวส.</span><span class="text-xs font-bold text-slate-500">ปวส.1 – ปวส.2</span></div>
             <h3 class="text-lg font-extrabold text-slate-900">🎓 การแต่งกายระดับชั้น ปวส.</h3>
-
             <div class="sketch-box bg-pink-50 p-4 space-y-3">
-              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2">
-                <circle cx="65" cy="20" r="10" fill="#38bdf8" stroke="#1e293b" stroke-width="2"/>
-                <rect x="48" y="32" width="34" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                <polygon points="65,34 62,52 65,55 68,52" fill="#be185d"/>
-                <rect x="53" y="56" width="24" height="22" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
-                <circle cx="155" cy="20" r="10" fill="#a855f7" stroke="#1e293b" stroke-width="2"/>
-                <rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                <polygon points="143,54 167,54 170,78 140,78" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
-              </svg>
-              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed">
-                <p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนยาว ผูกเนกไทตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงสแล็คขายาวสุภาพ รองเท้าหนังหุ้มส้นสีดำ</p>
-                <p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวแขนสั้นติดกระดุมและเข็มตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพ รองเท้าคัทชูหุ้มส้นสีดำ</p>
-              </div>
+              <svg viewBox="0 0 220 85" class="w-full h-24 bg-white rounded-xl border border-slate-800 p-2"><circle cx="65" cy="20" r="10" fill="#38bdf8" stroke="#1e293b" stroke-width="2"/><rect x="48" y="32" width="34" height="24" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/><polygon points="65,34 62,52 65,55 68,52" fill="#be185d"/><rect x="53" y="56" width="24" height="22" fill="#0f172a" stroke="#1e293b" stroke-width="2"/><circle cx="155" cy="20" r="10" fill="#a855f7" stroke="#1e293b" stroke-width="2"/><rect x="140" y="32" width="30" height="22" rx="4" fill="#ffffff" stroke="#1e293b" stroke-width="2"/><polygon points="143,54 167,54 170,78 140,78" fill="#0f172a" stroke="#1e293b" stroke-width="2"/></svg>
+              <div class="space-y-1.5 text-xs text-slate-700 leading-relaxed"><p>• <strong>นักศึกษาชาย:</strong> เสื้อเชิ้ตสีขาวแขนยาว ผูกเนกไทตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กางเกงสแล็คขายาวสุภาพ รองเท้าหนังหุ้มส้นสีดำ</p><p>• <strong>นักศึกษาหญิง:</strong> เสื้อเชิ้ตสีขาวแขนสั้นติดกระดุมและเข็มตราสัญลักษณ์วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ กระโปรงทรงสุภาพ รองเท้าคัทชูหุ้มส้นสีดำ</p></div>
             </div>
           </div>
         `
@@ -1485,56 +1064,23 @@
         rightTag: 'โปรโมชั่นในการสมัครเรียน ปีการศึกษา 2570',
         getLeft: () => `
           <div class="space-y-4">
-            <div>
-              <span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ค่าธรรมเนียมการศึกษา</span>
-              <h3 class="text-xl font-extrabold text-slate-900 mt-2">💳 อัตราค่าเทอม & การกู้ยืม กยศ.</h3>
-            </div>
-
+            <div><span class="bg-amber-300 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ค่าธรรมเนียมการศึกษา</span><h3 class="text-xl font-extrabold text-slate-900 mt-2">💳 อัตราค่าเทอม & การกู้ยืม กยศ.</h3></div>
             <div class="grid grid-cols-2 gap-3">
-              <div class="sketch-box bg-sky-100 p-4 text-center">
-                <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวช.</div>
-                <div class="text-2xl font-extrabold text-slate-900 mt-1">5,500.-</div>
-                <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
-              </div>
-              <div class="sketch-box bg-pink-100 p-4 text-center">
-                <div class="text-xs font-bold text-slate-700">ระดับชั้น ปวส.</div>
-                <div class="text-2xl font-extrabold text-slate-900 mt-1">11,500.-</div>
-                <div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div>
-              </div>
+              <div class="sketch-box bg-sky-100 p-4 text-center"><div class="text-xs font-bold text-slate-700">ระดับชั้น ปวช.</div><div class="text-2xl font-extrabold text-slate-900 mt-1">5,500.-</div><div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div></div>
+              <div class="sketch-box bg-pink-100 p-4 text-center"><div class="text-xs font-bold text-slate-700">ระดับชั้น ปวส.</div><div class="text-2xl font-extrabold text-slate-900 mt-1">11,500.-</div><div class="text-[11px] text-slate-600">บาท / ภาคเรียน</div></div>
             </div>
-
-            <div class="sketch-box bg-emerald-50 p-4 space-y-1.5">
-              <div class="font-extrabold text-sm text-slate-900">🏦 รองรับการกู้ยืมเพื่อการศึกษา (กยศ.)</div>
-              <p class="text-xs text-slate-700 leading-relaxed">
-                นักศึกษาทั้งระดับ ปวช. และ ปวส. สามารถยื่นกู้ยืมกองทุน <strong>กยศ.</strong> ได้ โดยมีทีมอาจารย์แนะแนวของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ คอยดูแลเอกสารให้ทุกขั้นตอน
-              </p>
-            </div>
+            <div class="sketch-box bg-emerald-50 p-4 space-y-1.5"><div class="font-extrabold text-sm text-slate-900">🏦 รองรับการกู้ยืมเพื่อการศึกษา (กยศ.)</div><p class="text-xs text-slate-700 leading-relaxed">นักศึกษาทั้งระดับ ปวช. และ ปวส. สามารถยื่นกู้ยืมกองทุน <strong>กยศ.</strong> ได้ โดยมีทีมอาจารย์แนะแนวของวิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ คอยดูแลเอกสารให้ทุกขั้นตอน</p></div>
           </div>
         `,
         getRight: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          const remain = Math.max(0, MAX_EARLY_BIRD - Math.max(earlyBirdUsedCount, totalRegisteredCount));
           return `
             <div class="space-y-3.5">
-              <div class="flex items-center justify-between">
-                <span class="bg-rose-200 border-2 border-slate-800 text-rose-900 text-xs font-extrabold px-3 py-1 rounded-full">🎁 โปรโมชั่นพิเศษ 2570</span>
-                <span class="text-xs font-extrabold text-rose-600">คงเหลือ ${remain} / 30 สิทธิ์</span>
-              </div>
+              <div class="flex items-center justify-between"><span class="bg-rose-200 border-2 border-slate-800 text-rose-900 text-xs font-extrabold px-3 py-1 rounded-full">🎁 โปรโมชั่นพิเศษ 2570</span><span class="text-xs font-extrabold text-rose-600">คงเหลือ ${remain} / 30 สิทธิ์</span></div>
               <h3 class="text-lg font-extrabold text-slate-900">คูปองส่วนลดค่าเทอม & ทุนการศึกษา</h3>
-
-              <div class="coupon-box p-3.5 space-y-1">
-                <div class="font-extrabold text-xs text-rose-700">🎟️ สิทธิ์ที่ 1 : สำหรับผู้สมัคร 30 คนแรก</div>
-                <p class="text-xs text-slate-700">รับส่วนลดค่าเทอมทันที <strong>1,000 บาท</strong> (กำกับลำดับคนที่สมัครไว้ในใบสมัครอัตโนมัติ)</p>
-              </div>
-
-              <div class="coupon-box p-3.5 space-y-1" style="border-color:#0284c7; background:#f0f9ff;">
-                <div class="font-extrabold text-xs text-sky-800">🎟️ สิทธิ์ที่ 2 : โปรโมชั่น พี่ - น้อง</div>
-                <p class="text-xs text-slate-700">มีพี่หรือน้องเรียนที่วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ ได้รับส่วนลดค่าเทอม</p>
-              </div>
-
-              <div class="coupon-box p-3.5 space-y-1" style="border-color:#059669; background:#ecfdf5;">
-                <div class="font-extrabold text-xs text-emerald-800">🎟️ สิทธิ์ที่ 3 : ทุนการศึกษาสำหรับผลการเรียนดี</div>
-                <p class="text-xs text-slate-700">มอบทุนการศึกษาสำหรับนักศึกษาที่มีผลการเรียนดีจากโรงเรียนเดิม</p>
-              </div>
+              <div class="coupon-box p-3.5 space-y-1"><div class="font-extrabold text-xs text-rose-700">🎟️ สิทธิ์ที่ 1 : สำหรับผู้สมัคร 30 คนแรก</div><p class="text-xs text-slate-700">รับส่วนลดค่าเทอมทันที <strong>1,000 บาท</strong> (กำกับลำดับคนที่สมัครไว้ในใบสมัครอัตโนมัติ)</p></div>
+              <div class="coupon-box p-3.5 space-y-1" style="border-color:#0284c7; background:#f0f9ff;"><div class="font-extrabold text-xs text-sky-800">🎟️ สิทธิ์ที่ 2 : โปรโมชั่น พี่ - น้อง</div><p class="text-xs text-slate-700">มีพี่หรือน้องเรียนที่วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ ได้รับส่วนลดค่าเทอม</p></div>
+              <div class="coupon-box p-3.5 space-y-1" style="border-color:#059669; background:#ecfdf5;"><div class="font-extrabold text-xs text-emerald-800">🎟️ สิทธิ์ที่ 3 : ทุนการศึกษาสำหรับผลการเรียนดี</div><p class="text-xs text-slate-700">มอบทุนการศึกษาอัตโนมัติสำหรับนักศึกษาที่มีผลการเรียนเฉลี่ยจากโรงเรียนเดิมตั้งแต่ 3.00 ขึ้นไป</p></div>
             </div>
           `;
         }
@@ -1545,39 +1091,16 @@
         rightTag: 'ระบบดูแลช่วยเหลือผู้เรียน (2)',
         getLeft: () => `
           <div class="space-y-4">
-            <div>
-              <span class="bg-purple-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระบบดูแลผู้เรียน</span>
-              <h3 class="text-xl font-extrabold text-slate-900 mt-2">🛡️ ระบบดูแลช่วยเหลือผู้เรียน</h3>
-              <p class="text-xs text-slate-600 mt-1">ดูแลใกล้ชิดเหมือนคนในครอบครัว เพื่อให้ผู้ปกครองอุ่นใจตลอดการศึกษา</p>
-            </div>
-
-            <div class="sketch-box bg-amber-50 p-4 space-y-1">
-              <div class="font-extrabold text-sm text-slate-900">👨‍🏫 1. อาจารย์ที่ปรึกษาดูแลรายบุคคล</div>
-              <p class="text-xs text-slate-600 leading-relaxed">ติดตามการมาเรียน การส่งงาน และให้คำปรึกษาช่วยเหลือผู้เรียนอย่างใกล้ชิด</p>
-            </div>
-
-            <div class="sketch-box bg-sky-50 p-4 space-y-1">
-              <div class="font-extrabold text-sm text-slate-900">🏡 2. เยี่ยมบ้านและประสานผู้ปกครอง</div>
-              <p class="text-xs text-slate-600 leading-relaxed">แจ้งข้อมูลข่าวสารและร่วมมือกับผู้ปกครองในการดูแลส่งเสริมศักยภาพของผู้เรียน</p>
-            </div>
+            <div><span class="bg-purple-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">ระบบดูแลผู้เรียน</span><h3 class="text-xl font-extrabold text-slate-900 mt-2">🛡️ ระบบดูแลช่วยเหลือผู้เรียน</h3><p class="text-xs text-slate-600 mt-1">ดูแลใกล้ชิดเหมือนคนในครอบครัว เพื่อให้ผู้ปกครองอุ่นใจตลอดการศึกษา</p></div>
+            <div class="sketch-box bg-amber-50 p-4 space-y-1"><div class="font-extrabold text-sm text-slate-900">👨‍🏫 1. อาจารย์ที่ปรึกษาดูแลรายบุคคล</div><p class="text-xs text-slate-600 leading-relaxed">ติดตามการมาเรียน การส่งงาน และให้คำปรึกษาช่วยเหลือผู้เรียนอย่างใกล้ชิด</p></div>
+            <div class="sketch-box bg-sky-50 p-4 space-y-1"><div class="font-extrabold text-sm text-slate-900">🏡 2. เยี่ยมบ้านและประสานผู้ปกครอง</div><p class="text-xs text-slate-600 leading-relaxed">แจ้งข้อมูลข่าวสารและร่วมมือกับผู้ปกครองในการดูแลส่งเสริมศักยภาพของผู้เรียน</p></div>
           </div>
         `,
         getRight: () => `
           <div class="space-y-4">
-            <div class="sketch-box bg-emerald-50 p-4 space-y-1">
-              <div class="font-extrabold text-sm text-slate-900">🛡️ 3. สถานศึกษาปลอดภัย ไร้สิ่งเสพติด</div>
-              <p class="text-xs text-slate-600 leading-relaxed">กวดขันระเบียบวินัย ป้องกันอบายมุขและการทะเลาะวิวาท เลิกเรียน 14.45 น. กลับบ้านปลอดภัย</p>
-            </div>
-
-            <div class="sketch-box bg-pink-50 p-4 space-y-1">
-              <div class="font-extrabold text-sm text-slate-900">🚀 4. แนะแนวฝึกงานและส่งต่ออาชีพ</div>
-              <p class="text-xs text-slate-600 leading-relaxed">ประสานสถานประกอบการชั้นนำในการฝึกงาน และเตรียมความพร้อมสู่อาชีพทันทีหลังจบการศึกษา</p>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-slate-900 text-white text-xs space-y-1">
-              <div class="text-amber-300 font-bold">💛 ความมั่นใจของผู้ปกครอง</div>
-              <p class="text-slate-300 leading-relaxed">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มุ่งสร้างทั้งความรู้ ทักษะวิชาชีพ และคุณธรรมควบคู่กัน</p>
-            </div>
+            <div class="sketch-box bg-emerald-50 p-4 space-y-1"><div class="font-extrabold text-sm text-slate-900">🛡️ 3. สถานศึกษาปลอดภัย ไร้สิ่งเสพติด</div><p class="text-xs text-slate-600 leading-relaxed">กวดขันระเบียบวินัย ป้องกันอบายมุขและการทะเลาะวิวาท เลิกเรียน 14.45 น. กลับบ้านปลอดภัย</p></div>
+            <div class="sketch-box bg-pink-50 p-4 space-y-1"><div class="font-extrabold text-sm text-slate-900">🚀 4. แนะแนวฝึกงานและส่งต่ออาชีพ</div><p class="text-xs text-slate-600 leading-relaxed">ประสานสถานประกอบการชั้นนำในการฝึกงาน และเตรียมความพร้อมสู่อาชีพทันทีหลังจบการศึกษา</p></div>
+            <div class="p-4 rounded-2xl bg-slate-900 text-white text-xs space-y-1"><div class="text-amber-300 font-bold">💛 ความมั่นใจของผู้ปกครอง</div><p class="text-slate-300 leading-relaxed">วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ มุ่งสร้างทั้งความรู้ ทักษะวิชาชีพ และคุณธรรมควบคู่กัน</p></div>
           </div>
         `
       },
@@ -1587,52 +1110,23 @@
         rightTag: 'ลิงก์กรอกใบสมัครเรียนออนไลน์ ปีการศึกษา 2570',
         getLeft: () => `
           <div class="space-y-4">
-            <div>
-              <span class="bg-emerald-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">บทสุดท้าย</span>
-              <h3 class="text-xl font-extrabold text-slate-900 mt-2">📍 ข้อมูลติดต่อสอบถามเพิ่มเติม</h3>
-            </div>
-
+            <div><span class="bg-emerald-200 border-2 border-slate-800 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full">บทสุดท้าย</span><h3 class="text-xl font-extrabold text-slate-900 mt-2">📍 ข้อมูลติดต่อสอบถามเพิ่มเติม</h3></div>
             <div class="sketch-box bg-white p-4 space-y-2.5 text-xs text-slate-700">
-              <div>
-                <strong class="text-slate-900 block">🏫 สถานศึกษา:</strong>
-                วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ<br/>
-                <span class="text-slate-500">Padung Business Administration Technology College of Sena</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-300">
-                <strong class="text-sky-950 block">🧭 อาจารย์ผู้แนะแนวประจำสายของคุณ:</strong>
-                <span class="font-bold text-slate-900">${activeGuidance.team} — ${activeGuidance.teacher}</span><br/>
-                <span>📞 เบอร์ติดต่อ: <strong>${activeGuidance.tel}</strong></span>
-              </div>
-              <div>
-                <strong class="text-slate-900 block">📍 ที่ตั้งวิทยาลัย:</strong>
-                อำเภอเสนา จังหวัดพระนครศรีอยุธยา (เปิดบริการทุกวัน 08.30 – 16.30 น.)
-              </div>
-              <div>
-                <strong class="text-slate-900 block">📄 เอกสารที่ใช้แนบใบสมัคร:</strong>
-                1. สำเนาใบแสดงผลการศึกษา<br/>
-                2. สำเนาทะเบียนบ้าน และสำเนาบัตรประชาชนของนักศึกษา บิดา มารดา
-              </div>
+              <div><strong class="text-slate-900 block">🏫 สถานศึกษา:</strong>วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ<br/><span class="text-slate-500">Padung Business Administration Technology College of Sena</span></div>
+              <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-300"><strong class="text-sky-950 block">🧭 อาจารย์ผู้แนะแนวประจำสายของคุณ:</strong><span class="font-bold text-slate-900">${activeGuidance.team} — ${activeGuidance.teacher}</span><br/><span>📞 เบอร์ติดต่อ: <strong>${activeGuidance.tel}</strong></span></div>
+              <div><strong class="text-slate-900 block">📍 ที่ตั้งวิทยาลัย:</strong>อำเภอเสนา จังหวัดพระนครศรีอยุธยา (เปิดบริการทุกวัน 08.30 – 16.30 น.)</div>
+              <div><strong class="text-slate-900 block">📄 เอกสารที่ใช้แนบใบสมัคร:</strong>1. สำเนาใบแสดงผลการศึกษา<br/>2. สำเนาทะเบียนบ้าน และสำเนาบัตรประชาชนของนักศึกษา บิดา มารดา</div>
             </div>
           </div>
         `,
         getRight: () => {
-          const remain = Math.max(0, MAX_EARLY_BIRD - earlyBirdUsedCount);
+          const remain = Math.max(0, MAX_EARLY_BIRD - Math.max(earlyBirdUsedCount, totalRegisteredCount));
           return `
             <div class="space-y-4 flex flex-col justify-center h-full">
               <div class="sketch-box bg-gradient-to-br from-amber-100 via-pink-100 to-sky-100 p-5 sm:p-6 text-center space-y-4">
                 <img src="${getLogoSrc()}" alt="โลโก้วิทยาลัยเทคโนโลยีผดุงเสนาบริหารธุรกิจ" class="college-logo w-20 h-20 mx-auto rounded-full bg-white p-1 border-2 border-slate-800 object-contain" onerror="this.src=FALLBACK_LOGO_PNG" />
-                <div>
-                  <span class="bg-rose-600 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full">ADMISSION 2570</span>
-                  <h3 class="text-lg font-extrabold text-slate-900 mt-2">พร้อมสมัครเรียนปีการศึกษา 2570 แล้วหรือยัง?</h3>
-                  <p class="text-xs text-slate-700 mt-1">
-                    ปัจจุบันโปรโมชั่น 30 คนแรก (ลด 1,000 บาท) คงเหลือ <strong class="text-rose-600">${remain} สิทธิ์</strong><br/>
-                    ผู้สมัครคนถัดไปจะได้รับลำดับที่ <strong>#${totalRegisteredCount + 1}</strong>
-                  </p>
-                </div>
-
-                <button onclick="showApplyView()" class="cute-btn w-full py-3.5 rounded-2xl bg-amber-300 hover:bg-amber-400 text-slate-950 font-extrabold text-sm">
-                  📝 คลิกเปิดใบสมัครเรียนออนไลน์ทันที
-                </button>
+                <div><span class="bg-rose-600 text-white text-[11px] font-extrabold px-3 py-0.5 rounded-full">ADMISSION 2570</span><h3 class="text-lg font-extrabold text-slate-900 mt-2">พร้อมสมัครเรียนปีการศึกษา 2570 แล้วหรือยัง?</h3><p class="text-xs text-slate-700 mt-1">ปัจจุบันโปรโมชั่น 30 คนแรก (ลด 1,000 บาท) คงเหลือ <strong class="text-rose-600">${remain} สิทธิ์</strong><br/>ผู้สมัครคนถัดไปจะได้รับลำดับที่ <strong>#${totalRegisteredCount + 1}</strong></p></div>
+                <button onclick="showApplyView()" class="cute-btn w-full py-3.5 rounded-2xl bg-amber-300 hover:bg-amber-400 text-slate-950 font-extrabold text-sm">📝 คลิกเปิดใบสมัครเรียนออนไลน์ทันที</button>
               </div>
             </div>
           `;
@@ -1642,18 +1136,13 @@
 
     function getSpreadMarkup(idx) {
       const s = ebookSpreads[idx];
-      return `
-        <div class="lg:col-span-6">${buildLeftPageHtml(s.leftTag, s.getLeft(), idx)}</div>
-        <div class="lg:col-span-6">${buildRightPageHtml(s.rightTag, s.getRight(), idx)}</div>
-      `;
+      return `<div class="lg:col-span-6">${buildLeftPageHtml(s.leftTag, s.getLeft(), idx)}</div><div class="lg:col-span-6">${buildRightPageHtml(s.rightTag, s.getRight(), idx)}</div>`;
     }
 
     function updateBookNavigationUi() {
       document.getElementById('ebookPageIndicator').innerText = `คู่หน้าที่ ${currentEbookPage + 1} / ${ebookSpreads.length}`;
       document.getElementById('ebookPageDots').innerHTML = ebookSpreads.map((p, idx) => `
-        <button onclick="goToEbookPage(${idx})" class="shrink-0 px-3 py-1 rounded-xl border-2 border-slate-800 text-xs font-bold transition ${idx === currentEbookPage ? 'bg-amber-300 text-slate-950 shadow' : 'bg-white/80 text-slate-600 hover:bg-white'}">
-          ${p.title}
-        </button>
+        <button onclick="goToEbookPage(${idx})" class="shrink-0 px-3 py-1 rounded-xl border-2 border-slate-800 text-xs font-bold transition ${idx === currentEbookPage ? 'bg-amber-300 text-slate-950 shadow' : 'bg-white/80 text-slate-600 hover:bg-white'}">${p.title}</button>
       `).join('');
     }
 
@@ -1674,25 +1163,13 @@
       const leafLayer = document.getElementById('turningLeafLayer');
 
       if (direction === 'next') {
-        contentEl.innerHTML = `
-          <div class="lg:col-span-6">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div>
-          <div class="lg:col-span-6">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>
-        `;
+        contentEl.innerHTML = `<div class="lg:col-span-6">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div><div class="lg:col-span-6">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>`;
         leafLayer.className = 'turning-leaf-right';
-        leafLayer.innerHTML = `
-          <div class="leaf-face leaf-front">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div>
-          <div class="leaf-face leaf-back">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div>
-        `;
+        leafLayer.innerHTML = `<div class="leaf-face leaf-front">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div><div class="leaf-face leaf-back">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div>`;
       } else {
-        contentEl.innerHTML = `
-          <div class="lg:col-span-6">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div>
-          <div class="lg:col-span-6">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div>
-        `;
+        contentEl.innerHTML = `<div class="lg:col-span-6">${buildLeftPageHtml(nextSpread.leftTag, nextSpread.getLeft(), targetIdx)}</div><div class="lg:col-span-6">${buildRightPageHtml(curSpread.rightTag, curSpread.getRight(), currentEbookPage)}</div>`;
         leafLayer.className = 'turning-leaf-left';
-        leafLayer.innerHTML = `
-          <div class="leaf-face leaf-front">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div>
-          <div class="leaf-face leaf-back">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>
-        `;
+        leafLayer.innerHTML = `<div class="leaf-face leaf-front">${buildLeftPageHtml(curSpread.leftTag, curSpread.getLeft(), currentEbookPage)}</div><div class="leaf-face leaf-back">${buildRightPageHtml(nextSpread.rightTag, nextSpread.getRight(), targetIdx)}</div>`;
       }
 
       currentEbookPage = targetIdx;
@@ -1706,32 +1183,20 @@
       }, 680);
     }
 
-    function nextEbookPage() {
-      if (currentEbookPage < ebookSpreads.length - 1) animateBookTurn(currentEbookPage + 1);
-    }
-    function prevEbookPage() {
-      if (currentEbookPage > 0) animateBookTurn(currentEbookPage - 1);
-    }
-    function goToEbookPage(idx) {
-      animateBookTurn(idx);
-    }
+    function nextEbookPage() { if (currentEbookPage < ebookSpreads.length - 1) animateBookTurn(currentEbookPage + 1); }
+    function prevEbookPage() { if (currentEbookPage > 0) animateBookTurn(currentEbookPage - 1); }
+    function goToEbookPage(idx) { animateBookTurn(idx); }
 
-    // รองรับการใช้นิ้วปัดซ้าย-ขวา (Touch Swipe) บนหน้าจอมือถือเพื่อพลิกหน้าหนังสือ
     function initBookTouchSwipe() {
       const touchArea = document.getElementById('bookTouchArea');
       if (!touchArea) return;
-      let startX = 0;
-      let startY = 0;
-      touchArea.addEventListener('touchstart', (e) => {
-        startX = e.changedTouches[0].screenX;
-        startY = e.changedTouches[0].screenY;
-      }, { passive: true });
+      let startX = 0, startY = 0;
+      touchArea.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].screenX; startY = e.changedTouches[0].screenY; }, { passive: true });
       touchArea.addEventListener('touchend', (e) => {
         const dx = e.changedTouches[0].screenX - startX;
         const dy = e.changedTouches[0].screenY - startY;
         if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-          if (dx < 0) nextEbookPage();
-          else prevEbookPage();
+          if (dx < 0) nextEbookPage(); else prevEbookPage();
         }
       }, { passive: true });
     }
@@ -1755,27 +1220,39 @@
       document.getElementById('p1_queueNo').innerText = `#${nextQueue}`;
       document.getElementById('p1_studentCode').innerText = code;
 
-      // อัปเดตชื่อสายแนะแนว/อาจารย์แนะแนวลงบนหัวใบสมัครและช่องผู้รับสมัคร
-      if (document.getElementById('inp_guidanceSelect').value === 'custom') {
-        activeGuidance.teacher = document.getElementById('inp_customTeacher').value.trim() || 'อาจารย์ผู้แนะแนว';
-      }
+      // ข้อ 1: ล็อกสายอาจารย์แนะแนวตามลิงก์
       const guidanceDisplay = activeGuidance.teacher && activeGuidance.teacher !== 'ฝ่ายแนะแนวรับสมัคร'
         ? `${activeGuidance.team} (${activeGuidance.teacher})`
         : activeGuidance.team;
       document.getElementById('p1_guidanceLabel').innerText = guidanceDisplay;
       document.getElementById('p1_officerSigName').innerText = activeGuidance.teacher !== 'ฝ่ายแนะแนวรับสมัคร' ? activeGuidance.teacher : '';
 
+      // ข้อ 4: ตรวจสอบผลการเรียนเฉลี่ย (GPA) ถ้าตั้งแต่ 3.00 ขึ้นไป ให้ติ๊กช่อง "ทุนเรียนดี" อัตโนมัติ
+      const gpaRaw = document.getElementById('inp_gpa').value.trim();
+      const gpaVal = parseFloat(gpaRaw);
+      const isGoodGrade = !isNaN(gpaVal) && gpaVal >= 3.00;
+      const gradeChk = document.getElementById('inp_promoGoodGrade');
+      const gradeBadge = document.getElementById('goodGradeAutoBadge');
+      gradeChk.checked = isGoodGrade;
+      if (gradeBadge) {
+        if (isGoodGrade) {
+          gradeBadge.innerHTML = `<strong class="text-emerald-700">✓ ได้รับสิทธิ์ทุนเรียนดีอัตโนมัติ (เกรด ${gpaVal.toFixed(2)})</strong>`;
+        } else {
+          gradeBadge.innerHTML = `ติ๊กอัตโนมัติเมื่อกรอกเกรดเฉลี่ย 3.00 ขึ้นไป`;
+        }
+      }
+
       const level = document.getElementById('inp_level').value;
       const major = document.getElementById('inp_major').value;
-      const isEarly = document.getElementById('inp_promoEarly').checked;
+      const isEarly = document.getElementById('inp_promoEarly').checked && !document.getElementById('inp_promoEarly').disabled;
       const baseTuition = level === 'ปวช.' ? 5500 : 11500;
       const netTuition = baseTuition - (isEarly ? 1000 : 0);
       document.getElementById('liveNetTuition').innerText = `${netTuition.toLocaleString()} บาท`;
 
-      document.getElementById('p1_quotaStatus').innerText = isEarly ? 'สิทธิ์ 30 คนแรก -1,000 บ.' : 'สมัครปกติ';
+      document.getElementById('p1_quotaStatus').innerText = isEarly ? 'สิทธิ์ 30 คนแรก -1,000 บ.' : (nextQueue > MAX_EARLY_BIRD ? 'สมัครปกติ (ครบ 30 คนแรกแล้ว)' : 'สมัครปกติ');
       document.getElementById('p1_chkEarly').innerHTML = isEarly ? '/' : '&nbsp;';
       document.getElementById('p1_chkSibling').innerHTML = document.getElementById('inp_promoSibling').checked ? '/' : '&nbsp;';
-      document.getElementById('p1_chkGrade').innerHTML = document.getElementById('inp_promoGoodGrade').checked ? '/' : '&nbsp;';
+      document.getElementById('p1_chkGrade').innerHTML = isGoodGrade ? '/' : '&nbsp;';
       document.getElementById('p1_chkLoan').innerHTML = document.getElementById('inp_promoLoan').checked ? '/' : '&nbsp;';
       document.getElementById('p1_chkRorDor').innerHTML = document.getElementById('inp_promoRorDor').checked ? '/' : '&nbsp;';
 
@@ -1824,7 +1301,6 @@
       const gAmp = document.getElementById('inp_gradAmphoe').value;
       const gProv = document.getElementById('inp_gradProvince').value;
       const gDate = document.getElementById('inp_gradDate').value;
-      const gpa = document.getElementById('inp_gpa').value;
 
       document.getElementById('p1_gradM3').innerHTML = gradFrom === 'ม.3' ? '/' : '&nbsp;';
       document.getElementById('p1_gradM6').innerHTML = gradFrom === 'ม.6' ? '/' : '&nbsp;';
@@ -1835,7 +1311,7 @@
         document.getElementById('p1_m3Amphoe').innerText = gAmp;
         document.getElementById('p1_m3Province').innerText = gProv;
         document.getElementById('p1_m3Date').innerText = gDate;
-        document.getElementById('p1_m3Gpa').innerText = gpa;
+        document.getElementById('p1_m3Gpa').innerText = gpaRaw;
         document.getElementById('p1_m6School').innerText = '';
         document.getElementById('p1_m6Amphoe').innerText = '';
         document.getElementById('p1_m6Province').innerText = '';
@@ -1846,7 +1322,7 @@
         document.getElementById('p1_m6Amphoe').innerText = gAmp;
         document.getElementById('p1_m6Province').innerText = gProv;
         document.getElementById('p1_m6Date').innerText = gDate;
-        document.getElementById('p1_m6Gpa').innerText = gpa;
+        document.getElementById('p1_m6Gpa').innerText = gpaRaw;
         document.getElementById('p1_m3School').innerText = '';
         document.getElementById('p1_m3Amphoe').innerText = '';
         document.getElementById('p1_m3Province').innerText = '';
@@ -1873,9 +1349,7 @@
       clone.querySelectorAll('.no-print').forEach(el => el.remove());
 
       const logoImg = clone.querySelector('.college-logo');
-      if (logoImg) {
-        logoImg.src = customLogoData || FALLBACK_LOGO_PNG;
-      }
+      if (logoImg) { logoImg.src = customLogoData || FALLBACK_LOGO_PNG; }
 
       const sigAppCanvas = document.getElementById('sigApplicant');
       const sigOffCanvas = document.getElementById('sigOfficer');
@@ -1883,67 +1357,13 @@
       const cloneOffWrap = clone.querySelector('#sigOfficerWrap');
 
       if (sigAppCanvas && cloneAppWrap) {
-        cloneAppWrap.innerHTML = `<img src="${sigAppCanvas.toDataURL('image/png')}" style="width:150px;height:34px;vertical-align:middle;border-bottom:1px dotted #000;" />`;
+        cloneAppWrap.innerHTML = `<img src="${sigAppCanvas.toDataURL('image/png')}" style="width:140px;height:28px;vertical-align:middle;border-bottom:1px dotted #000;" />`;
       }
       if (sigOffCanvas && cloneOffWrap) {
-        cloneOffWrap.innerHTML = `<img src="${sigOffCanvas.toDataURL('image/png')}" style="width:150px;height:34px;vertical-align:middle;border-bottom:1px dotted #000;" />`;
+        cloneOffWrap.innerHTML = `<img src="${sigOffCanvas.toDataURL('image/png')}" style="width:140px;height:28px;vertical-align:middle;border-bottom:1px dotted #000;" />`;
       }
 
-      return `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<style>
-  @page { size: A4 portrait; margin: 8mm 12mm; }
-  body {
-    font-family: 'Sarabun', 'TH SarabunPSK', sans-serif;
-    font-size: 13.5pt;
-    line-height: 1.22;
-    color: #000000;
-    margin: 0;
-    padding: 0;
-  }
-  .dot-fill {
-    display: inline-block;
-    border-bottom: 1px dotted #000000;
-    padding: 0 4px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .dot-fill-left {
-    display: inline-block;
-    border-bottom: 1px dotted #000000;
-    padding: 0 5px;
-    font-weight: bold;
-    text-align: left;
-  }
-  .id-table {
-    display: inline-table;
-    border-collapse: collapse;
-    vertical-align: middle;
-  }
-  .id-table td.box {
-    width: 17px;
-    height: 20px;
-    border: 1px solid #000000;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12.5pt;
-  }
-  .id-table td.gap { width: 5px; border: none; }
-  .chk-box {
-    display: inline-block;
-    width: 13px;
-    height: 13px;
-    border: 1px solid #000000;
-    text-align: center;
-    line-height: 12px;
-    font-weight: bold;
-  }
-</style>
-</head>
-<body>${clone.innerHTML}</body>
-</html>`;
+      return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>@page{size:A4 portrait;margin:3mm 12mm 20mm 12mm;}body{font-family:'Sarabun','TH SarabunPSK',sans-serif;font-size:13pt;line-height:1.12;color:#000;margin:0;padding:0;}.dot-fill{display:inline-block;border-bottom:1px dotted #000;padding:0 4px;font-weight:bold;text-align:center;}.dot-fill-left{display:inline-block;border-bottom:1px dotted #000;padding:0 5px;font-weight:bold;text-align:left;}.id-table{display:inline-table;border-collapse:collapse;vertical-align:middle;}.id-table td.box{width:17px;height:19px;border:1px solid #000;text-align:center;font-weight:bold;font-size:12pt;}.id-table td.gap{width:5px;border:none;}.chk-box{display:inline-block;width:12px;height:12px;border:1px solid #000;text-align:center;line-height:11px;font-weight:bold;}</style></head><body>${clone.innerHTML}</body></html>`;
     }
 
     async function submitApplication() {
@@ -1960,8 +1380,11 @@
       const nextQueue = totalRegisteredCount + 1;
       const level = document.getElementById('inp_level').value;
       const baseTuition = level === 'ปวช.' ? 5500 : 11500;
-      const promoEarlyBird = document.getElementById('inp_promoEarly').checked;
+      const promoEarlyBird = document.getElementById('inp_promoEarly').checked && !document.getElementById('inp_promoEarly').disabled && nextQueue <= MAX_EARLY_BIRD;
       const netTuition = baseTuition - (promoEarlyBird ? 1000 : 0);
+
+      const gpaVal = parseFloat(document.getElementById('inp_gpa').value);
+      const promoGoodGrade = !isNaN(gpaVal) && gpaVal >= 3.00;
 
       const guidanceFullLabel = activeGuidance.teacher && activeGuidance.teacher !== 'ฝ่ายแนะแนวรับสมัคร'
         ? `${activeGuidance.team} (${activeGuidance.teacher})`
@@ -2008,7 +1431,7 @@
         promoEarlyBird: promoEarlyBird,
         promoSibling: document.getElementById('inp_promoSibling').checked,
         siblingName: document.getElementById('inp_siblingName').value || `สายแนะแนว: ${guidanceFullLabel}`,
-        promoGoodGrade: document.getElementById('inp_promoGoodGrade').checked,
+        promoGoodGrade: promoGoodGrade,
         promoLoan: document.getElementById('inp_promoLoan').checked,
         promoRorDor: document.getElementById('inp_promoRorDor').checked,
         netTuition: netTuition,
@@ -2040,14 +1463,13 @@
 
       totalRegisteredCount++;
       if (promoEarlyBird) earlyBirdUsedCount++;
-      updateQuotaDisplay();
+      syncFormToPaper();
 
       btn.disabled = false;
       btn.innerText = '✅ ยืนยันการสมัครเรียน (บันทึก PDF ลง Google Drive)';
-      alert(`🎉 สมัครเรียนปีการศึกษา 2570 สำเร็จ!\n• ลำดับผู้สมัคร: คนที่ #${newApp.queueNo} (${newApp.prefix}${newApp.fullName})\n• สมัครผ่านลิงก์แนะแนว: ${guidanceFullLabel}\nระบบได้บันทึกข้อมูลและสร้างไฟล์ PDF 1 หน้า A4 เข้า Google Drive เรียบร้อยแล้วครับ`);
+      alert(`🎉 สมัครเรียนปีการศึกษา 2570 สำเร็จ!\n• ลำดับผู้สมัคร: คนที่ #${newApp.queueNo} (${newApp.prefix}${newApp.fullName})\n• สายแนะแนว: ${guidanceFullLabel}\nระบบได้บันทึกข้อมูลและสร้างไฟล์ PDF 1 หน้า A4 เข้า Google Drive เรียบร้อยแล้วครับ`);
     }
 
-    // กระดานเซ็นชื่อซิงค์ระหว่างกล่องมือถือและกระดาษ A4
     function initSignaturePad(canvasId, mirrorCanvasId = null) {
       const canvas = document.getElementById(canvasId);
       if (!canvas) return;
